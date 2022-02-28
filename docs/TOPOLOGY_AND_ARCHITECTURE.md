@@ -1,10 +1,10 @@
 # LACCHAIN TOPOLOGY AND ARCHITECTURE
 
-The purpose of this documentation is to provide an overview of the LACCHAIN Besu Network's topology, architecture, communication protocols and security.
+The purpose of this documentation is to provide an overview of topology, architecture, communication protocols and security of the blockchain networks orchestrated by LACNet based, which follows the [LACChain Framework](https://publications.iadb.org/en/lacchain-framework-permissioned-public-blockchain-networks-blockchain-technology-blockchain).
 
 ## Topology
 
-The nodes of LACChain public-permissioned networks can be classified into two groups, according to their participation in the maintenance of the network. In each of these two groups there are also two different types of nodes, according to the specific role of the node in the network. 
+The nodes of these permissioned public networks can be classified into two groups, according to their participation in the maintenance of the network. In each of these two groups there are also two different types of nodes, according to the specific role of the node in the network. 
 
 In the following image we can see the topology and connections between the different types of nodes.
 
@@ -28,13 +28,11 @@ Satellite nodes do not play an essential role in the correct functioning of the 
 
 *  **Writer nodes**
 
-    Writer nodes are those that can broadcast transations to the network. They communicate the transactions to the boot nodes, that pass them along to the validator nodes. They can also create private channels between themselves for private communication using the [Orion](https://github.com/PegaSysEng/orion) private transaction manager. Writer nodes are connected to boot nodes and to other writer nodes.
+    Writer nodes are those that can broadcast transations to the network. They communicate the transactions to the boot nodes, that pass them along to the validator nodes. They can also create private channels between themselves for private communication using the [Tessera](https://besu.hyperledger.org/en/stable/HowTo/Use-Privacy/Run-Tessera-With-Besu/) private transaction manager. Writer nodes are connected to boot nodes and to other writer nodes.
 
  * **Observer nodes**
 
     Observer nodes are those that can only read the blockchain. Observer nodes are only connected to boot nodes.
-
-    **Note: Observer nodes haven’t been enabled in the LACChain Blockchain Network yet.**
 
 ## Architecture
 
