@@ -22,7 +22,7 @@
 
 * Every entity running a node in the LACChain networks is listed in the [list of permissioned nodes](https://github.com/lacchain/besu-network/blob/master/NODE_LIST.md).
 
-* For more information, please check the [WIKI].
+* For more information, please check the [WIKI] and the [FAQ](https://github.com/LACNetNetworks/besu-networks/blob/master/docs/FAQ.md).
 
 ## Deploy a node!
 
