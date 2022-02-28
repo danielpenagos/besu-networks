@@ -1,10 +1,10 @@
-# How to connect your application to the LACChain network
+# How to connect your application to the blockchain network
 
-This guide aims to give you an overview of some mainstream tools that you can use to deploy Smart Contracts, connect external applications and broadcast transactions to the LACChain Besu Network.
+This guide aims to give you an overview of some mainstream tools that you can use to deploy Smart Contracts, connect external applications and broadcast transactions to the blockchain network.
 
 ## Truffle
 
-Ethereum Smart Contracts are pieces of code that can be deployed to the LACChain Besu Network and will live there in perpetuity. Although there are many ways to deploy your smart contracts, we recommend the use of Truffle.
+Ethereum Smart Contracts are pieces of code that can be deployed in the blockchain networks and will live there in perpetuity. Although there are many ways to deploy your smart contracts, we recommend the use of Truffle.
 
 [Truffle](https://www.trufflesuite.com/docs/truffle/overview "Truffle Overview") is basically a development environment where you could easily develop smart contracts with it’s built-in testing framework, smart contract compilation and deployment, interactive console, and many more features.
 
@@ -111,7 +111,7 @@ Type your private key, network address IP node and RPC port in the networks part
 ```
 ***NOTE: This is just an example. NEVER hard code production private keys in your code or commit them to git. They should always be loaded from environment variables or a secure secret management system.***
 
-Truffle migrations are scripts that help us deploy our smart contract to the LACCHAIN network. Let's deploy it:
+Truffle migrations are scripts that help us deploy our smart contract to the blockchain network. Let's deploy it:
 
 >`truffle migrate -network lacchain`
 
@@ -235,7 +235,7 @@ const { interface, bytecode } = require("./compile");
 // list of 12 words key to connect account. You can get this key when you setup a MetaMask
 var privateKey = "<PUT_YOUR_PRIVATE_KEY_HERE>";
 
-// Specify lacchain network node to connect to
+// Specify which network to connect to
 var node = "http://<PUT_YOUR_IP_NODE>:4545";
 
 const provider = new HDWalletProvider(mnemonic, node, 1);
@@ -271,11 +271,11 @@ It takes some time for deployment. Once deployed, the address (where contract is
 
 ## Remix and Metamask
 
-You can use Remix as IDE and Metamask to deploy smart contracts to the network of LACChain.
+You can use Remix as IDE and Metamask to deploy smart contracts to the blockchain network.
 
 ### Prerequisite
 
-Metamask is a browser extension that connects the browser to an LACChain node, allowing you to send transactions.
+Metamask is a browser extension that connects the browser to a blocckhain node, allowing you to send transactions.
 
 You can install Metamask from [here](https://metamask.io/ "Metamask").  
 
@@ -307,10 +307,10 @@ If the compilation works, you will see a green check on the "Solidity Compiler" 
 
 ### Contract Deployment
 
-Connect Metamask to one of your LACChain addresses. In Metamask, the dropdown menu for Networks lists several options; select custom RPC. In the settings menu, for ‘New RPC URL’, add the RPC server from your LACChain node, usually HTTP://<YOUR_IP_NODE>:4545
+Connect Metamask to one of your blockchain addresses. In Metamask, the dropdown menu for Networks lists several options; select custom RPC. In the settings menu, for ‘New RPC URL’, add the RPC server from your blockchain node, usually HTTP://<YOUR_IP_NODE>:4545
 
-Go back to Remix and click on "Deploy and run transactions" option. On the Environment option choose "Injected Web3". This option will connect to Metamask and your LACChain node too.
+Go back to Remix and click on "Deploy and run transactions" option. On the Environment option choose "Injected Web3". This option will connect to Metamask and your blockchain node too.
 
 Click on "Deploy" button. A window of Metamask will appear to ask your confirmation and sign the transaction. Click on the "Edit" link and then on the "Advanced" tab. Set the gas price to "0" and click on "Save" button.
 
-Finally click on "Confirm" button. The transaction will be send to the LACChain Network. If the contract is deployed, you will see a green check in log section of Metamask. In addition, contract deployed will appear in left section into "Deploy and transactions" section.
+Finally click on "Confirm" button. The transaction will be send to the blockchain network. If the contract is deployed, you will see a green check in log section of Metamask. In addition, contract deployed will appear in left section into "Deploy and transactions" section.
