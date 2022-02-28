@@ -8,7 +8,7 @@ The nodes of LACChain public-permissioned networks can be classified into two gr
 
 In the following image we can see the topology and connections between the different types of nodes.
 
-![LACCHAIN Topology](/docs/images/topology2.png)
+![LACCHAIN Topology](/docs/images/LACChain_topology.png)
 
 ### Core nodes
 
@@ -67,11 +67,11 @@ The discover protocol implemented in LACChain Blockchain Network to build the pe
 
 Kademlia is a well-defined distributed hash table recognized as a robust standard and protocol. LACChain Blockchain Network inherits from Ethereum [the use of the discovery part of the Kademlia protocol](https://github.com/ethereum/wiki/wiki/Kademlia-Peer-Selection "Kademlia in Ethereum").
 
-To begin the discovery process, a node needs an identity. Currently, the identity of the node is achieved through an enodeID, which is then hashed with [keccak](https://keccak.team/keccak_specs_summary.html "keccak") into a 256-bit value. For more details, you can go to [node identity](https://github.com/ethereum/devp2p/blob/master/rlpx.md#node-identity "node-identity"). In the future, LACChain nodes will be using Decentralized Identifiers (DIDs) and Verifiable Credentials (VC) for identification and authentication. In order for a node to get an identity in LACChain Blockchain Network, you can follow the instructions in the [README](https://github.com/lacchain/besu-network).
+To begin the discovery process, a node needs an identity. Currently, the identity of the node is achieved through an enodeID, which is then hashed with [keccak](https://keccak.team/keccak_specs_summary.html "keccak") into a 256-bit value. For more details, you can go to [node identity](https://github.com/ethereum/devp2p/blob/master/rlpx.md#node-identity "node-identity"). In order to deploy a node in the networks orchestrated by LACNet, you can start by the [README](https://github.com/LACNetNetworks/besu-networks/blob/master/README.md).
 
-Once you have deployed your node, got your identity and followed the administrative steps to be permissioned in [LACChain Blockchain Network](https://github.com/lacchain/besu-network/blob/master/PERMISSIONING_PROCESS.md), you node will start the discovery process.
+Once you have deployed your node and the node has been permissioned in the network, you node will start the discovery process.
 
-LACChain uses [**UDP** protocol](https://www.geeksforgeeks.org/user-datagram-protocol-udp/) to exchange information across the P2P network. The steps to achieve the discovery of nodes in the network are the following:
+The blockchain networks orchestrated by LACNet use [**UDP** protocol](https://www.geeksforgeeks.org/user-datagram-protocol-udp/) to exchange information across the P2P network. The steps to achieve the discovery of nodes in the network are the following:
 
 * LIST: When a new node aims to join a network, it needs to be provided with a list of nodes that are already part of that network so it can try to communicate with them. In LACChain Blockchain Network, the addresses of the boot nodes are hard-coded and the list is located at **/root/lacchain/orion.conf**. 
 
@@ -130,9 +130,6 @@ The transaction cycle is:
 
 * Validator nodes apply the [IBFT2.0 consensus protocol](https://www.researchgate.net/publication/335990137_IBFT_20_A_Safe_and_Live_Variation_of_the_IBFT_Blockchain_Consensus_Protocol_for_Eventually_Synchronous_Networks) to validate the transaction and incorporate it into a new block. The number of transactions that can fit into a block depends on LACChain Besu Network block size.
 
-* Validator nodes update their ledger by appending the new block and send the information to the boot nodes.
+* Validator nodes update their ledger by appending the new blocks and send the information to the boot nodes.
 
 * Boot nodes pass the information along to writer and observer nodes. Upon receiving the new block, writer and observer nodes execute all the transacciones in the block.
-
-### Permissioning
-#TO DO#
