@@ -6,13 +6,13 @@
 
 * During the process of node deploying, you will be asked about the network in which you would like to deploy your nodes. In order for your node to get permissioned, you need to complete the permissioning process first. In order to understand better what are the types of networks available and the permissioning processes for each network, please check the [README](https://github.com/LACNetNetworks/besu-networks/blob/master/README.md).
 
-* **It is important to mention** that in case an organization intends to create private channels, we have facilitated the integration with the private transaction manager [Tessera](https://docs.tessera.consensys.net/en/stable/). Tessera nodes must be deployed in a different instance (virtual machine), and therefore in order to enable Tessera nodes for private transactions you will require two virtual machines. It is worth mentioning that **Tessera is optional** and entities can join the networks only with Besu nodes.
+* If an organization intends to create private channels, we have facilitated the integration with the private transaction manager [Tessera](https://docs.tessera.consensys.net/en/stable/). Tessera nodes must be deployed in a different instance (virtual machine), and therefore in order to enable Tessera nodes for private transactions you will require two virtual machines. It is worth mentioning that **Tessera is optional** and entities can join the networks only with Besu nodes.
 
 ## Minimum System Requirements
 
 Recommended hardware features for Besu node:
 
-| Recommended Hardware | On Devnet | On Protestnet | On Mainnet |
+| Recommended Hardware | On Testnet-David19 | On Pro-Testnet | On Mainnet-Omega |
 |:---:|:---:|:---:|:---:|
 | CPU | 2 vCPUs | 2 vCPUs | 4 vCPUs compute optimized|
 | RAM Memory | 8 GB | 8 GB | 16 GB |
@@ -145,7 +145,7 @@ Consider the following points:
 [2]:testnet-david19
 Please, choose in which network are you deploying:
 ```
-So, if you want to deploy on mainnet it will be 0, for protestnet 1 and 2 for devnet.
+So, if you want to deploy on mainnet-omega it will be 0, for pro-testnet 1 and 2 for testet-david19.
 
 * To deploy a **boot node** execute the following command in your **local machine**. If needed, don't forget to set the private key with option `--private-key` and the remote user with option `-u` to SSH connection:
 
@@ -183,7 +183,7 @@ ok: [x.x.x.x] => {
 
 * If everything worked, an TESSERA service **(if it was chosen)** and a BESU service managed by Systemctl will be created with **started** status on each instance.
 * After installation has finished you will have nginx installed on each instance chosen; it will be up and running and will allow secure and encrypted RPC connections (on the default 443 port). Certificates used to create the secure connections are self signed; it is up to you decide another way to secure RPC connections or continue using the provided  default service.
-* In order to be permissioned, now you need to follow the [administrative steps of the permissioning process](https://github.com/LACNet-Networks/besu-pro-testnet/blob/master/PERMISSIONING_PROCESS.md).
+* In order to be permissioned, now you need to follow [administrative steps of the permissioning process](https://github.com/LACNetNetworks/besu-networks/blob/master/README.md).
 * Once you are permissioned, you can verify that you are connected to other nodes in the network by following the steps detailed in [#issue33](https://github.com/lacchain/besu-network/issues/33).
 
 ## Node Configuration
@@ -290,21 +290,17 @@ If any of these two checks doesn't work, try to restart the besu service:
 $ service pantheon restart
 ```
 
-If that doesn't solve the problem, contact us at info@lacchain.net.
+If that doesn't solve the problem, [open a ticket](https://lacnet.lacchain.net/support/) if you already have a membership or contact us at tech-support@lac-net.net.
 	
-## Deploying Dapps on LACCHAIN
+## Deploying Dapps
 
-For a quick overview of some mainstream tools that you can use to deploy Smart Contracts, connect external applications and broadcast transactions to the LACChain Besu Network, you can check our [Guide](https://github.com/LACNet-Networks/besu-pro-testnet/blob/master/DEPLOY_APPLICATIONS.md).
+For a quick overview of some mainstream tools that you can use to deploy Smart Contracts, connect external applications and broadcast transactions to the LACChain Besu Network, you can check our [Guide](https://github.com/LACNet-Networks/besu-pro-testnet/blob/master/docs/DEPLOY_APPLICATIONS.md).
 
 ## Contact
 
-For any issues, you can either go to [issues](https://github.com/LACNet-Networks/besu-pro-testnet/issues) or e-mail us at info@lacchain.net. Any feedback is more than welcome!
+For any issues, you can either go to [issues](https://github.com/LACNet-Networks/besu-pro-testnet/issues) or e-mail us at tech-support@lac-net.net. Any feedback is more than welcome!
 
-&nbsp;
-&nbsp;
-
-
-## Copyright 2021 LACChain
+## Copyright 2022 LACNet
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -317,10 +313,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
-&nbsp;
-&nbsp;
-
-**Acknowledgement**
-
-We acknowledge very much the contributions of [everis](https://www.everis.com/) to this development, leading the first deployment of the network and actively participating in the day-to-day.
