@@ -36,9 +36,9 @@ At present, there are three LACChain Networks using Hyperledger Besu as the unde
 
 Once you have accomplished the permissioning successfully, you can proceed to deploy your node. If you have questions, do not hesitate to reach out to tech-support@lac-net.net.
 
-## Deploy a node
+## Deploy a Node
 
-* To deploy a node in the LACChain Networks orchestrated by LACNet, go [HERE](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE.md). 
+To deploy a node in the blockchain networks orchestrated by LACNet, go [HERE](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE.md). 
 
 ## Copyright 2022 LACNet
 
