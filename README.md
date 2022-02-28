@@ -24,6 +24,18 @@
 
 * For additional information, please check the [FAQ](https://github.com/LACNetNetworks/besu-networks/blob/master/docs/FAQ.md).
 
+# List of Networks Available and Permissioning Process
+
+At present, there are three LACChain Networks using Hyperledger Besu as the underlying technology orchestrated by LACNet. The permissioning process to be accomplished before deploying the node varies depending on the network.
+
+**Mainnet Omega:** The Mainnet Omega is the network recommended for all the initiatives in production. It is aimed at guarateeing reliability and accountability. Writer nodes are required to pay a membership to contribute to the technical teams of the non-profit orquestrator LACNet that provide support to node operators. The permissioning process requires signing the [Adscription Agreement (SLA)]() and accomplishing the payment of the membership. To initiate the permissioning process, [fill the permissioning form](https://lacnet.lacchain.net/lead-form-eng/) and a focal point from the membership team will reach out to you to help you thorugh the process. 
+
+**Pro-Testnet:** The Protestnet is the network is recommended for testing a solution before jumping into the Mainnet Omega. This network could be rewritten or interrupted following tests and simulation needs. There is no payment needed to deploy nodes in this network, nor any fee of any kind for sending transactions. The permissioning process requires filling an [Agreement Form] as well as reading, understanding, and agreeing with the [terms and conditions](https://github.com/LACNetNetworks/besu-networks/tree/master/terms_and_conditions_testnets). Until May 28th, the Pro-Testnet will not have implemented the GAS distribution mechanism. Therefore, we recommend testing solutions in the Testnet David19.
+
+**Testnet David19:** The David19 network is a temporaty Testnet that has implemented the GAS distribution mechanism that runs in the Mainnet. This network is recommended for testing solutions before jumping into the Mainnet Omega until May 28th, where this network will be turned down and the only remaining Testnet will be the current Pro-Testnet. There is no payment needed to deploy nodes in this network, nor any fee of any kind for sending transactions.  The permissioning process requires filling an [Agreement Form](https://github.com/LACNetNetworks/besu-networks/tree/master/testnet/agreement_form) as well as reading, understanding, and agreeing with the [Terms and Conditions](https://github.com/LACNetNetworks/besu-networks/tree/master/testnet/terms_and_conditions).
+
+Once you have accomplished the permissioning successfully, you can proceed to deploy your node. If you have questions, do not hesitate to reach out to tech-support@lac-net.net.
+
 ## Deploy a node
 
 * To deploy a node in the LACChain Networks orchestrated by LACNet, go [HERE](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE.md). 
