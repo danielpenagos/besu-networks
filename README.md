@@ -22,11 +22,11 @@
 
 * Every entity running a node in the LACChain networks is listed in the [list of permissioned nodes](https://github.com/lacchain/besu-network/blob/master/NODE_LIST.md).
 
-* For additional informations, please check the [FAQ](https://github.com/LACNetNetworks/besu-networks/blob/master/docs/FAQ.md).
+* For additional information, please check the [FAQ](https://github.com/LACNetNetworks/besu-networks/blob/master/docs/FAQ.md).
 
 ## Deploy a node
 
-* To deploy a node in the LACChain Networks orchestrated by LACNet, go [HERE](https://github.com/lacchain/besu-network/blob/master/DEPLOY_NODE.md). 
+* To deploy a node in the LACChain Networks orchestrated by LACNet, go [HERE](https://github.com/lacchain/besu-pro-testnet/blob/master/DEPLOY_NODE.md). 
 
 ## Copyright 2022 LACNet
 
