@@ -1,6 +1,6 @@
-# LACCHAIN TOPOLOGY AND ARCHITECTURE
+# TOPOLOGY AND ARCHITECTURE
 
-The purpose of this documentation is to provide an overview of topology, architecture, communication protocols and security of the blockchain networks orchestrated by LACNet based, which follows the [LACChain Framework](https://publications.iadb.org/en/lacchain-framework-permissioned-public-blockchain-networks-blockchain-technology-blockchain).
+The purpose of this documentation is to provide an overview of topology, architecture, communication protocols, and security of the blockchain networks orchestrated by LACNet based, which follows the [LACChain Framework](https://publications.iadb.org/en/lacchain-framework-permissioned-public-blockchain-networks-blockchain-technology-blockchain).
 
 ## Topology
 
