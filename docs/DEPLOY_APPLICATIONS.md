@@ -314,7 +314,3 @@ Go back to Remix and click on "Deploy and run transactions" option. On the Envir
 Click on "Deploy" button. A window of Metamask will appear to ask your confirmation and sign the transaction. Click on the "Edit" link and then on the "Advanced" tab. Set the gas price to "0" and click on "Save" button.
 
 Finally click on "Confirm" button. The transaction will be send to the LACChain Network. If the contract is deployed, you will see a green check in log section of Metamask. In addition, contract deployed will appear in left section into "Deploy and transactions" section.
-
-## Additional
-
-If you want to interact with your deployed contract you could follow the follow tutorial Send Transactions To LACCHAIN (work in progress).
