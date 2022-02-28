@@ -1,22 +1,12 @@
-# List of Networks Available and Permissioning Process
-
-At present, there are three LACChain Networks using Hyperledger Besu as the underlying technology orchestrated by LACNet. The permissioning process to be accomplished before deploying the node varies depending on the network.
-
-**Mainnet Omega:** The Mainnet Omega is the network recommended for all the initiatives in production. It is aimed at guarateeing reliability and accountability. Writer nodes are required to pay a membership to contribute to the technical teams of the non-profit orquestrator LACNet that provide support to node operators. The permissioning process requires signing the [Adscription Agreement (SLA)]() and accomplishing the payment of the membership. To initiate the permissioning process, [fill the permissioning form](https://lacnet.lacchain.net/lead-form-eng/) and a focal point from the membership team will reach out to you to help you thorugh the process. 
-
-**Pro-Testnet:** The Protestnet is the network is recommended for testing a solution before jumping into the Mainnet Omega. This network could be rewritten or interrupted following tests and simulation needs. There is no payment needed to deploy nodes in this network, nor any fee of any kind for sending transactions. The permissioning process requires filling an [Agreement Form] as well as reading, understanding, and agreeing with the [terms and conditions](https://github.com/LACNetNetworks/besu-networks/tree/master/terms_and_conditions_testnets). Until May 28th, the Pro-Testnet will not have implemented the GAS distribution mechanism. Therefore, we recommend testing solutions in the Testnet David19.
-
-**Testnet David19:** The David19 network is a temporaty Testnet that has implemented the GAS distribution mechanism that runs in the Mainnet. This network is recommended for testing solutions before jumping into the Mainnet Omega until May 28th, where this network will be turned down and the only remaining Testnet will be the current Pro-Testnet. There is no payment needed to deploy nodes in this network, nor any fee of any kind for sending transactions.  The permissioning process requires filling an [Agreement Form](https://github.com/LACNetNetworks/besu-networks/tree/master/testnet/agreement_form) as well as reading, understanding, and agreeing with the [Terms and Conditions](https://github.com/LACNetNetworks/besu-networks/tree/master/testnet/terms_and_conditions).
-
-Once you have accomplished the permissioning successfully, you can proceed to deploy your node. If you have questions, do not hesitate to reach out to tech-support@lac-net.net.
-
 # Deploying a Node
 
 * Below you will find instructions for the deployment of nodes using Ansible. This implies that it will be executed from a local machine on a remote server. The local machine and the remote server will communicate via ssh.
 
 * The installation with ansible provided is compatible with **Ubuntu** and **Centos7**. If you want to deploy your node in a different operative system, you can go to the [documentation for Generic Onboarding](https://github.com/LACNet-Networks/besu-pro-testnet/blob/master/GENERIC_ONBOARDING.md).
 
-* **It is important to mention** that in case an organization needs [Tessera](https://docs.tessera.consensys.net/en/stable/), it must be deployed in a different instance (virtual machine), in this case the organization will require two virtual machines. It is worth mentioning that **Tessera is optional** and the organization can join the network only with Besu.
+* During the process of node deploying, you will be asked about the network in which you would like to deploy your nodes. In order for your node to get permissioned, you need to complete the permissioning process first. In order to understand better what are the types of networks available and the permissioning processes for each network, please check the [README](https://github.com/LACNetNetworks/besu-networks/blob/master/README.md).
+
+* **It is important to mention** that in case an organization intends to create private channels, we have facilitated the integration with the private transaction manager [Tessera](https://docs.tessera.consensys.net/en/stable/). Tessera nodes must be deployed in a different instance (virtual machine), and therefore in order to enable Tessera nodes for private transactions you will require two virtual machines. It is worth mentioning that **Tessera is optional** and entities can join the networks only with Besu nodes.
 
 ## Minimum System Requirements
 
