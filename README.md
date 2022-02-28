@@ -26,7 +26,7 @@
 
 ## Deploy a node
 
-* To deploy a node in the LACChain Networks orchestrated by LACNet, go [HERE](https://github.com/lacchain/besu-pro-testnet/blob/master/DEPLOY_NODE.md). 
+* To deploy a node in the LACChain Networks orchestrated by LACNet, go [HERE](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE.md). 
 
 ## Copyright 2022 LACNet
 
