@@ -14,7 +14,7 @@
 
 * These LACChain Networks use [IBFT2.0](https://besu.hyperledger.org/en/stable/HowTo/Configure/Consensus-Protocols/IBFT/) consensus protocol for the validation of transactions and generation of new blocks. Additionally, we have developed a [protocol to rotate validador nodes](https://github.com/LACNetNetworks/rotation-validator) in a way that maximizes performance and decentralization.
 
-* The GAS is distributed in these networks following the [GAS distribution mechanism](https://github.com/LACNetNetworks/gas-management).
+* The GAS is distributed in these networks following the [GAS distribution mechanism](https://github.com/LACNetNetworks/gas-management). It is important that you go through this documentation before sending transactions to the network.
 
 * We have created two guides to help you [Deploy your Dapp on LACChain](https://github.com/LACNetNetworks/besu-networks/blob/master/docs/DEPLOY_APPLICATIONS.md) and [provide your Dapp with a suitable archiecture](https://github.com/LACNetNetworks/besu-networks/blob/master/docs/DAPP_ARCHITECTURE.md). We have also developed [several tutorials](https://github.com/LACNetNetworks/gas-management/tree/master/docs/tutorial) to [deploy your first ERC20 and notarization smart contracts](https://github.com/LACNetNetworks/gas-management/blob/master/docs/tutorial/Deploy_SmartContract.md) as well as more complex smart contracts that implement elements of the [LACChain ID framework](https://publications.iadb.org/en/lacchain-framework-permissioned-public-blockchain-networks-blockchain-technology-blockchain).
 
