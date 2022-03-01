@@ -317,4 +317,4 @@ Finally click on "Confirm" button. The transaction will be send to the blockchai
 
 ### Tutorials to Deploy your first Smart Contracts
 
-We have [several tutorials](https://github.com/lacchain/gas-management/tree/master/docs/tutorial) that you can follow to deploy your first smart contracts, but we recommend you to start reading and understanding the [gas distribution mechanism](https://github.com/lacchain/gas-management).
+We have [several tutorials](https://github.com/lacchain/gas-management/tree/master/docs/tutorial) that you can follow to deploy your first smart contracts, but we recommend you to start reading and understanding the [GAS distribution mechanism](https://github.com/lacchain/gas-management).
