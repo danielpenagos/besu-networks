@@ -24,7 +24,7 @@
 
 * For additional information, please check the [FAQ](https://github.com/LACNetNetworks/besu-networks/blob/master/docs/FAQ.md).
 
-# List of Networks Available and Permissioning Process
+## List of Networks Available and Permissioning Process
 
 At present, there are three LACChain Networks using Hyperledger Besu as the underlying technology orchestrated by LACNet. The permissioning process to be accomplished before deploying the node varies depending on the network.
 
