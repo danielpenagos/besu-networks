@@ -4,9 +4,9 @@
 
 * As public blockchain networks, LACChain Networks are open to any entity in Latin America and the Caribbean. As permissioned networks, entities must be authenticated and commit to comply with regulation in order to be permissioned. LACChain Networks have no trasaction fees.
 
-* The Testnet networks are free. In order to deploy a node, it is required to file a very short [registration agreement form](https://github.com/LACNetNetworks/besu-networks/blob/master/testnet/agreement_form/agreement_form.md) as well as reading, understing, and agreeing with the terms of reference. 
+* The Testnet networks are free. In order to deploy a node, it is required to file a very short [registration agreement form](https://github.com/LACNetNetworks/besu-networks/blob/master/testnet/agreement_form/agreement_form.md) as well as reading, understing, and agreeing with the terms of reference. Find the details for the permissioning process [here](https://github.com/LACNetNetworks/besu-networks/blob/master/testnet/permissioning_process/permissioning_process_testnet.md). 
 
-* The Mainet networks are [membership-based](https://lacnet.lacchain.net/contrata-tu-membresia/). These networks are aimed to ensure relisience and accountability via Service Level Agreements between any entity operating a node and LACNet.
+* The Mainet networks are [membership-based](https://lacnet.lacchain.net/contrata-tu-membresia/). These networks are aimed to ensure relisience and accountability via Service Level Agreements between any entity operating a node and LACNet. Find the details of the permissioning process [here](https://github.com/LACNetNetworks/besu-networks/blob/master/mainnet/permissioning_process/permissioning_process_mainnet.md).
 
 * The nodes in the LACChain networks can be classified into two groups, according to their relevance for the functioning of the network. The two groups are core and satellite nodes. In each of these two groups there are also two different types of nodes, according to the specific taks they can perform. Core nodes are classified into validator and boot nodes, and satellite nodes are classified into writer and observer nodes. For more information you can go to [Topology and Architecture](https://github.com/LACNetNetworks/besu-networks/blob/master/docs/TOPOLOGY_AND_ARCHITECTURE.md).
 
