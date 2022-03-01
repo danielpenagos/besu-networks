@@ -10,4 +10,4 @@ In order to get your nodes permissioned in the Mainnet networks, you need to fol
 6. Deploy your node following the [manual](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE.md). Make sure you select the mainnet during the deployment process.
 7. Log in and provide the node identifier (enode) through the [customer/ticket portal](https://lacnet.lacchain.net/customer-and-support-portal/) as indicated by the focal point
 
-In case of any doubt, do not hesitate to write an email to afiliaciones@lac-net.net
+In case of any doubt, do not hesitate to write an email to afiliaciones@lac-net.net.
