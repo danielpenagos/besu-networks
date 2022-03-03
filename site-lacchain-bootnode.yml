@@ -27,7 +27,7 @@
   become: yes
   vars_prompt:
     - name: "networkT"
-      prompt: "************************\n[0]:mainnet\n[1]:pro-testnet\n[2]:devnet\nPlease, choose in which network are you deploying"
+      prompt: "************************\n[0]:mainnet-omega\n[1]:pro-testnet\n[2]:testnet-david19\nPlease, choose in which network are you deploying"
       private: no
 
   vars:
