@@ -62,43 +62,6 @@ $ cd besu-pro-testnet/
 
 Make sure you have SSH access to nodes you're setting up. This step will vary depending on your context (physical machine, cloud provider, etc.). This document assumes that you are able to log into your remote machine using the following command: `ssh remote_user@remote_host`.
 
-### Prepare installation of Oracle Java 11 ###
-
-* It is a requisite for Besu and Orion to install Java 11 in its LATEST version. Since Oracle Java cannot be downloaded directly, you must follow the next steps to install it:
-	1.  Download the correspondent java tar.gz(for ubuntu) or java .rpm(for centos) file from https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html. Oracle will request that you create an account before downloading the package.
-	2.  Once the file is downloaded, send the Oracle java11 package to your remote machine by using SCP Linux command:
-		```shell
-		$ scp /your/local/path/to/downloaded/jdk-11.0.x_linux-x64_bin.tar.gz remote_user@remote_host:
-		```
-		If your VM is Centos7 then use:
-		```shell
-		$ scp /your/local/path/to/downloaded/jdk-11.0.x_linux-x64_bin.rpm remote_user@remote_host: 
-		```
-	3.  Log into your remote machine by using something like this:
-		```shell
-		$ ssh remote_user@remote_host
-		```
-	4.  On the remote machine, for Ubuntu VMs: Create the JDK folder and move the JDK to it:
-		```shell
-		$ sudo mkdir -p /var/cache/oracle-jdk11-installer-local
-		$ sudo cp jdk-11.0.x_linux-x64_bin.tar.gz /var/cache/oracle-jdk11-installer-local/
-		```
-		If the VM is Centos7 then execute:
-		```shell
-		$ sudo rm -rf /usr/local/src/jdk*linux-x64_bin.rpm
-		$ sudo cp jdk-11.0.x_linux-x64_bin.rpm  /usr/local/src
-		```
-	5.  Before leaving, it's a good idea to run an APT update:
-		```shell
-		$ sudo apt update
-		```
-		Or in Centos7 OS:
-		```shell
-		$ sudo yum update
-		```
-	6. **[Only for Tessera]** You must also follow previous steps for the instance where Tessera will be installed.
-
-
 ## Node Installation ##
 
 ### Preparing installation of a new node ###
