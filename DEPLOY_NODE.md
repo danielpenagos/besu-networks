@@ -96,14 +96,14 @@ Make sure you have SSH access to nodes you're setting up. This step will vary de
 		```shell
 		$ sudo yum update
 		```
-	6. **[Only for Tessera]** You must also follow previous steps for the instance where Orion will be installed.
+	6. **[Only for Tessera]** You must also follow previous steps for the instance where Tessera will be installed.
 
 
-## Besu + Tessera Installation ##
+## Node Installation ##
 
 ### Preparing installation of a new node ###
 
-* There are four types of nodes (Bootnode / Validator / Writer / Tessera) that can be created in the LACChain network at this moment.
+* There are three types of nodes (Bootnode / Validator / Writer) + the optional Tessera (for private side-chains) that can be created in the blockchain networks orchestrated by LACNet at this moment.
 
 * After cloning the repository on the **local machine**, enter it and create a copy of the `inventory.example` file as `inventory`. Edit that file to add a line for the remote server where you are creating the new node. You can do it with a graphical tool or inside the shell:
 
@@ -122,7 +122,8 @@ Consider the following points:
 - The value of `node_name` is the name you want for your node in the network monitoring tool.
 - The value of `node_email` is the email address you want to register for your node in the network monitoring tool. It's a good idea to provide the e-mail of the technical contact identified or to be identified in the registration form as part of the on-boarding process.
 
-* **[Only for Tessera]** 
+* **[(Optional) Installation of Tessera (for private side-chains)]** 
+
   * In your `inventory` file add a line below [tessera] role. This new line is the IP or hostname where you can reach your remote machine from your local machine. In this Ip or hostname will be installed Tessera node. 
   * Additionally, change `tessera` variable located under the [all: vars] tag in same inventory file to `true`.
   * The inventory file looks like similar to:
