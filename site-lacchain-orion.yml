@@ -1,7 +1,0 @@
-- hosts: orion
-  gather_facts: yes
-  become: yes
-  vars:
-    install: true
-  roles:
-    - lacchain-orion-node

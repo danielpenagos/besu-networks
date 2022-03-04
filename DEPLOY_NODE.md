@@ -29,9 +29,9 @@ It is necessary to enable the following network ports in the machine in which we
   * **4545**: TCP - Port to establish RPC communication. (this port is used for applications that communicate with LACChain and may be leaked to the Internet)
 
 * **Tessera Node (Optional component for private transactions)**: 
-  * **4040**: TCP - Port to communicate with other Orion/Tessera nodes.
+  * **4040**: TCP - Port to communicate with other Tessera nodes.
   
-  * **4444**: TCP - Port for communication between Besu and Orion/Tessera.
+  * **4444**: TCP - Port for communication between Besu and Tessera.
 
 ## Pre-requisites
 
@@ -74,12 +74,12 @@ Make sure you have SSH access to nodes you're setting up. This step will vary de
     $ cd lacchain/
     $ cp inventory.example inventory
     $ vi inventory
-    [writer] # or [validators] or [bootnodes] depending on its role
-    192.168.10.72 node_ip=your.public.node.ip password=abc node_name=my_node_name node_email=your@email
+    [node]
+    192.168.10.72 node_ip=your.public.node.ip node_name=my_node_name node_email=your@email
     ```
 
 Consider the following points:
-- Place the new line in the section corresponding to your node's role: `[writer]`, `[validators]` or `[bootnodes]`.
+- Place the new line in the section corresponding to: `[node]`.
 - The first element on the new line is the IP or hostname where you can reach your remote machine from your local machine.
 - The value of `password` is the password that will be used to set up Tessera, for private transactions.
 - The value of `node_name` is the name you want for your node in the network monitoring tool.
@@ -102,31 +102,25 @@ Consider the following points:
 
 ### Deploying the new node ###
 
-* When starting the script, make sure to type the network where the node will be deployed:
+* When starting the script, type which kind of node are you deploying and make sure to type the network where the node will be deployed:
 ```
+[0]:validator
+[1]:boot
+[2]:writer
+[3]:tessera
+Please, choose which type of node are you deploying:
+
 [0]:mainnet-omega
 [1]:pro-testnet
 [2]:testnet-david19
 Please, choose in which network are you deploying:
 ```
-So, if you want to deploy on mainnet-omega it will be 0, for pro-testnet 1 and 2 for testet-david19.
+So, if you want to deploy a writer node on mainnet-omega, first type 2 for writer, next it will be 0 for mainnet-omega, for pro-testnet 1 and 2 for testet-david19.
 
-* To deploy a **boot node** execute the following command in your **local machine**. If needed, don't forget to set the private key with option `--private-key` and the remote user with option `-u` to SSH connection:
-
-	```shell
-	$ ansible-playbook -i inventory --private-key=~/.ssh/id_rsa -u remote_user site-lacchain-bootnode.yml
-	```
-
-* To deploy a **validator node** execute the following command in your **local machine**. If needed, don't forget to set the private key with option `--private-key` and the remote user with option `-u` to SSH connection:
+* To deploy a **node** with/without **tessera node**  execute the following command in your **local machine**. If needed, don't forget to set the private key with option `--private-key` and the remote user with option `-u` to SSH connection:
 
 	```shell
-	$ ansible-playbook -i inventory --private-key=~/.ssh/id_rsa -u remote_user site-lacchain-validator.yml
-	```
-
-* To deploy a **writer node** with/without **orion/tessera node**  execute the following command in your **local machine**. If needed, don't forget to set the private key with option `--private-key` and the remote user with option `-u` to SSH connection:
-
-	```shell
-	$ ansible-playbook -i inventory --private-key=~/.ssh/id_rsa -u remote_user site-lacchain-writer.yml
+	$ ansible-playbook -i inventory --private-key=~/.ssh/id_rsa -u remote_user site-lacchain-node.yml
 	```
 * [**in case you have previously deployed a writer node without tessera**] To deploy a **tessera node** execute one of the following command in your **local machine**. If needed, don't forget to set the private key with option `--private-key` and the remote user with option `-u` to SSH connection:
 
@@ -183,13 +177,13 @@ Once your node is ready, you can start it up with this command in **remote machi
   * You can update your node, by preparing your inventory with:
     * For Besu
 	```shell
-	[writer] #here put the role you are going to update
+	[node] #here put the role you are going to update
 	35.193.123.227 
 	```
 
 	Optionally you can choose the sha_commit of the version you want to update; with Besu is is only neede to specify the version:
 	```shell
-	[writer] #here put the role you are gong to update
+	[node] #here put the role you are gong to update
 	35.193.123.227 besu_release_version='22.1.0'
 	```
 	Current Besu versions obtained from: https://pegasys.tech/solutions/hyperledger-besu/
@@ -212,15 +206,7 @@ Once your node is ready, you can start it up with this command in **remote machi
 
 	Now according to the role your node has, type one of the following commands on your terminal:
 	```shell
-	$ ansible-playbook -i inventory --private-key=~/.ssh/id_rsa -u remote_user site-lacchain-update-writer.yml 
-	```
-
-	```shell
-	$ ansible-playbook -i inventory --private-key=~/.ssh/id_rsa -u remote_user site-lacchain-update-bootnode.yml 
-	```
-
-	```shell
-	$ ansible-playbook -i inventory --private-key=~/.ssh/id_rsa -u remote_user site-lacchain-update-validator.yml 
+	$ ansible-playbook -i inventory --private-key=~/.ssh/id_rsa -u remote_user site-lacchain-update-node.yml 
 	```
 	
 ## Checking your connection
