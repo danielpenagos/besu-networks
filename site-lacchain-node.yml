@@ -1,4 +1,4 @@
-- hosts: bootnodes
+- hosts: node
   gather_facts: yes
   become: yes
   vars:
@@ -22,10 +22,23 @@
     - debug:
         msg: "Starting Installation"
 
-- hosts: bootnodes
+- hosts: tessera
+  gather_facts: yes
+  become: yes
+  vars:
+    install: true
+
+  roles:
+    - role: lacchain-tessera-node
+      when: tessera | bool
+
+- hosts: node
   gather_facts: yes
   become: yes
   vars_prompt:
+    - name: "nodeTypeT"
+      prompt: "************************\n[0]:validator\n[1]:boot\n[2]:writer\n[3]:tessera\nPlease, choose which type of node are you deploying"
+      private: no
     - name: "networkT"
       prompt: "************************\n[0]:mainnet-omega\n[1]:pro-testnet\n[2]:testnet-david19\nPlease, choose in which network are you deploying"
       private: no
@@ -33,4 +46,12 @@
   vars:
     install: true
   roles:
-    - lacchain-bootnode
+    - role: lacchain-validator-node
+      when: (nodeTypeT == '0')
+    - role: lacchain-bootnode
+      when: (nodeTypeT == '1')  
+    - role: lacchain-writer-node
+      when: (nodeTypeT == '2')
+    - role: lacchain-tessera-node
+      when: (nodeTypeT == '3')  
+        

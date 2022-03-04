@@ -1,7 +1,7 @@
-- hosts: orion
+- hosts: tessera
   gather_facts: yes
   become: yes
   vars:
     update: true
   roles:
-    - lacchain-orion-node
+    - lacchain-tessera-node
