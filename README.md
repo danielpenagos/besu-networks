@@ -18,7 +18,7 @@
 
 * We have created two guides to help you [Deploy your Dapp on LACChain](https://github.com/LACNetNetworks/besu-networks/blob/master/docs/DEPLOY_APPLICATIONS.md) and [provide your Dapp with a suitable archiecture](https://github.com/LACNetNetworks/besu-networks/blob/master/docs/DAPP_ARCHITECTURE.md). We have also developed [several tutorials](https://github.com/LACNetNetworks/gas-management/tree/master/docs/tutorial) to [deploy your first ERC20 and notarization smart contracts](https://github.com/LACNetNetworks/gas-management/blob/master/docs/tutorial/Deploy_SmartContract.md) as well as more complex smart contracts that implement elements of the [LACChain ID framework](https://publications.iadb.org/en/lacchain-framework-permissioned-public-blockchain-networks-blockchain-technology-blockchain).
 
-* We have also develop some services that allow to check that your nodes are working properly. The [Besu Health Check](https://github.com/lacchain/besu-healthcheck) helps users test interactions with a Besu node by accessing it through RPC. This service is automatically deployed when using the Ansible installation provided below in this document.
+* You can also benefit from the [transaction explorer](https://explorer.lac-net.net/) and the [Ethstats dashboard](https://dashboard.lac-net.net/).
 
 * Every entity running a node in the LACChain networks is listed in the [list of permissioned nodes](https://github.com/lacchain/besu-network/blob/master/NODE_LIST.md).
 
