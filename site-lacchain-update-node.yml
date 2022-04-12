@@ -12,12 +12,12 @@
   vars:
     update: true
   roles:
+    - role: lacchain-writer-node
+      when: (nodeTypeT == '2')
     - role: lacchain-validator-node
       when: (nodeTypeT == '0')
     - role: lacchain-bootnode
       when: (nodeTypeT == '1')  
-    - role: lacchain-writer-node
-      when: (nodeTypeT == '2')
     - role: lacchain-tessera-node
       when: (nodeTypeT == '3')  
         

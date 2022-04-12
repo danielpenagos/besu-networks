@@ -1,7 +1,7 @@
 ---
 - name: Checking if Relay Signer exists
   stat:
-    path: "/root/lacchain/gas-relay-signer/client/config.toml"
+    path: "/root/lacchain/gas-relay-signer/config.toml"
   register: relay_signer
 
 - name: Download Relay Signer code

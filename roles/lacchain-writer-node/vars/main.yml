@@ -16,6 +16,7 @@ time: '{{lookup(''pipe'',''date "+%Y-%m-%d %H:%M:%S"'')}}'
 
 # contract address
 relayhub_address_mainnet: "0x7a4363E55Ef04e9144a2B187ACA804631A3155B5"
+relayhub_address_protestnet: "0xd4C70F66714D93a4f6553d379288e84bC45053da"
 relayhub_address_devnet: "0x3B62E51E37d090453600395Ff1f9bdf4d7398404"
 localpermissioning_address: "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 
