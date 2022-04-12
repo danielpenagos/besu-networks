@@ -22,6 +22,16 @@
   apt:
     update_cache: yes
 
+- name: Uninstall nginx core
+  apt:
+    name: nginx-core
+    state: absent
+
+- name: Uninstall nginx
+  apt:
+    name: nginx
+    state: absent
+
 - name: Install nginx
   apt:
     name: "{{ item }}"
