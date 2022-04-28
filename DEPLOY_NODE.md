@@ -54,8 +54,8 @@ $ sudo apt-get install ansible
 To configure and install Besu and Tessera, you must clone this git repository in your **local machine**.
 
 ```shell
-$ git clone https://github.com/LACNet-Networks/besu-pro-testnet
-$ cd besu-pro-testnet/
+$ git clone https://github.com/LACNet-Networks/besu-networks
+$ cd besu-networks/
 ```
 
 ### Obtain SSH access to your remote machine ###
@@ -244,11 +244,11 @@ If that doesn't solve the problem, [open a ticket](https://lacnet.lacchain.net/s
 	
 ## Deploying Dapps
 
-For a quick overview of some mainstream tools that you can use to deploy Smart Contracts, connect external applications and broadcast transactions to the LACChain Besu Network, you can check our [guide](https://github.com/LACNet-Networks/besu-pro-testnet/blob/master/docs/DEPLOY_APPLICATIONS.md). We also recommend you [our tutorials to deploy your first smart contracts](https://github.com/LACNet-Networks/gas-management/tree/master/docs/tutorial).
+For a quick overview of some mainstream tools that you can use to deploy Smart Contracts, connect external applications and broadcast transactions to the LACChain Besu Network, you can check our [guide](https://github.com/LACNet-Networks/besu-networks/blob/master/docs/DEPLOY_APPLICATIONS.md). We also recommend you [our tutorials to deploy your first smart contracts](https://github.com/LACNet-Networks/gas-management/tree/master/docs/tutorial).
 
 ## Contact
 
-For any issues, you can either go to [issues](https://github.com/LACNet-Networks/besu-pro-testnet/issues) or e-mail us at tech-support@lac-net.net. Any feedback is more than welcome!
+For any issues, you can either go to [issues](https://github.com/LACNet-Networks/besu-networks/issues) or e-mail us at tech-support@lac-net.net. Any feedback is more than welcome!
 
 ## Copyright 2022 LACNet
 
