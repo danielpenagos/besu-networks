@@ -17,7 +17,7 @@ Recommended hardware features for Besu node:
 | CPU | 2 vCPUs | 2 vCPUs | 4 vCPUs compute optimized|
 | RAM Memory | 8 GB | 8 GB | 16 GB |
 | Hard Disk | 150 GB SSD | 250 GB SSD | 375 GB SSD |
-| IOPs | ----- | ----- | 70,000 IOPS READ  50,000 IOPS WRITE |
+| IOPs | ----- | 15,000 IOPS READ  5,000 IOPS WRITE | 70,000 IOPS READ  50,000 IOPS WRITE |
 
 * **Operating System**: Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, Centos7, always 64 bits
 
@@ -102,7 +102,7 @@ Consider the following points:
 
 ### Deploying the new node ###
 
-* When starting the script, type which kind of node are you deploying and make sure to type the network where the node will be deployed:
+* When running the script, type which kind of node are you deploying and make sure to type the network where the node will be deployed:
 ```
 [0]:validator
 [1]:boot

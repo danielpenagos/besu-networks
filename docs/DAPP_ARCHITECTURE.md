@@ -103,6 +103,8 @@ The next diagram describe architecture's components which possible they should b
 
 You can use [Eth Signer](https://github.com/PegaSysEng/ethsigner/ "Eth Signer") to sing the transaction and store private keys in key vaults.
 
+Considering the need to have all these components for a productive web3.0 solution, we recommend the use of [Hyperledger Firefly](https://hyperledger.github.io/firefly/), which is a complete stack, which provides all the components.
+
 ## Design Patterns
 #TODO#
 
