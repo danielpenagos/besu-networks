@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: lacchain-bootnode
+  labels:
+    app: lacchain-bootnode
+  namespace: lacchain-david19
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lacchain-bootnode
+  serviceName: lacchain-bootnode
+  template:
+    metadata:
+      labels:
+        app: lacchain-bootnode
+    spec:
+      containers:
+        - name: lacchain-bootnode
+          image: lacnetnetworks/lacchain-besu:21.1.6
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 500m
+              memory: 2048Mi
+            limits:
+              cpu: 1000m
+              memory: 4096Mi
+          env:
+          - name: BESU_LOGGING
+            value: INFO 
+          - name: PUBLIC_IP
+            value: "35.188.65.242" 
+          volumeMounts:
+            - name: genesis-config
+              mountPath: /etc/genesis
+              readOnly: true
+            - name: config-toml-template
+              mountPath: /besu-tmp
+              readOnly: true
+            - name: data
+              mountPath: data
+          ports:
+            - containerPort: 4545
+              name: json-rpc
+              protocol: TCP
+            - containerPort: 4546
+              name: ws
+              protocol: TCP
+            - containerPort: 4547
+              name: graphql
+              protocol: TCP
+            - containerPort: 60606
+              name: rlpx
+              protocol: TCP
+            - containerPort: 60606
+              name: discovery
+              protocol: UDP
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+             exec 
+             rm -r /data/lost+found
+             envsubst < /besu-tmp/config.toml.template > /opt/lacchain/config.toml;
+             /opt/besu/bin/besu --genesis-file=/etc/genesis/genesis.json --data-path=/data public-key  export --to=/data/bootnode ;
+             sleep 2;
+             /opt/besu/bin/besu --node-private-key-file=/data/key --config-file=/opt/lacchain/config.toml --network-id=648530
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 2000
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-data-bootnode
+        - name: config-toml-template
+          configMap:
+            name: besu-config-toml-configmap-bootnode
+        - name: genesis-config
+          configMap:
+            name: besu-genesis-configmap

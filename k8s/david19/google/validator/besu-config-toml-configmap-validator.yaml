@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: besu-config-toml-configmap-validator
+  labels:
+    app: besu-config-toml-configmap-validator
+  namespace: lacchain-david19
+data:
+  config.toml.template: |-
+    # Node Information
+    data-path="/data"
+    genesis-file="/etc/genesis/genesis.json"
+
+    # TODO : insert as command line & mount Volume
+    # rpc-http-authentication-credentials-file="none"
+    # TODO : insert as command line & mount Volume
+    # rpc-ws-authentication-credentials-file="none"
+    logging="INFO"
+
+    min-gas-price=0
+    # Transaction Pool
+    #tx-pool-retention-hours=6
+    #tx-pool-max-size=1024
+
+    # P2P network
+    p2p-enabled=true
+    p2p-host="${PUBLIC_IP}"
+    p2p-port=60606
+    #host-allowlist=["*"]
+    host-whitelist=["*"]
+    bootnodes=["enode://aef21d8ba679f55a7c28bbafb826b84cf1db929916b4d322b590037a584a0d08aef9d836289b15c2c4ce7fdb9f2f4abf705314b85fba62a8f01539e92491da80@34.73.74.151:60606","enode://a677d655440fc338eefb5e31c3db1e07b56afbc28dee74822f600b1fb81f3657343f04cb2f68e5dd44ea606e041642bacc9151d91ab0527c878db0005ea30ca0@34.73.175.75:60606"]
+
+    # JSON-RPC
+    rpc-http-enabled=true
+    rpc-http-host="0.0.0.0"
+    rpc-http-port=4545
+    rpc-http-api=["ETH","NET","IBFT","EEA","PRIV"]
+    rpc-http-cors-origins=["*"]
+    rpc-http-authentication-enabled=false
+    
+
+    # GRAPHQL-RPC
+    graphql-http-enabled=true
+    graphql-http-host="0.0.0.0"
+    graphql-http-port=4547
+    graphql-http-cors-origins=["*"]
+
+    # WebSockets API
+    rpc-ws-enabled=true
+    rpc-ws-host="0.0.0.0"
+    rpc-ws-port=4546
+    rpc-ws-api=["ETH","NET","IBFT","EEA","PRIV"]
+    rpc-ws-authentication-enabled=false
+
+    # Metrics
