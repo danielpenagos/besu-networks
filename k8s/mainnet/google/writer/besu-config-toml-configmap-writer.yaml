@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: besu-config-toml-configmap-validator
+  name: besu-config-toml-configmap-writer
   labels:
-    app: besu-config-toml-configmap-validator
-  namespace: lacchain-david19
+    app: besu-config-toml-configmap-writer
+  namespace: lacchain-main-net
 data:
   config.toml.template: |-
     # Node Information
@@ -24,20 +24,22 @@ data:
 
     # P2P network
     p2p-enabled=true
+    discovery-enabled=true
     p2p-host="${P2P_HOST}"
     p2p-port=${P2P_PORT}
+    bootnodes=["enode://ed664ba8ec6959b1b2bd70dce16286cb1688f2f8ab13b8571b0ba4eeb73df9d5f5acb32efff7aabd71fc865d374d2e9c96c524ca543c9aa65dd6543f83852521@35.229.62.151:60606","enode://b10272c5206cd1ec12c6737a41df471e6384cde3e6522a212e3839be09981133eccdacc4ef1c7aacd3aeb63debfa82643d92820bb9f045245cb6badb74dff198@34.138.6.187:60606"]
+
+
     #host-allowlist=["*"]
     host-whitelist=["*"]
-    bootnodes=["enode://aef21d8ba679f55a7c28bbafb826b84cf1db929916b4d322b590037a584a0d08aef9d836289b15c2c4ce7fdb9f2f4abf705314b85fba62a8f01539e92491da80@34.73.74.151:60606","enode://a677d655440fc338eefb5e31c3db1e07b56afbc28dee74822f600b1fb81f3657343f04cb2f68e5dd44ea606e041642bacc9151d91ab0527c878db0005ea30ca0@34.73.175.75:60606"]
 
     # JSON-RPC
     rpc-http-enabled=true
     rpc-http-host="0.0.0.0"
     rpc-http-port=4545
-    rpc-http-api=["ETH","NET","IBFT","EEA","PRIV"]
+    rpc-http-api=["ETH","NET","IBFT","WEB3","EEA","PRIV"]
     rpc-http-cors-origins=["*"]
     rpc-http-authentication-enabled=false
-    
 
     # GRAPHQL-RPC
     graphql-http-enabled=true
@@ -49,7 +51,15 @@ data:
     rpc-ws-enabled=true
     rpc-ws-host="0.0.0.0"
     rpc-ws-port=4546
-    rpc-ws-api=["ETH","NET","IBFT","EEA","PRIV"]
+    rpc-ws-api=["ETH","NET","IBFT","WEB3","EEA","PRIV"]
     rpc-ws-authentication-enabled=false
 
     # Metrics
+    metrics-push-enabled=true
+    metrics-push-port=9091
+    metrics-push-host="35.231.59.254"
+    metrics-push-interval=5
+    metrics-push-prometheus-job="${NODE_NAME}"
+
+  
+

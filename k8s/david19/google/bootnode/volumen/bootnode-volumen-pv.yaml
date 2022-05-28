@@ -1,9 +1,8 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: sc-writer-tessera
+  name: sc-bootnode-david19
   namespace: lacchain-david19
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd
-  zones: us-central1-a

@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-data-bootnode
+  name: pvc-data-writer-tessera
   namespace: lacchain-david19
 spec:
-  storageClassName: sc-bootnode
+  storageClassName: sc-writer-tessera-david19
   accessModes:
     - ReadWriteOnce
   resources:

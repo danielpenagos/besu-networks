@@ -4,7 +4,7 @@ metadata:
   name: lacchain-writernode
   labels:
     app: lacchain-writernode
-  namespace: lacchain-david19
+  namespace: lacchain-protest-net
 spec:
   replicas: 1
   selector:
@@ -16,7 +16,7 @@ spec:
       labels:
         app: lacchain-writernode
     spec:
-      nodeName: gke-david19-default-pool-445cd569-dcby
+      nodeName: gke-david19-default-pool-445cd569-if2m
       containers:
         - name: lacchain-writernode-relay-signer
           image: lacnetnetworks/relay-signer-lacchain:1.0.2
@@ -42,7 +42,7 @@ spec:
           - name: HOST_BESU
             value: "127.0.0.1"
           - name: PUBLIC_IP
-            value: "35.188.65.242"
+            value: "35.194.35.231"    
           ports:
             - containerPort: 80
               name: nginx
@@ -63,9 +63,11 @@ spec:
           - name: BESU_LOGGING
             value: INFO 
           - name: P2P_HOST
-            value: "35.193.169.132"
+            value: "35.193.102.120"
           - name: P2P_PORT
-            value: "60606"   
+            value: "60606"
+          - name: NODE_NAME
+            value: WRITER_LACCHAIN_K8S_TEST   
           volumeMounts:
             - name: genesis-config
               mountPath: /etc/genesis
@@ -78,16 +80,12 @@ spec:
           ports:
             - containerPort: 4545
               name: json-rpc
-              protocol: TCP
             - containerPort: 4546
               name: ws
-              protocol: TCP
             - containerPort: 4547
               name: graphql
-              protocol: TCP
             - containerPort: 60606
               name: rlpx
-              protocol: TCP
             - containerPort: 60606
               name: discovery
               protocol: UDP
@@ -97,11 +95,11 @@ spec:
           args:
             - |
              exec 
-             rm -r /data/lost+found
              envsubst < /besu-tmp/config.toml.template > /opt/lacchain/config.toml;
+             
              sleep 2;
              /opt/besu/bin/besu --genesis-file=/etc/genesis/genesis.json --data-path=/data public-key  export-address --to=/data/nodeAddress ;
-             /opt/besu/bin/besu --node-private-key-file=/data/key --config-file=/opt/lacchain/config.toml --network-id=648530
+             /opt/besu/bin/besu --node-private-key-file=/data/key --config-file=/opt/lacchain/config.toml   --network-id=648529 --permissions-nodes-contract-enabled --permissions-nodes-contract-address=0x0000000000000000000000000000000000009999
       securityContext:
         fsGroup: 2000
       volumes:
@@ -114,5 +112,6 @@ spec:
         - name: genesis-config
           configMap:
             name: besu-genesis-configmap
+        
 
              

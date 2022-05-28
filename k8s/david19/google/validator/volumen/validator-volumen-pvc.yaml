@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-data-writer-tessera
+  name: pvc-data-validator
   namespace: lacchain-david19
 spec:
-  storageClassName: sc-writer-tessera
+  storageClassName: sc-validator-david19
   accessModes:
     - ReadWriteOnce
   resources:

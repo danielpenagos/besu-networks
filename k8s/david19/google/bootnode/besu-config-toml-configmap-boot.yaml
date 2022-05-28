@@ -24,8 +24,8 @@ data:
 
     # P2P network
     p2p-enabled=true
-    p2p-host="${PUBLIC_IP}"
-    p2p-port=60606
+    p2p-host="${P2P_HOST}"
+    p2p-port=${P2P_PORT}
     #host-allowlist=["*"]
     host-whitelist=["*"]
 

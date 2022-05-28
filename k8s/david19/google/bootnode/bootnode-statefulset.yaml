@@ -16,6 +16,7 @@ spec:
       labels:
         app: lacchain-bootnode
     spec:
+      nodeName: gke-david19-default-pool-445cd569-dcby
       containers:
         - name: lacchain-bootnode
           image: lacnetnetworks/lacchain-besu:21.1.6
@@ -30,8 +31,10 @@ spec:
           env:
           - name: BESU_LOGGING
             value: INFO 
-          - name: PUBLIC_IP
-            value: "35.188.65.242" 
+          - name: P2P_HOST
+            value: "35.193.169.132"
+          - name: P2P_PORT
+            value: "60606"
           volumeMounts:
             - name: genesis-config
               mountPath: /etc/genesis
@@ -63,13 +66,11 @@ spec:
           args:
             - |
              exec 
-             rm -r /data/lost+found
              envsubst < /besu-tmp/config.toml.template > /opt/lacchain/config.toml;
              /opt/besu/bin/besu --genesis-file=/etc/genesis/genesis.json --data-path=/data public-key  export --to=/data/bootnode ;
              sleep 2;
              /opt/besu/bin/besu --node-private-key-file=/data/key --config-file=/opt/lacchain/config.toml --network-id=648530
       securityContext:
-        runAsUser: 1000
         fsGroup: 2000
       volumes:
         - name: data

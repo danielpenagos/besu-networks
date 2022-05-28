@@ -16,7 +16,8 @@ spec:
       labels:
         app: lacchain-validatornode
     spec:
-      containers:
+      nodeName: gke-david19-default-pool-445cd569-dcby
+      containers: 
         - name: lacchain-validatornode
           image: lacnetnetworks/lacchain-besu:21.1.6
           imagePullPolicy: IfNotPresent
@@ -30,8 +31,10 @@ spec:
           env:
           - name: BESU_LOGGING
             value: INFO 
-          - name: PUBLIC_IP
-            value: "35.188.65.242" 
+          - name: P2P_HOST
+            value: "35.193.169.132"
+          - name: P2P_PORT
+            value: "60606"
           volumeMounts:
             - name: genesis-config
               mountPath: /etc/genesis
@@ -68,7 +71,6 @@ spec:
              sleep 2;
              /opt/besu/bin/besu --node-private-key-file=/data/key --config-file=/opt/lacchain/config.toml --network-id=648530 --permissions-nodes-contract-enabled=false --permissions-nodes-contract-address=0x0000000000000000000000000000000000009999 --permissions-accounts-contract-enabled=false --permissions-accounts-contract-address=0x0000000000000000000000000000000000008888
       securityContext:
-        runAsUser: 1000
         fsGroup: 2000
       volumes:
         - name: data

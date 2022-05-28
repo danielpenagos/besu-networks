@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-data-validator
+  name: pvc-data-bootnode
   namespace: lacchain-david19
 spec:
-  storageClassName: sc-validator
+  storageClassName: sc-bootnode-david19
   accessModes:
     - ReadWriteOnce
   resources:

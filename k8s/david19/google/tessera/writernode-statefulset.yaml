@@ -16,6 +16,7 @@ spec:
       labels:
         app: lacchain-writernode-tessera
     spec:
+      nodeName: gke-david19-default-pool-445cd569-dcby
       containers:
         - name: lacchain-tessera
           image: lacnetnetworks/lacchain-tessera:21.1.1
@@ -53,7 +54,7 @@ spec:
           - name: HOST_BESU
             value: localhost
           - name: CONTRACT_ADDRESS
-            value: 0x3B62E51E37d090453600395Ff1f9bdf4d7398404
+            value: 0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
           volumeMounts:
             - name: data
               mountPath: /opt/secret
@@ -87,9 +88,11 @@ spec:
               memory: 4096Mi
           env:
           - name: BESU_LOGGING
-            value: INFO 
-          - name: PUBLIC_IP
-            value: "35.188.65.242"
+            value: DEBUG 
+          - name: P2P_HOST
+            value: "35.193.169.132"
+          - name: P2P_PORT
+            value: "60606"
           - name: HOST_TESSERA
             value: "127.0.0.1" 
           volumeMounts:
