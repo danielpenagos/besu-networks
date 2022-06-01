@@ -26,7 +26,7 @@ spec:
           - name: NODE_NAME
             value: WRITER_LACCHAIN_K8S_TEST
           - name: NODE_EMAIL
-            value: edumar111@gmail.com
+            value: xxxxx@gmail.com
           volumeMounts:
             - name: ethstats-data
               mountPath: /root/.config/configstore/

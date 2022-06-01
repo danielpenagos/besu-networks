@@ -16,14 +16,14 @@ spec:
       labels:
         app: lacchain-writernode
     spec:
-      nodeName: gke-david19-default-pool-445cd569-if2m
+      nodeName: gke-cluster-lacchain-default-pool-5e107968-hpx1
       containers:
         - name: lacchain-writernode-relay-signer
-          image: lacnetnetworks/relay-signer-lacchain:1.0.2
+          image: lacnetnetworks/relay-signer-lacchain:1.0.0
           imagePullPolicy: IfNotPresent
           env:
           - name: HOST_BESU
-            value: localhost
+            value: "127.0.0.1"
           - name: CONTRACT_ADDRESS
             value: 0x3B62E51E37d090453600395Ff1f9bdf4d7398404
           volumeMounts:
@@ -34,15 +34,15 @@ spec:
               name: relay-signer
               protocol: TCP
         - name: lacchain-writernode-nginx
-          image:  lacnetnetworks/writer-nginx-lacchain:1.0.1
+          image:  lacnetnetworks/writer-nginx-lacchain:1.0.0
           imagePullPolicy: IfNotPresent
           env:
           - name: HOST_RELAY_SIGNER
-            value: localhost
+            value: "127.0.0.1"
           - name: HOST_BESU
             value: "127.0.0.1"
           - name: PUBLIC_IP
-            value: "35.194.35.231"    
+            value: "34.70.167.44"    
           ports:
             - containerPort: 80
               name: nginx
@@ -63,7 +63,7 @@ spec:
           - name: BESU_LOGGING
             value: INFO 
           - name: P2P_HOST
-            value: "35.193.102.120"
+            value: "34.68.48.0"
           - name: P2P_PORT
             value: "60606"
           - name: NODE_NAME

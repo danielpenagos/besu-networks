@@ -16,14 +16,14 @@ spec:
       labels:
         app: lacchain-bootnode
     spec:
-      nodeName: gke-david19-default-pool-445cd569-dcby
+      nodeName: gke-cluster-lacchain-default-pool-5e107968-hpx1
       containers:
         - name: lacchain-bootnode
           image: lacnetnetworks/lacchain-besu:21.1.6
           imagePullPolicy: IfNotPresent
           resources:
             requests:
-              cpu: 500m
+              cpu: 400m
               memory: 2048Mi
             limits:
               cpu: 1000m
@@ -32,7 +32,7 @@ spec:
           - name: BESU_LOGGING
             value: INFO 
           - name: P2P_HOST
-            value: "35.193.169.132"
+            value: "34.68.48.0"
           - name: P2P_PORT
             value: "60606"
           volumeMounts:

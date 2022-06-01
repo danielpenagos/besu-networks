@@ -16,7 +16,7 @@ spec:
       labels:
         app: lacchain-validatornode
     spec:
-      nodeName: gke-david19-default-pool-445cd569-dcby
+      nodeName: gke-cluster-lacchain-default-pool-5e107968-hpx1
       containers: 
         - name: lacchain-validatornode
           image: lacnetnetworks/lacchain-besu:21.1.6
@@ -32,7 +32,7 @@ spec:
           - name: BESU_LOGGING
             value: INFO 
           - name: P2P_HOST
-            value: "35.193.169.132"
+            value: "34.68.48.0"
           - name: P2P_PORT
             value: "60606"
           volumeMounts:

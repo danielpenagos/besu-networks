@@ -30,4 +30,4 @@ spec:
       targetPort: 80
       protocol: TCP
       name: nginx
-  loadBalancerIP: 35.188.65.242
+  loadBalancerIP: 34.70.167.44
