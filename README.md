@@ -32,7 +32,7 @@ At present, there are three LACChain Networks using Hyperledger Besu as the unde
 
 **Pro-Testnet:** The Protestnet is the network is recommended for testing a solution before jumping into the Mainnet Omega. This network could be rewritten or interrupted following tests and simulation needs. There is no payment needed to deploy nodes in this network, nor any fee of any kind for sending transactions. The permissioning process requires filling an [Agreement Form](https://lacnet.lacchain.net/wp-content/uploads/2022/03/LACChain-Node-Authorization-form.pdf) as well as reading, understanding, and agreeing with the [terms and conditions](https://github.com/LACNetNetworks/besu-networks/tree/master/terms_and_conditions_testnets). After June 15th the GAS distribution mechanism will be implemented in the Pro-Testnet. All the transactions that do not comply with the [GAS distribution mechanism](https://github.com/LACNetNetworks/gas-management) will be rejected by the network. For more information check []().
 
-Once you have accomplished the permissioning successfully, you can proceed to deploy your node. If you have questions, do not hesitate to reach out to tech-support@lac-net.net.
+Once you have accomplished the permissioning successfully, you can proceed to deploy your node. If you have questions, do not hesitate to reach out to tech.support@lac-net.net.
 
 ## Deploy a Node
 
