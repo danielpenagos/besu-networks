@@ -30,24 +30,10 @@ At present, there are three LACChain Networks using Hyperledger Besu as the unde
 
 **Mainnet Omega:** The Mainnet Omega is the network recommended for all the initiatives in production. It is aimed at guarateeing reliability and accountability. Writer nodes are required to pay a membership to contribute to the technical teams of the non-profit orquestrator LACNet that provide support to node operators. The permissioning process requires signing the [Adscription Agreement (SLA)](https://github.com/LACNetNetworks/besu-networks/tree/master/mainnet/adcription_contracts) and accomplishing the payment of the membership. To initiate the permissioning process, [fill the permissioning form](https://lacnet.lacchain.net/lead-form-eng/) and a focal point from the membership team will reach out to you to help you thorugh the process. 
 
-**Pro-Testnet:** The Protestnet is the network is recommended for testing a solution before jumping into the Mainnet Omega. This network could be rewritten or interrupted following tests and simulation needs. There is no payment needed to deploy nodes in this network, nor any fee of any kind for sending transactions. The permissioning process requires filling an [Agreement Form](https://lacnet.lacchain.net/wp-content/uploads/2022/03/LACChain-Node-Authorization-form.pdf) as well as reading, understanding, and agreeing with the [terms and conditions](https://github.com/LACNetNetworks/besu-networks/tree/master/terms_and_conditions_testnets). After June 15th the GAS distribution mechanism will be implemented in the Pro-Testnet. All the transactions that do not comply with the [GAS distribution mechanism](https://github.com/LACNetNetworks/gas-management) will be rejected by the network. For more information check []().
+**Pro-Testnet:** The Protestnet is the network is recommended for testing a solution before jumping into the Mainnet Omega. This network could be rewritten or interrupted following tests and simulation needs. There is no payment needed to deploy nodes in this network, nor any fee of any kind for sending transactions. The permissioning process requires filling an [Agreement Form](https://lacnet.lacchain.net/wp-content/uploads/2022/03/LACChain-Node-Authorization-form.pdf) as well as reading, understanding, and agreeing with the [terms and conditions](https://github.com/LACNetNetworks/besu-networks/tree/master/terms_and_conditions_testnets). After June 15th the GAS distribution mechanism will be implemented in the Pro-Testnet. All the transactions that do not comply with the [GAS distribution mechanism](https://github.com/LACNetNetworks/gas-management) will be rejected by the network. For more information check [see our official communication](https://live-lacchain.pantheonsite.io/sites/default/files/2022-05/The%20Protestnet%20is%20changing_0.pdf).
 
 Once you have accomplished the permissioning successfully, you can proceed to deploy your node. If you have questions, do not hesitate to reach out to tech.support@lac-net.net.
 
 ## Deploy a Node
 
 To deploy a node in the blockchain networks orchestrated by LACNet, go [HERE](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE.md). 
-
-## Copyright 2022 LACNet
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
