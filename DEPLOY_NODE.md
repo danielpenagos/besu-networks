@@ -248,7 +248,7 @@ For a quick overview of some mainstream tools that you can use to deploy Smart C
 
 ## Contact
 
-For any issues, you can either go to [issues](https://github.com/LACNet-Networks/besu-networks/issues) or e-mail us at tech-support@lac-net.net. Any feedback is more than welcome!
+For any issues, you can either go to [issues](https://github.com/LACNet-Networks/besu-networks/issues) or e-mail us at tech.support@lac-net.net. Any feedback is more than welcome!
 
 ## Copyright 2022 LACNet
 
