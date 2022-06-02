@@ -20,6 +20,13 @@ spec:
         - name: lacchain-writernode-ethstats
           image: alethio/ethstats-cli
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
           env:
           - name: HOST_BESU
             value: writer-besu-lacchain

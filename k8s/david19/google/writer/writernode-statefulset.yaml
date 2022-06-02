@@ -21,6 +21,13 @@ spec:
         - name: lacchain-writernode-relay-signer
           image: lacnetnetworks/relay-signer-lacchain:1.0.0
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
           env:
           - name: HOST_BESU
             value: localhost
@@ -36,6 +43,13 @@ spec:
         - name: lacchain-writernode-nginx
           image:  lacnetnetworks/writer-nginx-lacchain:1.0.0
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 150m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
           env:
           - name: HOST_RELAY_SIGNER
             value: localhost
@@ -54,10 +68,10 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             requests:
-              cpu: 100m
+              cpu: 500m
               memory: 1024Mi
             limits:
-              cpu: 500m
+              cpu: 1000m
               memory: 2048Mi
           env:
           - name: BESU_LOGGING
