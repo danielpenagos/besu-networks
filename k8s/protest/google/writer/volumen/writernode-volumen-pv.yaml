@@ -1,0 +1,8 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: sc-writer-protest-net
+  namespace: lacchain-protest-net
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd

@@ -1,0 +1,132 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: lacchain-writernode
+  labels:
+    app: lacchain-writernode
+  namespace: lacchain-david19
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lacchain-writernode
+  serviceName: lacchain-writernode
+  template:
+    metadata:
+      labels:
+        app: lacchain-writernode
+    spec:
+      nodeName: gke-cluster-lacchain-default-pool-5e107968-hpx1
+      containers:
+        - name: lacchain-writernode-relay-signer
+          image: lacnetnetworks/relay-signer-lacchain:1.0.0
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
+          env:
+          - name: HOST_BESU
+            value: localhost
+          - name: CONTRACT_ADDRESS
+            value: 0x3B62E51E37d090453600395Ff1f9bdf4d7398404
+          volumeMounts:
+            - name: data
+              mountPath: /opt/secret
+          ports:
+            - containerPort: 9001
+              name: relay-signer
+              protocol: TCP
+        - name: lacchain-writernode-nginx
+          image:  lacnetnetworks/writer-nginx-lacchain:1.0.0
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 150m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
+          env:
+          - name: HOST_RELAY_SIGNER
+            value: localhost
+          - name: HOST_BESU
+            value: "127.0.0.1"
+          - name: PUBLIC_IP
+            value: "34.70.167.44"
+          ports:
+            - containerPort: 80
+              name: nginx
+              protocol: TCP
+          securityContext:
+            allowPrivilegeEscalation: false
+        - name:  lacchain-writernode
+          image: lacnetnetworks/lacchain-besu:21.1.6
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1024Mi
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
+          env:
+          - name: BESU_LOGGING
+            value: INFO 
+          - name: P2P_HOST
+            value: "34.68.48.0"
+          - name: P2P_PORT
+            value: "60606"   
+          volumeMounts:
+            - name: genesis-config
+              mountPath: /etc/genesis
+              readOnly: true
+            - name: config-toml-template
+              mountPath: /besu-tmp
+              readOnly: true
+            - name: data
+              mountPath: data
+          ports:
+            - containerPort: 4545
+              name: json-rpc
+              protocol: TCP
+            - containerPort: 4546
+              name: ws
+              protocol: TCP
+            - containerPort: 4547
+              name: graphql
+              protocol: TCP
+            - containerPort: 60606
+              name: rlpx
+              protocol: TCP
+            - containerPort: 60606
+              name: discovery
+              protocol: UDP
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+             exec 
+             rm -r /data/lost+found
+             envsubst < /besu-tmp/config.toml.template > /opt/lacchain/config.toml;
+             sleep 2;
+             /opt/besu/bin/besu --genesis-file=/etc/genesis/genesis.json --data-path=/data public-key  export-address --to=/data/nodeAddress ;
+             /opt/besu/bin/besu --node-private-key-file=/data/key --config-file=/opt/lacchain/config.toml --network-id=648530
+      securityContext:
+        fsGroup: 2000
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-data-writer
+        - name: config-toml-template
+          configMap:
+            name: besu-config-toml-configmap-writer
+        - name: genesis-config
+          configMap:
+            name: besu-genesis-configmap
+
+             

@@ -1,0 +1,161 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: lacchain-writernode-tessera
+  labels:
+    app: lacchain-writernode-tessera
+  namespace: lacchain-david19
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lacchain-writernode-tessera
+  serviceName: lacchain-writernode-tessera
+  template:
+    metadata:
+      labels:
+        app: lacchain-writernode-tessera
+    spec:
+      nodeName: gke-cluster-lacchain-default-pool-5e107968-hpx1
+      containers:
+        - name: lacchain-tessera
+          image: lacnetnetworks/lacchain-tessera:21.1.1
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+          env:
+            - name: PUBLIC_IP
+              value: "35.188.65.242"
+            - name: HOST_TESSERA
+              value: "127.0.0.1"
+            - name: DNS_NAME
+              value: lacchain.com
+            - name : HOST_TESSERA_PEER
+              value: "192.168.1.1"
+          volumeMounts:
+            - name: data
+              mountPath: data
+          ports:
+            - containerPort: 4040
+              name: tessera
+              protocol: TCP
+            - containerPort: 4444
+              name: tessera-besu
+              protocol: TCP           
+        - name: lacchain-writernode-relay-signer
+          image: lacnetnetworks/relay-signer-lacchain:1.0.0
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
+          env:
+          - name: HOST_BESU
+            value: localhost
+          - name: CONTRACT_ADDRESS
+            value: 0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+          volumeMounts:
+            - name: data
+              mountPath: /opt/secret
+          ports:
+            - containerPort: 9001
+              name: relay-signer
+              protocol: TCP
+        - name: lacchain-writernode-nginx
+          image:  lacnetnetworks/writer-nginx-lacchain:1.0.0
+          imagePullPolicy: IfNotPresent
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 150m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
+          env:
+          - name: HOST_RELAY_SIGNER
+            value: localhost
+          - name: HOST_BESU
+            value: "127.0.0.1"
+          - name: PUBLIC_IP
+            value: "34.70.167.44"
+          ports:
+            - containerPort: 80
+              name: nginx
+              protocol: TCP
+        - name:  lacchain-writernode
+          image: lacnetnetworks/lacchain-besu:21.1.6
+          imagePullPolicy: IfNotPresent
+          resources:
+            resources:
+            requests:
+              cpu: 500m
+              memory: 1024Mi
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
+          env:
+          - name: BESU_LOGGING
+            value: DEBUG 
+          - name: P2P_HOST
+            value: "34.68.48.0"
+          - name: P2P_PORT
+            value: "60606"
+          - name: HOST_TESSERA
+            value: "127.0.0.1" 
+          volumeMounts:
+            - name: genesis-config
+              mountPath: /etc/genesis
+              readOnly: true
+            - name: config-toml-template
+              mountPath: /besu-tmp
+              readOnly: true
+            - name: data
+              mountPath: data
+          ports:
+            - containerPort: 4545
+              name: json-rpc
+              protocol: TCP
+            - containerPort: 4546
+              name: ws
+              protocol: TCP
+            - containerPort: 4547
+              name: graphql
+              protocol: TCP
+            - containerPort: 60606
+              name: rlpx
+              protocol: TCP
+            - containerPort: 60606
+              name: discovery
+              protocol: UDP
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+             exec 
+             envsubst < /besu-tmp/config.toml.template > /opt/lacchain/config.toml;
+             /opt/besu/bin/besu --genesis-file=/etc/genesis/genesis.json --data-path=/data public-key  export-address --to=/data/nodeAddress ;
+             /opt/besu/bin/besu --node-private-key-file=/data/key --config-file=/opt/lacchain/config.toml --network-id=648530
+      securityContext:
+        fsGroup: 2000
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-data-writer-tessera
+        - name: config-toml-template
+          configMap:
+            name: besu-config-toml-configmap-writer-tessera
+        - name: genesis-config
+          configMap:
+            name: besu-genesis-configmap
+
+             
