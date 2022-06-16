@@ -1,0 +1,79 @@
+---
+
+quorumFlags:
+  privacy: false
+  removeKeysOnDelete: true
+  isBootnode: true    # Besu only, set this to true if this node is a bootnode
+  usesBootnodes: true # Besu only, set this to true if the network you are connecting to use a bootnode/s that are deployed in the cluster 
+
+cluster:
+  provider: google  # choose from: google | aws | azure
+  cloudNativeServices: false 
+  reclaimPolicy: Delete # set to either Retain or Delete; note that PVCs and PVs will still exist after a 'helm delete'. Setting to Retain will keep volumes even if PVCs/PVs are deleted in kubernetes. Setting to Delete will remove volumes from EC2 EBS when PVC is deleted
+
+aws:
+  # the aws cli commands uses the name 'quorum-node-secrets-sa' so only change this if you altered the name
+  serviceAccountName: quorum-node-secrets-sa
+  # the region you are deploying to
+  region: ap-southeast-2
+
+azure:
+  # the script/bootstrap.sh uses the name 'quorum-pod-identity' so only change this if you altered the name
+  identityName: quorum-pod-identity
+  # the clientId of the user assigned managed identity created in the template
+  identityClientId: azure-clientId
+  keyvaultName: azure-keyvault
+  # the tenant ID of the key vault
+  tenantId: azure-tenantId
+  # the subscription ID to use - this needs to be set explictly when using multi tenancy
+  subscriptionId: azure-subscriptionId
+
+node:
+  besu:
+    permissions:
+      nodesContract:
+        enabled: false
+      accountsContract:
+        enabled: false
+
+    envBesuOpts: ""  
+    metrics:
+      serviceMonitorEnabled: true
+    resources:
+      cpuLimit: 1
+      cpuRequest: 0.5
+      memLimit: "2G"
+      memRequest: "1G"
+    account:
+      password: 'password'
+    rpc:
+      enabled: true
+      api: '["ETH","NET","IBFT","EEA","PRIV"]'
+    ws:
+      enabled: true
+      api: '["ETH","NET","IBFT","EEA","PRIV"]' 
+    graphql:
+      enabled: true
+    bootnodes:
+      david19: '["enode://c6530ae9bba55d30c5f9af10f33bf90a3b7e65208e3c551e17376f22c26adb82c079a77a82fa477be2f8402426dab9bef81e21163ad6a58b85327fbc6961ed9e@13.92.154.28:60606","enode://2ab81b04777efd109797129bb6fcadced5b65af108fe1e45000e6282e0380dc54a48cb0b07ed3ca08e977aeaff2782c5601291bb33fc0f2f08b21208b6ee7664@13.72.79.206:60606"]'
+      protest: 200Gi
+      mainnet: 320Gi
+        
+volumen:
+  resources:
+    storage:
+      david19: 100Gi
+      protest: 200Gi
+      mainnet: 320Gi
+
+deploy:
+  network: david19-net # choose from: david19-net | protest-net | main-net
+  typenode: bootnode # choose from: writer | validator | bootnode | tessera
+  publicIP: 35.188.65.242 # david 35.188.65.242, protest 35.194.35.231
+  p2p:
+    host: 35.226.244.229
+    port: 60606
+  workerName: gke-david19-default-pool-445cd569-al7d
+  dnsName: lacchain.com
+  nodeName: bid-writer
+  nodeEmail: tech.support@lac-net.net

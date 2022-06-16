@@ -1,2 +1,6 @@
 # Inventory file copied from inventory.example
 inventory
+/docker/compose/david19/writer1
+/docker/compose/david19/bootnode1
+/docker/compose/protest/writer1
+.DS_Store
