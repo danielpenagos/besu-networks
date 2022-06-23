@@ -1,0 +1,16 @@
+{
+    "name": "firefly-docker",
+    "version": "1.0.0",
+    "description": "",
+    "main": "createKeyFile.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Adrian Pareja",
+    "license": "ISC",
+    "dependencies": {
+      "web3": "^1.7.3",
+      "nunjucks" : "3.2.3",
+      "minimist" : "1.2.6"
+    }
+  }
