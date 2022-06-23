@@ -1,0 +1,124 @@
+version: "2.1"
+services:
+  dataexchange:
+    container_name: dataexchange
+    image: ghcr.io/hyperledger/firefly-dataexchange-https@sha256:1a19cdbdc3311930c59a4a8089db8ba843a9267cffc79c7a22331d373150e94f
+    volumes:
+    - ./dataexchange:/data
+    ports:
+    - 5105:3000
+    logging:
+      driver: json-file
+      options:
+        max-file: "1"
+        max-size: 10m
+  ethconnect:
+    container_name: ethconnect
+    image: ghcr.io/hyperledger/firefly-ethconnect@sha256:012eaae295559d0ee0fe6b81a073d3ecd4034da7d8c031c0cd486f5a0b7d55ec
+    command: server -f ./config/config.yaml -d 2
+    volumes:
+    - ./ethconnect_config:/ethconnect/config
+    - ./ethconnect_abis:/ethconnect/abis
+    - ./ethconnect_events:/ethconnect/events
+    ports:
+    - 5102:8080
+    depends_on:
+      ethsigner:
+        condition: service_started
+    logging:
+      driver: json-file
+      options:
+        max-file: "1"
+        max-size: 10m
+  ethsigner:
+    container_name: ethsigner
+    image: lacnetnetworks/ethsigner:latest
+    user: root
+    command: --chain-id={{ networkid }} --node-address={{ nodeaddress }} --downstream-http-host={{ nodeip }} --downstream-http-port=80 --http-listen-host=0.0.0.0  
+      multikey-signer --directory=/data/keystore
+    volumes:
+    - ./ethsigner_data:/data
+    ports:
+    - 5100:8545
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - http://{{ nodeip }}:4545/liveness
+      interval: 4s
+      retries: 30
+    logging:
+      driver: json-file
+      options:
+        max-file: "1"
+        max-size: 10m
+  firefly_core:
+    container_name: firefly_core
+    image: ghcr.io/hyperledger/firefly@sha256:9532cac1433529bc6a0d72ba062cbad5331b6cf746f2e3bff05ed89e41b54034
+    volumes:
+    - ./firefly_core:/etc/firefly
+    ports:
+    - 5000:5000
+    - 5101:5101
+    depends_on:
+      dataexchange:
+        condition: service_started
+      ethconnect:
+        condition: service_started
+      tokens:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options:
+        max-file: "1"
+        max-size: 10m
+  ipfs:
+    container_name: ipfs
+    image: ipfs/go-ipfs:v0.10.0
+    environment:
+      IPFS_SWARM_KEY: |-
+        /key/swarm/psk/1.0.0/
+        /base16/
+        22d68a97015138693763f09afdc822c867de80c38ecc40509db41177ca6f1d2e
+      LIBP2P_FORCE_PNET: "1"
+    volumes:
+    - ./ipfs_staging:/export
+    - ./ipfs_data:/data/ipfs
+    ports:
+    - 5106:5001
+    - 5107:8080
+    logging:
+      driver: json-file
+      options:
+        max-file: "1"
+        max-size: 10m
+  sandbox:
+    container_name: sandbox
+    image: ghcr.io/hyperledger/firefly-sandbox:latest
+    environment:
+      FF_ENDPOINT: http://firefly_core:5000
+    ports:
+    - 5109:3001
+  tokens:
+    container_name: tokens
+    image: lacnetnetworks/firefly-tokens-erc20-erc721:latest
+    environment:
+      AUTO_INIT: "false"
+      ETHCONNECT_TOPIC: tokens
+      ETHCONNECT_URL: http://ethconnect:8080
+      FACTORY_CONTRACT_ADDRESS: {{ factory }}
+    ports:
+    - 5108:3000
+    depends_on:
+      ethconnect:
+        condition: service_started
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - http://localhost:3000/api
+    logging:
+      driver: json-file
+      options:
+        max-file: "1"
+        max-size: 10m
