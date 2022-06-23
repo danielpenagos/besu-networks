@@ -40,13 +40,42 @@ spec:
     spec:
       nodeName: {{ .Values.deploy.workerName }}
       containers:
-{{- if eq .Values.deploy.typenode "writer" }}
+{{- if  eq .Values.deploy.typenode "tessera"}}
+        - name:  {{ .Release.Name }}-tessera
+          image: {{ .Values.image.tessera.repository }}:{{ .Values.image.tessera.tag }}
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+          env:
+            - name: PUBLIC_IP
+              value: "{{ .Values.deploy.publicIP }}"
+            - name: DNS_NAME
+              value:  {{ .Values.deploy.dnsName }}
+            - name : HOST_TESSERA_PEER
+              value: "{{ .Values.deploy.tessera.peer }}"
+          volumeMounts:
+            - name: data
+              mountPath: data
+          ports:
+            - containerPort: 4040
+              name: tessera
+              protocol: TCP
+            - containerPort: 4444
+              name: tessera-besu
+              protocol: TCP 
+{{- end }} #end node tessera
+{{- if or ( eq .Values.deploy.typenode "writer") ( eq .Values.deploy.typenode "tessera")}}
         - name: {{ .Release.Name }}-relay-signer
           image: {{ .Values.image.relay.repository }}:{{ .Values.image.relay.tag }}
           imagePullPolicy: {{ .Values.image.relay.pullPolicy }}
           resources:
             requests:
-              cpu: 250m
+              cpu: 150m
               memory: 512Mi
             limits:
               cpu: 500m
@@ -76,7 +105,7 @@ spec:
           imagePullPolicy: {{ .Values.image.nginx.pullPolicy }}
           resources:
             requests:
-              cpu: 150m
+              cpu: 100m
               memory: 256Mi
             limits:
               cpu: 500m
@@ -86,8 +115,6 @@ spec:
             value: localhost
           - name: HOST_BESU
             value: "127.0.0.1"
-          - name: PUBLIC_IP
-            value: "{{ .Values.deploy.publicIP }}"
           ports:
             - containerPort: 80
               name: nginx
@@ -95,6 +122,34 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
 {{- end }} #end node writer
+{{- if and (eq .Values.deploy.typenode "validator") (or  (eq .Values.deploy.network "protest-net") (eq .Values.deploy.network "main-net")   )}}
+        - name: {{ .Release.Name }}-rotation
+          image: {{ .Values.image.rotation.repository }}:{{ .Values.image.rotation.tag }}
+          imagePullPolicy: {{ .Values.image.rotation.pullPolicy }}
+          resources:
+            requests:
+              cpu: 150m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
+          env:
+          - name: HOST_BESU
+            value: localhost
+          - name: CONTRACT_ADDRESS
+{{- if eq .Values.deploy.network "david19-net" }}
+            value:  {{ .Values.image.rotation.contract.david19 }}
+{{- else if eq .Values.deploy.network "protest-net" }}
+            value:  {{ .Values.image.rotation.contract.protest }}
+{{- else if eq .Values.deploy.network "main-net" }}
+            value:  {{ .Values.image.rotation.contract.mainnet }}
+{{- else }}
+            value:  {{ .Values.image.rotation.contract.david19 }}
+{{- end }}  
+          volumeMounts:
+            - name: data
+              mountPath: /opt/secret
+{{- end }} #end  rotation       
         - name: {{ .Release.Name }}-besu
 {{- if eq .Values.deploy.network "david19-net" }}
           image: {{ .Values.image.besu.repository }}:{{ .Values.image.besu.david19.tag }}
@@ -159,7 +214,7 @@ spec:
 {{- else }}
               /opt/besu/bin/besu --genesis-file={{ .Values.node.besu.genesisFilePath  }} --data-path={{ .Values.node.besu.dataPath }} public-key  export-address --to={{ .Values.node.besu.dataPath }}/nodeAddress ;
 {{- end }} 
-              sleep 60;
+              sleep 3;
               /opt/besu/bin/besu  --config-file=/etc/besu/config.toml  --node-private-key-file={{ .Values.node.besu.dataPath }}/key  
       securityContext:
         fsGroup: 2000

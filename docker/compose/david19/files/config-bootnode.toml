@@ -19,7 +19,7 @@ tx-pool-max-size=1024
 # P2P network
 p2p-enabled=true
 discovery-enabled=true
-#p2p-host="104.154.108.225"
+#p2p-host="${P2P_HOST}"
 p2p-port=60606
 max-peers=25
 host-whitelist=["*"]
@@ -29,12 +29,12 @@ host-whitelist=["*"]
 rpc-http-enabled=true
 rpc-http-host="0.0.0.0"
 rpc-http-port=4545
-rpc-http-api=["ETH","NET","IBFT","WEB3","EEA","PRIV"]
+rpc-http-api=["ETH","NET","IBFT","EEA","PRIV"]
 rpc-http-cors-origins=["all"]
 rpc-http-authentication-enabled=false
 revert-reason-enabled=true
 
-bootnodes=["enode://aef21d8ba679f55a7c28bbafb826b84cf1db929916b4d322b590037a584a0d08aef9d836289b15c2c4ce7fdb9f2f4abf705314b85fba62a8f01539e92491da80@34.73.74.151:60606","enode://4791c69f6a11486ecc6d4450aa8922865f078816176e166ccfc1882ae06272bcf71bdf7fa1d99f1a8815a7899dae0119ea06bac59a4810f92c2a9c89689610ca@35.237.20.121:60606"]
+bootnodes=["enode://c6530ae9bba55d30c5f9af10f33bf90a3b7e65208e3c551e17376f22c26adb82c079a77a82fa477be2f8402426dab9bef81e21163ad6a58b85327fbc6961ed9e@13.92.154.28:60606","enode://2ab81b04777efd109797129bb6fcadced5b65af108fe1e45000e6282e0380dc54a48cb0b07ed3ca08e977aeaff2782c5601291bb33fc0f2f08b21208b6ee7664@13.72.79.206:60606"]
 
 # GRAPHQL-RPC
 graphql-http-enabled=true
@@ -47,7 +47,8 @@ graphql-http-cors-origins=["all"]
 rpc-ws-enabled=true
 rpc-ws-host="0.0.0.0"
 rpc-ws-port=4546
-rpc-ws-api=["ETH","NET","IBFT","WEB3","EEA","PRIV"]
+rpc-ws-api=["ETH","NET","IBFT","EEA","PRIV"]
 rpc-ws-authentication-enabled=false
+
 
 network-id="648530"

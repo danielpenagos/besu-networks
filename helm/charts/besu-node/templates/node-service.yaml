@@ -39,7 +39,13 @@ spec:
     - name: rlpx
       port: {{ .Values.node.besu.p2p.port }}
       targetPort: rlpx
-      protocol: TCP     
+      protocol: TCP   
+{{- if or ( eq .Values.deploy.typenode "writer" ) ( eq .Values.deploy.typenode "tessera" ) }}
+    - name: nginx
+      port: 80
+      targetPort: nginx
+      protocol: TCP
+{{- end }} 
 {{- if .Values.quorumFlags.privacy }}          
     - name: tessera
       port: {{ .Values.node.tessera.port }}
@@ -47,11 +53,7 @@ spec:
       protocol: TCP
     - name: tessera-tp
       port: {{ .Values.node.tessera.tpport }}
-      targetPort: tessera-tp
-      protocol: TCP
-    - name: tessera-q2t
-      port: {{ .Values.node.tessera.q2tport }}
-      targetPort: tessera-q2t
+      targetPort: tessera-besu
       protocol: TCP
 {{- end }}
   loadBalancerIP: {{ .Values.deploy.publicIP }}

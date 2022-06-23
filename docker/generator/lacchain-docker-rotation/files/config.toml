@@ -1,0 +1,8 @@
+[application]
+wsURL = "ws://${HOST_BESU}:4546"
+rpcURL = "http://${HOST_BESU}:4545"
+timeout = 5
+contractAddress = "${CONTRACT_ADDRESS}"
+accountContractAddress = "0x1CaFf993d5f0053156761682263c1614c7C37D7C"
+nodeKeyPath = "/opt/secret/key"  
+nodeAddressPath = "/opt/secret/nodeAddresss" 

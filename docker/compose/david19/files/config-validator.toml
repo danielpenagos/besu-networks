@@ -19,7 +19,7 @@ tx-pool-max-size=1024
 # P2P network
 p2p-enabled=true
 discovery-enabled=true
-#p2p-host="104.154.108.225"
+#p2p-host="34.135.47.3"
 p2p-port=60606
 max-peers=25
 host-whitelist=["*"]
@@ -29,7 +29,7 @@ host-whitelist=["*"]
 rpc-http-enabled=true
 rpc-http-host="0.0.0.0"
 rpc-http-port=4545
-rpc-http-api=["ETH","NET","IBFT","WEB3","EEA","PRIV"]
+rpc-http-api=["ETH","NET","IBFT","EEA","PRIV"]
 rpc-http-cors-origins=["all"]
 rpc-http-authentication-enabled=false
 revert-reason-enabled=true
@@ -47,7 +47,7 @@ graphql-http-cors-origins=["all"]
 rpc-ws-enabled=true
 rpc-ws-host="0.0.0.0"
 rpc-ws-port=4546
-rpc-ws-api=["ETH","NET","IBFT","WEB3","EEA","PRIV"]
+rpc-ws-api=["ETH","NET","IBFT","EEA","PRIV"]
 rpc-ws-authentication-enabled=false
-
 network-id="648530"
+

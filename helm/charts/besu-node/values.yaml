@@ -28,7 +28,7 @@ node:
     envBesuOpts: ""
     resources:
       cpuLimit: 0.7
-      cpuRequest: 0.5
+      cpuRequest: 0.35
       memLimit: "2G"
       memRequest: "1G"
 
@@ -77,11 +77,11 @@ node:
         mainnet: "5.5.5.5"
       port: 9091
       interval: 5
-      prometheusJob: "besu"      
+      prometheusJob: "besu"   
     privacy:
-      url: "http://localhost:9101"
-      pubkeysPath: "/tessera"
-      pubkeyFile: "tm.pub"
+      url: "http://localhost:4444"
+      pubkeysPath: "/data/besu/tessera/keystore"
+      pubkeyFile: "nodeKey.pub"
       onchainGroupsEnabled: false
     permissions:
       enabled: true
@@ -105,9 +105,9 @@ node:
     passwordPath: "/keys/tm.password"
     dataPath: "/data/tessera"
     keysPath: "/keys"
-    port: 9000
-    tpport: 9080
-    q2tport: 9101
+    port: 4040
+    tpport: 4444
+   
 
 image:
   besu:
@@ -120,8 +120,8 @@ image:
       tag: 21.7.4
     pullPolicy: IfNotPresent
   tessera:
-    repository: quorumengineering/tessera
-    tag: 22.1.1
+    repository: lacnetnetworks/lacchain-tessera
+    tag: 21.1.1
     pullPolicy: IfNotPresent
   relay:
     repository: lacnetnetworks/relay-signer-lacchain
@@ -129,8 +129,16 @@ image:
     pullPolicy: IfNotPresent
     contract:
        david19: 0x3B62E51E37d090453600395Ff1f9bdf4d7398404
-       protest: 0x3B62E51E37d090453600395Ff1f9bdf4d7398404
+       protest: 0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
        mainnet: 0x7a4363E55Ef04e9144a2B187ACA804631A3155B5
+  rotation:
+    repository: lacnetnetworks/rotation-lacchain
+    tag: 1.0.0
+    pullPolicy: IfNotPresent
+    contract:
+       david19: 0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+       protest: 0xe6BAC76Cf6c46C83E0ff6c51d7C67D2d04cF08E4
+       mainnet: 0xed629f027a35B377F0a9Fd4560167e0AA85817Cf
   nginx:
     repository: lacnetnetworks/writer-nginx-lacchain
     tag: 1.0.0

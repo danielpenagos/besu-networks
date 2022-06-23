@@ -34,7 +34,7 @@ services:
     container_name: relay-signer-david19
     environment:
       HOST_BESU: writer-besu-david19
-      CONTRACT_ADDRESS: 0x3B62E51E37d090453600395Ff1f9bdf4d7398404
+      CONTRACT_ADDRESS: '0x3B62E51E37d090453600395Ff1f9bdf4d7398404'
     ports:
       - 9001:9001
     volumes:
