@@ -15,11 +15,12 @@ openssl genrsa -out tessera_ca.key 2048 && \
     echo "fase 2"
 cd /opt/lacchain/tessera/keystore
 mkdir  /data/tessera && mkdir  /data/tessera/keystore
-cat /opt/lacchain/pwd/.account_pass | java -jar /usr/local/tessera/tessera-app.jar -keygen -filename nodeKey 
+#cat /opt/lacchain/pwd/.account_pass | java -jar /usr/local/tessera/tessera-app.jar -keygen -filename nodeKey 
+cat /opt/lacchain/pwd/.account_pass | java -jar /tessera/tessera-app.jar -keygen -filename nodeKey 
+
 cp /opt/lacchain/tessera/keystore/nodeKey.pub /data/tessera/keystore/nodeKey.pub
 
 #while [ "$(curl --insecure -s -o /dev/null -w '%{http_code}' ${HOST_BESU}:4545/liveness)" != "200" ]; do sleep 5; done; echo "success";
 
 sleep 2;
-
 exec "$@"
