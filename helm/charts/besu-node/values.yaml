@@ -1,0 +1,150 @@
+---
+
+quorumFlags:
+  privacy: false
+  # this will erase keys - so be careful with this on validators
+  removeKeysOnDelete: false
+  isBootnode: true    # set this to true if this node is a bootnode
+  usesBootnodes: true # set this to true if the network you are connecting to use a bootnode/s that are deployed in the cluster 
+
+cluster:
+  provider: google  # choose from: google | aws | azure
+  cloudNativeServices: false # set to true to use Cloud Native Services (SecretsManager and IAM for AWS; KeyVault & Managed Identities for Azure)
+  reclaimPolicy: Delete # set to either Retain or Delete
+
+storage:
+  sizeLimit: "20Gi"
+  pvcSizeLimit: "20Gi"
+  # NOTE: when you set this to Retain, the volume WILL persist after the chart is delete and you need to manually delete it
+  reclaimPolicy: "Delete" # choose from: Delete | Retain 
+
+# fixes permissions of volumes becuase besu runs as user `besu` and volumes prefer `root`
+volumePermissionsFix:
+  - google
+  - aws
+
+node:
+  besu:
+    envBesuOpts: ""
+    resources:
+      cpuLimit: 0.7
+      cpuRequest: 0.35
+      memLimit: "2G"
+      memRequest: "1G"
+
+    dataPath: "/data/besu"
+    keysPath: "/keys"
+    privateKeyPath: "/keys/nodekey"
+    genesisFilePath: "/etc/genesis/genesis.json"
+    logging: INFO
+    account:
+      password: 'password'
+      passwordPath: "/keys/accountPassword"    
+    p2p:
+      enabled: true
+      host: "0.0.0.0"
+      port: 60606
+      discovery: true
+      maxPeers: 25
+    rpc:
+      enabled: true
+      host: "0.0.0.0"
+      port: 4545
+      api: '["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET", "TRACE", "EEA", "PRIV", "QBFT", "PERM", "TXPOOL"]'
+      corsOrigins: '["all"]'
+      authenticationEnabled: false
+    ws:
+      enabled: true
+      host: "0.0.0.0"
+      port: 4546
+      api: '["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET", "TRACE", "EEA", "PRIV", "QBFT", "PERM", "TXPOOL"]'
+      authenticationEnabled: false
+    graphql:
+      enabled: true
+      host: "0.0.0.0"
+      port: 4547
+      corsOrigins: '["all"]'
+    txPool:
+      retentionHours: 999
+      maxSize: 1024
+    http:
+      allowlist: '["*"]'
+    metricsPush:
+      enabled: true
+      host:
+        david19: "5.5.5.5"
+        protest: "5.5.5.5"
+        mainnet: "5.5.5.5"
+      port: 9091
+      interval: 5
+      prometheusJob: "besu"   
+    privacy:
+      url: "http://localhost:4444"
+      pubkeysPath: "/data/besu/tessera/keystore"
+      pubkeyFile: "nodeKey.pub"
+      onchainGroupsEnabled: false
+    permissions:
+      enabled: true
+      filePath: ""
+      nodesContract:
+        enabled: true
+        address: "0x0000000000000000000000000000000000009999"
+      accountsContract:
+        enabled: false
+        address: "0x0000000000000000000000000000000000008888"  
+
+  tessera:
+    resources:
+      cpuLimit: 1
+      cpuRequest: 0.5
+      memLimit: "2G"
+      memRequest: "1G"
+    tmkey: ""
+    tmpub: ""
+    password: "password"
+    passwordPath: "/keys/tm.password"
+    dataPath: "/data/tessera"
+    keysPath: "/keys"
+    port: 4040
+    tpport: 4444
+   
+
+image:
+  besu:
+    repository: hyperledger/besu
+    david19:
+      tag: 21.1.6
+    protest:
+      tag: 21.1.6
+    mainnet:
+      tag: 21.7.4
+    pullPolicy: IfNotPresent
+  tessera:
+    repository: lacnetnetworks/lacchain-tessera
+    tag: 21.1.1
+    pullPolicy: IfNotPresent
+  relay:
+    repository: lacnetnetworks/relay-signer-lacchain
+    tag: 1.0.0
+    pullPolicy: IfNotPresent
+    contract:
+       david19: 0x3B62E51E37d090453600395Ff1f9bdf4d7398404
+       protest: 0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+       mainnet: 0x7a4363E55Ef04e9144a2B187ACA804631A3155B5
+  rotation:
+    repository: lacnetnetworks/rotation-lacchain
+    tag: 1.0.0
+    pullPolicy: IfNotPresent
+    contract:
+       david19: 0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+       protest: 0xe6BAC76Cf6c46C83E0ff6c51d7C67D2d04cF08E4
+       mainnet: 0xed629f027a35B377F0a9Fd4560167e0AA85817Cf
+  nginx:
+    repository: lacnetnetworks/writer-nginx-lacchain
+    tag: 1.0.0
+    pullPolicy: IfNotPresent
+  eth:
+    server:
+       protest: http://35.236.236.77:3000
+       mainnet: http://34.138.136.105:3000
+

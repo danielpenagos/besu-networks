@@ -1,6 +1,11 @@
 # Deploying a Node
 
-* Below you will find instructions for the deployment of nodes using Ansible. This implies that it will be executed from a local machine on a remote server. The local machine and the remote server will communicate via ssh.
+* Quickly deploy a writer node using **docker** [here](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE_DOCKER.md). **Only for test networks.**
+
+* If you want to deploy a node on **kubernetes** following the instructions [here](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE_HELM.md)
+
+* Below you will find instructions for the deployment of nodes using **Ansible**. This implies that it will be executed from a local machine on a remote server. The local machine and the remote server will communicate via ssh.
+
 
 * The installation with ansible provided is compatible with **Ubuntu** and **Centos7**.
 

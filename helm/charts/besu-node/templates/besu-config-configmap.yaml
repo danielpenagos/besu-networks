@@ -1,0 +1,140 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "besu-node.fullname" . }}-besu-config
+  labels:
+    app: {{ template "besu-node.name" . }}
+    chart: {{ template "besu-node.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/name: {{ include "besu-node.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "besu-node.chart" . }}
+  namespace: {{ .Release.Namespace }}
+data:
+  config.toml: |-
+    # Every possible CLI should be in this file.
+    #
+    # Please use a plausible value, besu has to at least be able to parse it.
+    # If it is a multi-valued CLI make it a TOML array.
+    # If it is a number or boolean make it a number or boolean
+    # All other config options are strings, and must be quoted.
+
+    # Node Information
+    data-path={{ .Values.node.besu.dataPath | quote }}
+    genesis-file={{ .Values.node.besu.genesisFilePath | quote }}
+    logging={{ .Values.node.besu.logging | quote }}
+    node-private-key-file={{.Values.node.besu.privateKeyPath | quote }}
+    min-gas-price=0
+    
+    # Transaction Pool
+    tx-pool-retention-hours={{ .Values.node.besu.txPool.retentionHours }}
+    tx-pool-max-size={{ .Values.node.besu.txPool.maxSize }}
+
+    {{ if  .Values.node.besu.p2p.enabled -}}
+    # P2P network
+    p2p-enabled={{ .Values.node.besu.p2p.enabled }}
+    discovery-enabled={{ .Values.node.besu.p2p.discovery }}
+    p2p-host={{ .Values.deploy.p2p.host | quote }}
+    p2p-port={{ .Values.deploy.p2p.port }}
+    max-peers={{ .Values.node.besu.p2p.maxPeers }}
+    host-whitelist=["*"]
+    {{ end }}
+
+    {{ if  .Values.node.besu.rpc.enabled -}}
+    # JSON-RPC
+    rpc-http-enabled={{ .Values.node.besu.rpc.enabled }}
+    rpc-http-host={{ .Values.node.besu.rpc.host | quote }}
+    rpc-http-port={{ .Values.node.besu.rpc.port }}
+    rpc-http-api={{ .Values.node.besu.rpc.api }}
+    rpc-http-cors-origins={{ .Values.node.besu.rpc.corsOrigins }}
+    rpc-http-authentication-enabled={{ .Values.node.besu.rpc.authenticationEnabled }}
+    revert-reason-enabled=true
+    {{ end }}
+    {{- if eq .Values.deploy.network "david19-net" }}
+    bootnodes={{ .Values.node.besu.bootnodes.david19 }}
+    {{- else if eq .Values.deploy.network "protest-net" }}
+    bootnodes={{ .Values.node.besu.bootnodes.protest }}
+    {{- else if eq .Values.deploy.network "main-net" }}
+    bootnodes={{ .Values.node.besu.bootnodes.mainnet }}
+    {{- else }}
+    bootnodes={{ .Values.node.besu.bootnodes.david19 }}
+    {{- end }}    
+
+    {{ if  .Values.node.besu.graphql.enabled -}}
+    # GRAPHQL-RPC
+    graphql-http-enabled={{ .Values.node.besu.graphql.enabled }}
+    graphql-http-host={{ .Values.node.besu.graphql.host | quote }}
+    graphql-http-port={{ .Values.node.besu.graphql.port }}
+    graphql-http-cors-origins={{ .Values.node.besu.graphql.corsOrigins }}
+    {{ end }}
+
+    {{ if  .Values.node.besu.ws.enabled -}}
+    # WebSockets API
+    rpc-ws-enabled={{ .Values.node.besu.ws.enabled }}
+    rpc-ws-host={{ .Values.node.besu.ws.host | quote }}
+    rpc-ws-port={{ .Values.node.besu.ws.port }}
+    rpc-ws-api={{ .Values.node.besu.ws.api }}
+    rpc-ws-authentication-enabled={{ .Values.node.besu.ws.authenticationEnabled }}
+    {{ end }}
+
+    {{ if  .Values.node.besu.permissions.enabled -}}
+    # Permissioning
+
+    {{- if eq .Values.deploy.network "david19-net" }}
+
+    {{- else if eq  .Values.deploy.network "protest-net" }}
+    permissions-nodes-contract-enabled={{ .Values.node.besu.permissions.nodesContract.enabled }}
+    permissions-nodes-contract-address={{ .Values.node.besu.permissions.nodesContract.address | quote }}
+    permissions-accounts-contract-enabled={{ .Values.node.besu.permissions.accountsContract.enabled }}
+    permissions-accounts-contract-address={{ .Values.node.besu.permissions.accountsContract.address | quote }}
+    {{- else if eq  .Values.deploy.network "main-net" }}
+    permissions-nodes-contract-enabled={{ .Values.node.besu.permissions.nodesContract.enabled }}
+    permissions-nodes-contract-address={{ .Values.node.besu.permissions.nodesContract.address | quote }}
+    permissions-accounts-contract-enabled={{ .Values.node.besu.permissions.accountsContract.enabled }}
+    permissions-accounts-contract-address={{ .Values.node.besu.permissions.accountsContract.address | quote }}
+    {{- end }}
+    {{ end }} # Permissioning end
+
+    {{ if  .Values.quorumFlags.privacy -}}
+    # Privacy
+    privacy-enabled={{ .Values.quorumFlags.privacy }}
+    privacy-url={{ .Values.node.besu.privacy.url | quote }}
+    {{- if and (ne .Values.cluster.provider "local") (.Values.cluster.cloudNativeServices) }}
+    privacy-public-key-file="{{ .Values.node.besu.keysPath }}/{{ .Values.node.besu.privacy.pubkeyFile }}"
+    {{ else }}
+    privacy-public-key-file="{{ .Values.node.besu.privacy.pubkeysPath }}/{{ .Values.node.besu.privacy.pubkeyFile }}"
+    {{ end }}
+    privacy-onchain-groups-enabled={{ .Values.node.besu.privacy.onchainGroupsEnabled }}
+    {{ end }}
+
+    {{ if  .Values.node.besu.metricsPush.enabled -}}
+    # Metrics Push
+    {{- if eq .Values.deploy.network "david19-net" }}
+
+    {{- else if eq  .Values.deploy.network "protest-net" }}
+    metrics-push-enabled={{ .Values.node.besu.metricsPush.enabled }}
+    metrics-push-host={{ .Values.node.besu.metricsPush.host.protest | quote }}
+    metrics-push-port={{ .Values.node.besu.metricsPush.port }}
+    metrics-push-interval={{ .Values.node.besu.metricsPush.interval }}
+    metrics-push-prometheus-job={{ .Values.deploy.nodeName  | quote }}
+    {{- else if eq  .Values.deploy.network "main-net" }}
+    metrics-push-enabled={{ .Values.node.besu.metricsPush.enabled }}
+    metrics-push-host={{ .Values.node.besu.metricsPush.host.mainnet | quote }}
+    metrics-push-port={{ .Values.node.besu.metricsPush.port }}
+    metrics-push-interval={{ .Values.node.besu.metricsPush.interval }}
+    metrics-push-prometheus-job={{ .Values.deploy.nodeName | quote }}
+    {{- end }}
+    {{ end }} ##end metrics Push
+
+
+    {{- if eq .Values.deploy.network "david19-net" }}
+    network-id="648530"
+    {{- else if eq  .Values.deploy.network "protest-net" }}
+    network-id="648529"
+    {{- else if eq  .Values.deploy.network "main-net" }}
+    network-id="648541"
+    {{- end }}

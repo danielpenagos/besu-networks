@@ -1,0 +1,83 @@
+---
+
+quorumFlags:
+  privacy: false
+  removeKeysOnDelete: true
+  isBootnode: false    # Besu only, set this to true if this node is a bootnode
+  usesBootnodes: true # Besu only, set this to true if the network you are connecting to use a bootnode/s that are deployed in the cluster 
+
+cluster:
+  provider: google  # choose from: google | aws | azure
+  cloudNativeServices: false 
+  reclaimPolicy: Delete # set to either Retain or Delete; note that PVCs and PVs will still exist after a 'helm delete'. Setting to Retain will keep volumes even if PVCs/PVs are deleted in kubernetes. Setting to Delete will remove volumes from EC2 EBS when PVC is deleted
+
+aws:
+  # the aws cli commands uses the name 'quorum-node-secrets-sa' so only change this if you altered the name
+  serviceAccountName: quorum-node-secrets-sa
+  # the region you are deploying to
+  region: ap-southeast-2
+
+azure:
+  # the script/bootstrap.sh uses the name 'quorum-pod-identity' so only change this if you altered the name
+  identityName: quorum-pod-identity
+  # the clientId of the user assigned managed identity created in the template
+  identityClientId: azure-clientId
+  keyvaultName: azure-keyvault
+  # the tenant ID of the key vault
+  tenantId: azure-tenantId
+  # the subscription ID to use - this needs to be set explictly when using multi tenancy
+  subscriptionId: azure-subscriptionId
+
+node:
+  besu:
+    logging: DEBUG
+    permissions:
+      nodesContract:
+        enabled: true
+      accountsContract:
+        enabled: false
+
+    envBesuOpts: ""  
+    metricsPush:
+      host:
+        david19: ""
+        protest: "146.148.100.227"
+        mainnet: "35.231.59.254"
+    resources:
+      cpuLimit: 2
+      cpuRequest: 0.5
+      memLimit: "3G"
+      memRequest: "1G"
+    account:
+      password: 'password'
+    rpc:
+      enabled: true
+      api: '["ETH","NET","IBFT","WEB3","EEA","PRIV"]'
+    ws:
+      enabled: true
+      api: '["ETH","NET","IBFT","WEB3","EEA","PRIV"]' 
+    graphql:
+      enabled: true
+    bootnodes:
+      david19: '["enode://aef21d8ba679f55a7c28bbafb826b84cf1db929916b4d322b590037a584a0d08aef9d836289b15c2c4ce7fdb9f2f4abf705314b85fba62a8f01539e92491da80@34.73.74.151:60606","enode://4791c69f6a11486ecc6d4450aa8922865f078816176e166ccfc1882ae06272bcf71bdf7fa1d99f1a8815a7899dae0119ea06bac59a4810f92c2a9c89689610ca@35.237.20.121:60606"]'
+      protest: '["enode://fe50d1c3d1ebbc37cdfb54f6c767e3510a415b91e60c1a6c495b9f91bbf2eb74011cfb0e60547d90dc189a3f74703e847bd8daff93a58c494767bc7a6b94762d@52.3.231.99:60606","enode://140626be59e4f2c57ab9787481dd571bc8ed87764a5b035fa33f38f746d770484cfc0eca0dc5d00c7bfb18caa057477462f7af216a84bd9faea68e446e4ed1c7@35.196.221.232:60606","enode://9100f954583d3d74528165f07d842ce544139d9ad4bc3f2cf06abe6fb4cf459201eb06d38120bf21f40f39107ba37bc7a1e1142728bd21c33b6457d25a7b8f8d@52.249.249.38:60606","enode://b97f1b94e3a5e78de9a6318bfaf5e97eda84aeda20b5407c3694c39e79cfc8cb7088bb92f73635f7c64da9ee4a347212b61a3070c584946b9dae0a37e4af8009@34.75.95.21:60606","enode://9639ef4c952086ca568c59f69a228e6d36d81891b0ffd726fdb36ef004138d715908c1cda5ab9a040f3c4b290961e7d4309782b9eab22b572941e1b0d9a3e1dc@13.72.98.253:60606"]'
+      mainnet: '["enode://ed664ba8ec6959b1b2bd70dce16286cb1688f2f8ab13b8571b0ba4eeb73df9d5f5acb32efff7aabd71fc865d374d2e9c96c524ca543c9aa65dd6543f83852521@35.229.62.151:60606","enode://b10272c5206cd1ec12c6737a41df471e6384cde3e6522a212e3839be09981133eccdacc4ef1c7aacd3aeb63debfa82643d92820bb9f045245cb6badb74dff198@34.138.6.187:60606"]'
+
+volumen:
+  resources:
+    storage:
+      david19: 100Gi
+      protest: 200Gi
+      mainnet: 320Gi
+
+deploy:
+  network:  david19-net # choose from: david19-net | protest-net | main-net
+  typenode: writer # choose from: writer | validator | bootnode | tessera
+  publicIP: 35.188.65.242 # david 35.188.65.242, protest 35.194.35.231, mainnet 34.66.153.82
+  p2p:
+    host: 35.226.244.229
+    port: 60606
+  workerName: gke-david19-default-pool-445cd569-al7d
+  dnsName: lacchain.com
+  nodeName: test-david19-writer-helm
+  nodeEmail: tech.support@lac-net.net

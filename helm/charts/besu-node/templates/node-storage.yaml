@@ -1,0 +1,105 @@
+{{- if eq .Values.cluster.provider "azure" }}
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ include "besu-node.fullname" . }}-storage
+  namespace: {{ .Release.Namespace }}
+provisioner: kubernetes.io/azure-file
+reclaimPolicy: {{ .Values.cluster.reclaimPolicy }}
+allowVolumeExpansion: true
+mountOptions:
+  - dir_mode=0755
+  - file_mode=0755
+  - uid=1000
+  - gid=1000
+  - mfsymlinks
+parameters:
+  skuName: Standard_LRS
+
+{{- else if eq .Values.cluster.provider "aws" }}
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ include "besu-node.fullname" . }}-storage
+  namespace: {{ .Release.Namespace }}
+provisioner: ebs.csi.aws.com
+reclaimPolicy: {{ .Values.cluster.reclaimPolicy }}
+allowVolumeExpansion: true
+parameters:
+  type: gp3
+  fsType: ext4
+
+{{- else if eq .Values.cluster.provider "google" }}
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ include "besu-node.fullname" . }}-storage
+  namespace: {{ .Release.Namespace }}
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+reclaimPolicy: {{ .Values.cluster.reclaimPolicy }}
+allowVolumeExpansion: true
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "besu-node.fullname" . }}-pvc
+  namespace: {{ .Release.Namespace }}
+spec:
+  storageClassName:  {{ include "besu-node.fullname" . }}-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+{{- if eq .Values.deploy.network "david19-net" }}
+      storage: {{ .Values.volumen.resources.storage.david19 }}
+{{- else if eq .Values.deploy.network "protest-net" }}
+      storage: {{ .Values.volumen.resources.storage.protest }}
+{{- else if eq .Values.deploy.network "main-net" }}
+      storage: {{ .Values.volumen.resources.storage.mainnet }}
+{{- else }}
+      storage: {{ .Values.volumen.resources.storage.mainnet }}
+{{- end }} 
+
+{{- if or (eq .Values.deploy.network "protest-net") (eq .Values.deploy.network "main-net") }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name:  {{ include "besu-node.fullname" . }}-ethstats-pvc 
+  namespace: {{ .Release.Namespace }}
+spec:
+  storageClassName:  {{ include "besu-node.fullname" . }}-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+{{- end }} 
+
+{{- else }}
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ include "besu-node.fullname" . }}-storage
+  namespace: {{ .Release.Namespace }}
+  labels:
+    type: local
+spec:
+  persistentVolumeReclaimPolicy: {{ .Values.cluster.reclaimPolicy }}
+  storageClassName: {{ include "besu-node.fullname" . }}-storage
+  capacity:
+    storage: "{{ .Values.storage.sizeLimit }}"
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/tmp/{{ include "besu-node.fullname" . }}"
+
+{{- end }}
+
