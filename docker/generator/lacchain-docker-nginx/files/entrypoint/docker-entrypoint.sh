@@ -37,5 +37,7 @@ if [ "$1" = "nginx" -o "$1" = "nginx-debug" ]; then
 fi
 while [ "$(curl --insecure -s -o /dev/null -w '%{http_code}' ${HOST_BESU}:4545/liveness)" != "200" ]; do sleep 5; done; echo "success";
 envsubst '$HOST_BESU $HOST_RELAY_SIGNER' < /etc/nginx/conf.d/default.conf.template >/etc/nginx/conf.d/default.conf 
+nginx -t
+#nginx -T
 sleep 2;
 exec "$@"
