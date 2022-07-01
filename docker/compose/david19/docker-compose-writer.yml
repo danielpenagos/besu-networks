@@ -5,7 +5,7 @@ services:
     container_name: writer-besu-david19
     environment:
       BESU_LOGGING: INFO
-      BESU_P2P_HOST: 179.6.80.43
+      BESU_P2P_HOST: 179.6.81.244
       BESU_P2P_PORT: 60606
       BESU_RPC_HTTP_PORT    : 4545
       BESU_RPC_WS_PORT      : 4546
@@ -28,7 +28,8 @@ services:
       - ./files/genesis.json:/etc/genesis/genesis.json
       - ./files/config-writer.toml:/etc/besu/config.toml
     networks:
-      - lacchain
+      lacchain: 
+          ipv4_address: 172.19.0.2
   relay:
     image: lacnetnetworks/relay-signer-lacchain:1.0.0
     container_name: relay-signer-david19
@@ -40,20 +41,27 @@ services:
     volumes:
       - ./writer1/data:/opt/secret
     networks:
-      - lacchain
+      lacchain:
+        ipv4_address: 172.19.0.3
   nginx:
     image: lacnetnetworks/writer-nginx-lacchain:1.0.0
     container_name: writer-nginx-david19
     environment:
-      HOST_RELAY_SIGNER: relay-signer-david19
-      HOST_BESU: writer-besu-david19
-      PUBLIC_IP: 179.6.80.43
+      HOST_RELAY_SIGNER: 172.19.0.3
+      HOST_BESU: 172.19.0.2
+      PUBLIC_IP: 179.6.81.244
     ports:
       - 8080:80
     volumes:
       - ./writer1/data:/opt/secret
     networks:
-      - lacchain
+      lacchain:
+        ipv4_address: 172.19.0.4
 networks:
     lacchain:
         driver: bridge
+        ipam:
+          config:
+            - subnet: 172.19.0.0/16
+              gateway: 172.19.0.1
+                 
