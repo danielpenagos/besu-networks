@@ -28,8 +28,7 @@ services:
       - ./files/genesis.json:/etc/genesis/genesis.json
       - ./files/config-writer.toml:/etc/besu/config.toml
     networks:
-      lacchain: 
-          ipv4_address: 172.19.0.2
+      - lacchain 
   relay:
     image: lacnetnetworks/relay-signer-lacchain:1.0.0
     container_name: relay-signer-david19
@@ -41,27 +40,21 @@ services:
     volumes:
       - ./writer1/data:/opt/secret
     networks:
-      lacchain:
-        ipv4_address: 172.19.0.3
+      - lacchain
   nginx:
     image: lacnetnetworks/writer-nginx-lacchain:1.0.0
     container_name: writer-nginx-david19
     environment:
-      HOST_RELAY_SIGNER: 172.19.0.3
-      HOST_BESU: 172.19.0.2
+      HOST_RELAY_SIGNER: relay-signer-david19
+      HOST_BESU: writer-besu-david19
       PUBLIC_IP: 179.6.81.244
     ports:
       - 8080:80
     volumes:
       - ./writer1/data:/opt/secret
     networks:
-      lacchain:
-        ipv4_address: 172.19.0.4
+      - lacchain
 networks:
     lacchain:
         driver: bridge
-        ipam:
-          config:
-            - subnet: 172.19.0.0/16
-              gateway: 172.19.0.1
                  
