@@ -18,10 +18,10 @@ services:
         sleep 3; 
         /opt/besu/bin/besu  --config-file=/etc/besu/config.toml  --node-private-key-file=/data/besu/key  
     ports:
-      - 4545:4545
-      - 4547:4547
-      - 4546:4546
-      - 60606:60606
+      - 4545
+      - 4547
+      - 4546
+      - 60606
     volumes:
       - ./writer1/data:/data/besu
       - ./files/genesis.json:/etc/genesis/genesis.json
@@ -45,29 +45,11 @@ services:
     container_name: writer-nginx-local
     environment:
       HOST_RELAY_SIGNER: relay-signer-local
-      HOST_BESU: besu
+      HOST_BESU: writer-besu-local
     depends_on:
       besu:
         condition: service_started
     ports:
-      - 5100:80
+      - 4545:80
     volumes:
       - ./writer1/data:/opt/secret
-#  relay-hub-load:
-#    container_name: relay-hub-contracts
-#    image: lacnetnetworks/lacchain-relay-hub:1.0.0
-#    environment:
-#      BESU_NODE_PERM_ENDPOINT: http://besu:4545
-#    depends_on:
-#      besu:
-#        condition: service_started
-#    command: /bin/bash -c "sleep 60 && echo deploying smart contracts && truffle migrate --reset"    
-#  permissioning-contracts-load:
-#    container_name: permissioning-contracts
-#    image: lacnetnetworks/lacchain-permissioning-start:1.0.0
-#    environment:
-#      BESU_NODE_PERM_ENDPOINT: http://besu:4545
-#    depends_on:
-#      besu:
-#        condition: service_started
-#    command: /bin/bash -c "sleep 120 && echo deploying smart contracts && truffle migrate --reset"
