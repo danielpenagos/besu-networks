@@ -1,0 +1,55 @@
+version: "3.7"
+services:
+  besu: 
+    image: lacnetnetworks/lacchain-besu:21.1.6
+    container_name: writer-besu-local
+    environment:
+      BESU_LOGGING: INFO
+      BESU_P2P_PORT: 60606
+      BESU_RPC_HTTP_PORT    : 4545
+      BESU_RPC_WS_PORT      : 4546
+      BESU_GRAPHQL_HTTP_PORT: 4547
+    entrypoint:
+      - /bin/sh
+      - -c
+    command:
+      - |
+        /opt/besu/bin/besu --genesis-file=/etc/genesis/genesis.json --data-path=/data/besu public-key  export-address --to=/data/besu/nodeAddress
+        sleep 3; 
+        /opt/besu/bin/besu  --config-file=/etc/besu/config.toml  --node-private-key-file=/data/besu/key  
+    ports:
+      - 4545
+      - 4547
+      - 4546
+      - 60606
+    volumes:
+      - ./writer1/data:/data/besu
+      - ./files/genesis.json:/etc/genesis/genesis.json
+      - ./files/config-writer.toml:/etc/besu/config.toml
+      - ./files/nodekey:/data/besu/key
+  relay:
+    image: lacnetnetworks/relay-signer-lacchain:1.0.0
+    container_name: relay-signer-local
+    environment:
+      HOST_BESU: besu
+      CONTRACT_ADDRESS: '0x1Fa12c57ABab623beCc34A69cB526AD39c6338D6'
+    depends_on:
+      besu:
+        condition: service_started
+    ports:
+      - 9001
+    volumes:
+      - ./files/nodekey:/opt/secret/key
+  nginx:
+    image: lacnetnetworks/writer-nginx-lacchain:1.0.0
+    container_name: writer-nginx-local
+    environment:
+      HOST_RELAY_SIGNER: relay-signer-local
+      HOST_BESU: writer-besu-local
+    depends_on:
+      besu:
+        condition: service_started
+    ports:
+      - 4545:80
+    volumes:
+      - ./writer1/data:/opt/secret
