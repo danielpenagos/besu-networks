@@ -318,3 +318,7 @@ Finally click on "Confirm" button. The transaction will be send to the blockchai
 ### Tutorials to Deploy your first Smart Contracts
 
 We have [several tutorials](https://github.com/lacchain/gas-management/tree/master/docs/tutorial) that you can follow to deploy your first smart contracts, but we recommend you to start reading and understanding the [GAS distribution mechanism](https://github.com/lacchain/gas-management).
+
+### Authentication and Authorization
+
+It is important to know the risk of exposing the RPC port publicly, in case it is exposed we recommend activating an access layer which can be found in the following guide about [authentication and authorization](https://besu.hyperledger.org/en/stable/HowTo/Interact/APIs/Authentication/)
