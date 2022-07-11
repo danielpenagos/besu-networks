@@ -3,10 +3,10 @@
   become: yes
   vars_prompt:
     - name: "nodeTypeT"
-      prompt: "************************\n[0]:validator\n[1]:boot\n[2]:writer\n[3]:tessera\nPlease, choose which type of node are you updating"
+      prompt: "************************\n[0]:validator\n[1]:boot\n[2]:writer\nPlease, choose which type of node are you updating"
       private: no
     - name: "networkT"
-      prompt: "************************\n[0]:mainnet-omega\n[1]:pro-testnet\n[2]:testnet-david19\nPlease, choose in which network are you updating"
+      prompt: "************************\n[0]:mainnet-omega\n[1]:pro-testnet\nPlease, choose in which network are you updating"
       private: no
 
   vars:

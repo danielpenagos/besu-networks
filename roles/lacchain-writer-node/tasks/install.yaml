@@ -40,7 +40,7 @@
 
 - name: install relay signer
   import_tasks: "install-relay-signer.yaml"
-  when: (networkT == '0') or (networkT == '2')  # relay-signer is disable on pro-testnet
+  when: (networkT == '0') # relay-signer is disable on pro-testnet
 
 - name: start ethstats client             
   import_tasks: "start-ethstats-client.yaml"

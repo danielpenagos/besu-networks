@@ -17,12 +17,12 @@
 
 Recommended hardware features for Besu node:
 
-| Recommended Hardware | On Testnet-David19 | On Pro-Testnet | On Mainnet-Omega |
-|:---:|:---:|:---:|:---:|
-| CPU | 2 vCPUs | 2 vCPUs | 4 vCPUs compute optimized|
-| RAM Memory | 8 GB | 8 GB | 16 GB |
-| Hard Disk | 150 GB SSD | 250 GB SSD | 375 GB SSD |
-| IOPs | ----- | 15,000 IOPS READ  5,000 IOPS WRITE | 70,000 IOPS READ  50,000 IOPS WRITE |
+| Recommended Hardware | On Pro-Testnet | On Mainnet-Omega |
+|:---:|:---:|:---:|
+| CPU | 2 vCPUs | 4 vCPUs compute optimized|
+| RAM Memory | 8 GB | 16 GB |
+| Hard Disk | 250 GB SSD | 375 GB SSD |
+| IOPs | 15,000 IOPS READ  5,000 IOPS WRITE | 70,000 IOPS READ  50,000 IOPS WRITE |
 
 * **Operating System**: Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, Centos7, always 64 bits
 
@@ -117,10 +117,9 @@ Please, choose which type of node are you deploying:
 
 [0]:mainnet-omega
 [1]:pro-testnet
-[2]:testnet-david19
 Please, choose in which network are you deploying:
 ```
-So, if you want to deploy a writer node on mainnet-omega, first type 2 for writer, next it will be 0 for mainnet-omega, for pro-testnet 1 and 2 for testet-david19.
+So, if you want to deploy a writer node on mainnet-omega, first type 2 for writer, next it will be 0 for mainnet-omega and for pro-testnet 1.
 
 * To deploy a **node** with/without **tessera node**  execute the following command in your **local machine**. If needed, don't forget to set the private key with option `--private-key` and the remote user with option `-u` to SSH connection:
 
