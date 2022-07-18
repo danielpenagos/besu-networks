@@ -49,7 +49,7 @@ services:
       HOST_BESU: writer-besu-david19
       PUBLIC_IP: 179.6.81.244
     ports:
-      - 8080:80
+      - 80:80
     volumes:
       - ./writer1/data:/opt/secret
     networks:
