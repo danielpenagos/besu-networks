@@ -9,7 +9,7 @@
 data-path="/data/besu"
 genesis-file="/etc/genesis/genesis.json"
 logging="INFO"
-node-private-key-file="/keys/nodekey"
+#node-private-key-file="/keys/nodekey"
 min-gas-price=0
 
 # Transaction Pool
