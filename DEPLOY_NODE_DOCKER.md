@@ -1,7 +1,7 @@
 # Deploying a Node
 
-* Below you will find instructions for the deployment of writer nodes  using docker-compose on ProTest and David19 networks. This implies that it will run on your local machine and you must have docker and docker compose installed.
 
+* Here you will find  instructions for the deployment of LACChain nodes using **Dockers**.By following this guide, your wiil deploy a writer node in your local machine. During the process of node deploying, you will choose about the network in which you would like to deploy your nodes. At  At this moment the only network available is the Pro-Testnet. For deploying nodes in the Mainnet we recommend you to install using [Ansible](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE_HELM.md) or using [Kubernetes](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE_HELM.md).
 
 
 * In order for your node to get permissioned, you need to complete the permissioning process first. In order to understand better what are the types of networks available and the permissioning processes for each network, please check the [README](https://github.com/LACNetNetworks/besu-networks/blob/master/README.md).
@@ -28,7 +28,7 @@ It is necessary to enable the following network ports in the machine in which we
 
   * **4545**: TCP - Port to establish RPC communication. (this port is used for applications that communicate with LACChain and may be leaked to the Internet)
 * **Nginx**:
-  * **8080**: TCP - Port to establish RPC communication to Gas Model.
+  * **80**: TCP - Port to establish RPC communication to Gas Model.
 
 ## Pre-requisites
 
@@ -42,7 +42,7 @@ Following the instructions to [install docker desktop](https://docs.docker.com/d
 
 ### Clone Repository ####
 
-To configure and install Besu and Tessera, you must clone this git repository in your **local machine**.
+To configure and install Besu , you must clone this git repository in your **local machine**.
 
 ```shell
 $ git clone https://github.com/LACNetNetworks/besu-networks
@@ -55,18 +55,18 @@ $ cd besu-networks/docker/compose
 
 ### Preparing installation of a new node ###
 
-* There are three types of nodes (Bootnode / Validator / Writer)  that can be created in the blockchain networks orchestrated by LACNet but this moment **only deploy writer node** using  **docker-compose**.
+* There are three types of nodes (Bootnode / Validator / Writer)  that can be created in the blockchain networks orchestrated by LACNet  using  **docker-compose**.
 
 ### environment variable ###
 * **Besu Node**:
 
   * **BESU_LOGGING**:LOGGING  - Level logging Besu (INFO, DEBUG, TRACE) - default INFO.
 
-  * **BESU_P2P_HOST**: P2P Public IP Egress.  
+  * **BESU_P2P_HOST**: P2P Public IP (IP public your local machine ).  
 
   * **BESU_P2P_PORT**: P2P PORT  - Default (60606).
 
-  * **PUBLIC_IP**:  TCP Public IP.
+  * **PUBLIC_IP**:  TCP Public IP (IP public your local machine ).
 
   * **NODE_NAME**: Name you want for your node in the network monitoring tool.
 
@@ -81,11 +81,10 @@ $ cd besu-networks/docker/compose
 ```
 docker
   ├──compose  
-    ├── david19
     └── protest
 
 ```
-So, if you want to deploy a writer node on   pro-testnet cd to protest or testet-david19 cd to  david19.
+So, if you want to deploy a writer node on **Pro-Testnet** then **cd** to **protest**.
 
 
 
@@ -96,7 +95,7 @@ So, if you want to deploy a writer node on   pro-testnet cd to protest or testet
       ```
 
 
-* At the end of the installation, if everything worked a BESU service will be created managed by Systemctl with **Running** status.
+* At the end of the installation, if everything worked a BESU container will be created managed by docker with **Up** status.
 
 
 Don't forget to write down your node's "enode" :
@@ -110,16 +109,14 @@ Result:
 
 ```
 
-
-
 * In order to be permissioned, now you need to follow [administrative steps of the permissioning process](https://github.com/LACNetNetworks/besu-networks/blob/master/README.md).
-* Once you are permissioned, you can verify that you are connected to other nodes in the network by following the steps detailed in [#issue33](https://github.com/lacchain/besu-network/issues/33).
+
 
 ## Node Configuration
 
 ### Configuring the Besu node file ###
 
-The default configuration should work for everyone. However, depending on your needs and technical knowledge you can modify your  node's settings in  `config-writer.toml`, for RPC access or authentication. Please refer to the [reference documentation](https://besu.hyperledger.org/en/21.1.6/Reference/CLI/CLI-Syntax/).
+The default configuration should work for everyone. However, depending on your needs and technical knowledge you can modify your  node's settings in  `/files/config-writer.toml`, for RPC access or authentication. Please refer to the [reference documentation](https://besu.hyperledger.org/en/21.1.6/Reference/CLI/CLI-Syntax/).
 
 	
 ## Checking your connection
