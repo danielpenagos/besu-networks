@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const Web3 = require('web3')
 const nunjucks = require('nunjucks')
 var minimist = require('minimist')
@@ -40,6 +41,12 @@ if (args.network === 'protestnet'){
     network = 648541;
     fireflyContract = "0xc7Dd9bcb9F27F13AefB8143EC5EadCd5aee7969D";
     factoryContract = "0x0a21694e21A7fB0F894abD7022770572f601ED0F";
+}
+
+try {
+    fs.mkdirSync(path.join(__dirname, "firefly_core"));
+} catch (err){
+    console.error(err);
 }
 
 try {
