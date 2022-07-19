@@ -1,23 +1,21 @@
 # Deploying a Node
 
-* Below you will find instructions for the deployment of nodes on **Kubernetes** using **HELM**. This implies that it will be executed from a local machine on a remote server. The local machine and the remote server will communicate via helm.
-
-* The installation with kubernetes manifests  is compatible with **Google Kubernetes Engine** .
+* Here you will find instructions for the deployment of nodes on **Kubernetes** using **HELM**. This implies that it will be executed from a local machine on a remote server. The local machine and the remote server will communicate via helm. The installation on kubernetes  is compatible with **Google Kubernetes Engine**.
 
 * In order for your node to get permissioned, you need to complete the permissioning process first. In order to understand better what are the types of networks available and the permissioning processes for each network, please check the [README](https://github.com/LACNetNetworks/besu-networks/blob/master/README.md).
 
-* If an organization intends to create private channels, we have facilitated the integration with the private transaction manager [Tessera](https://docs.tessera.consensys.net/en/stable/). It is worth mentioning that **Tessera is optional** and entities can join the networks only with Besu nodes.
+
 
 ## Minimum System Requirements
 
 Recommended hardware features for Besu node:
 
-| Recommended Hardware | On Testnet-David19 | On Pro-Testnet | On Mainnet-Omega |
-|:---:|:---:|:---:|:---:|
-| CPU | 2 vCPUs | 2 vCPUs | 4 vCPUs compute optimized|
-| RAM Memory | 8 GB | 8 GB | 16 GB |
-| Hard Disk | 100 GB SSD | 200 GB SSD | 300 GB SSD |
-| IOPs | ----- | ----- | 70,000 IOPS READ  50,000 IOPS WRITE |
+| Recommended Hardware | On Pro-Testnet | On Mainnet-Omega |
+|:---:|:---:|:---:|
+| CPU | 2 vCPUs | 4 vCPUs compute optimized|
+| RAM Memory | 8 GB | 16 GB |
+| Hard Disk | 200 GB SSD | 300 GB SSD |
+| IOPs | ----- | 70,000 IOPS READ  50,000 IOPS WRITE |
 
 * **Kubernetes**: Google Kubernestes Engine GKE.
 
@@ -28,10 +26,6 @@ It is necessary to enable the following network ports in the machine in which we
 
   * **4545**: TCP - Port to establish RPC communication. (this port is used for applications that communicate with LACChain and may be leaked to the Internet)
 
-* **Tessera Node (Optional component for private transactions)**: 
-  * **4040**: TCP - Port to communicate with other Tessera nodes.
-  
-  * **4444**: TCP - Port for communication between Besu and Tessera.
 
 ## Pre-requisites
 
@@ -62,18 +56,18 @@ $ cd besu-networks/helm/
 
 ### Preparing installation of a new node ###
 
-* There are three types of nodes (Bootnode / Validator / Writer) + the optional Tessera (for private side-chains) that can be created in the blockchain networks orchestrated by LACNet at this moment.
+* There are three types of nodes (Bootnode / Validator / Writer)  that can be created in the blockchain networks orchestrated by LACNet at this moment.
 
 ### Values variable ###
 
-*  There are four types of values **bootnode.yml**, **alidator.yml**, **writer.yml** y **tessera.yml**.
+*  There are three types of values **bootnode.yml**, **validator.yml** and **writer.yml**.
 *  The values ​​you have to set are in the **deploy** section. These are the following:
 
 * **Values**:
 
   * **network**:    Type Network  - david19-net | protest-net | main-net.
 
-  * **typenode**:   Type of Node  - writer | validator | bootnode | tessera.
+  * **typenode**:   Type of Node  - writer | validator | bootnode.
 
   * **publicIP**:   TCP Public IP Ingress.
 
@@ -89,8 +83,6 @@ $ cd besu-networks/helm/
 
   * **nodeEmail**:  email address you want to register for your node in the network monitoring tool. It's a good idea to provide the e-mail of the technical contact identified or to be identified in the registration form as part of the on-boarding process.
 
-
-  
 
 ### Set value to environment variable ###
 * **TCP Public IP Ingress**: Generate a *_static public IP_* in your cloud provider. Then replace the public ip in the load balance *_(loadBalancerIP)_* service manifest. finally update the **publicIP** environment variable with this IP.
@@ -134,20 +126,14 @@ We obtain the name and IP of the cluster nodes with the following command.
       $ helm install <chart-name>  ./charts/besu-node --namespace  <namespace-name> --create-namespace --values ./values/validator.yml 
       ```
 
- * To deploy a **Node Tessera**   
-
-      ```shell
-      $ helm install <chart-name>  ./charts/besu-node --namespace  <namespace-name> --create-namespace --values ./values/tessera.yml 
-      ```
 
 * e.g. deploy **Node Writer** on **Mainnet-Omega**  network
  
     ```shell
       $ helm install lacnet-writer-1 ./charts/besu-node --namespace  lacchain-main-net --create-namespace --values ./values/writer.yml
     ```
-* At the end of the installation, if everything worked a BESU service will be created managed by Systemctl with **Running** status.
+* At the end of the installation, if everything worked a BESU pod will be created managed by kubernetes with **Running** status. Aditional  objects created are namespace, service load balancer, configmap, and volume.
 
-K8s objects created are namespace, stateful pods, service load balancer, configmap, and volume.
 
 Don't forget to write down your node's "enode" :
 ```shell
@@ -160,17 +146,16 @@ Result:
 
 ```
 
-* If everything worked, an TESSERA service **(if it was chosen)** and a BESU service  **Running** status on Pod.
-
 
 * In order to be permissioned, now you need to follow [administrative steps of the permissioning process](https://github.com/LACNetNetworks/besu-networks/blob/master/README.md).
-* Once you are permissioned, you can verify that you are connected to other nodes in the network by following the steps detailed in [#issue33](https://github.com/lacchain/besu-network/issues/33).
+
+
 
 ## Node Configuration
 
 ### Configuring the Besu node file ###
 
-The default configuration should work for everyone. However, depending on your needs and technical knowledge you can modify your  node's settings in values folder  `writer.yml bootnode.yml validator.yml tessera.yml`,  for RPC access or authentication. Please refer to the [reference documentation](https://besu.hyperledger.org/en/21.1.6/Reference/CLI/CLI-Syntax/).
+The default configuration should work for everyone. However, depending on your needs and technical knowledge you can modify your  node's settings in values folder  `writer.yml bootnode.yml validator.yml`,  for RPC access or authentication. Please refer to the [reference documentation](https://besu.hyperledger.org/en/21.1.6/Reference/CLI/CLI-Syntax/).
 
 	
 ## Checking your connection
