@@ -32,7 +32,7 @@ services:
         max-size: 10m
   ethsigner:
     container_name: ethsigner
-    image: lacnetnetworks/ethsigner:latest
+    image: lacnetnetworks/ethsigner:1.0.0
     user: root
     command: --chain-id={{ networkid }} --node-address={{ nodeaddress }} --downstream-http-host={{ nodeip }} --downstream-http-port=80 --http-listen-host=0.0.0.0  
       multikey-signer --directory=/data/keystore
@@ -101,7 +101,7 @@ services:
     - 5109:3001
   tokens:
     container_name: tokens
-    image: lacnetnetworks/firefly-tokens-erc20-erc721:latest
+    image: lacnetnetworks/firefly-tokens-erc20-erc721:1.0.0
     environment:
       AUTO_INIT: "false"
       ETHCONNECT_TOPIC: tokens
