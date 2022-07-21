@@ -1,0 +1,52 @@
+log:
+  level: debug
+debug:
+  port: 6060
+http:
+  port: 5000
+  address: 0.0.0.0
+  publicURL: http://127.0.0.1:5000
+admin:
+  port: 5101
+  address: 0.0.0.0
+  publicURL: http://127.0.0.1:5101
+  enabled: true
+metrics: {}
+ui:
+  path: ./frontend
+node:
+  name: testingNode
+org:
+  name: Test
+  key: 0x3e3f6d6b386732e4045df72ef8c9f142611085ee
+blockchain:
+  type: ethereum
+  ethereum:
+    ethconnect:
+      url: http://ethconnect:8080
+      topic: "0"
+      instance: 0x4ca1ec8E10E4bD9797882706C644A8e48314731B 
+database:
+  type: sqlite3
+  sqlite3:
+    url: /etc/firefly/db?_busy_timeout=5000
+    migrations:
+      auto: true
+publicstorage:
+  type: ipfs
+  ipfs:
+    api:
+      url: http://ipfs:5001
+    gateway:
+      url: http://ipfs:8080
+dataexchange:
+  type: ffdx
+  ffdx:
+    url: http://dataexchange:3000
+tokens:
+- plugin: fftokens
+  name: erc20_erc721
+  url: http://tokens:3000
+event:
+  dbevents:
+    bufferSize: 10000

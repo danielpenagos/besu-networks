@@ -1,0 +1,12 @@
+rest:
+  rest-gateway:
+    rpc:
+      url: http://ethsigner:8545
+    openapi:
+      eventPollingIntervalSec: 1
+      storagePath: ./abis
+      eventsDB: ./events
+    http:
+      port: 8080
+    maxTXWaitTime: 60
+    maxInFlight: 10
