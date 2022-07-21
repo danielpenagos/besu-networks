@@ -9,7 +9,7 @@ RUN apk upgrade --update-cache --available && \
 RUN mkdir -m 0440 /usr/local/tessera && \
     mkdir -m 0440 /opt/lacchain && \
     mkdir -m 0440 /opt/lacchain/tessera && \
-    mkdir -m 0440 /opt/lacchain/tessera/keystor && \
+    mkdir -m 0440 /opt/lacchain/tessera/keystore && \
     mkdir -m 0440  /opt/lacchain/tmp && \
     mkdir -m 0440  /opt/lacchain/pwd && \
     echo "default_password" > /opt/lacchain/pwd/.account_pass
@@ -22,7 +22,6 @@ COPY  ./files/docker-entrypoint.sh /opt/lacchain/entrypoint/docker-entrypoint.sh
 WORKDIR /opt/lacchain/tessera/certificates
 RUN chmod 0440 /opt/lacchain/tessera/certificates && \
     mkdir -m 0440 /opt/lacchain/tessera/certificates/CAs && \
-    mkdir -m 0440  /opt/lacchain/tessera/keystore && \
     chmod 777 /opt/lacchain/start-tessera.sh
 WORKDIR /opt/lacchain/
 

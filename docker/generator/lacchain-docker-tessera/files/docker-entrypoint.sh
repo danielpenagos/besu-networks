@@ -14,13 +14,21 @@ openssl genrsa -out tessera_ca.key 2048 && \
     openssl x509 -req -in /opt/lacchain/tessera/certificates/tessera_cer.csr -CA /opt/lacchain/tessera/certificates/tessera_ca.pem -CAkey /opt/lacchain/tessera/certificates/tessera_ca.key -CAcreateserial -out tessera_cer.pem -days 500 -sha256 -extfile /opt/lacchain/tessera/openssl.cnf -extensions v3_req && \
     echo "fase 2"
 cd /opt/lacchain/tessera/keystore
-mkdir  /data/tessera && mkdir  /data/tessera/keystore
-#cat /opt/lacchain/pwd/.account_pass | java -jar /usr/local/tessera/tessera-app.jar -keygen -filename nodeKey 
-cat /opt/lacchain/pwd/.account_pass | java -jar /tessera/tessera-app.jar -keygen -filename nodeKey 
 
-cp /opt/lacchain/tessera/keystore/nodeKey.pub /data/tessera/keystore/nodeKey.pub
+#cat /opt/lacchain/pwd/.account_pass | java -jar /usr/local/tessera/tessera-app.jar -keygen -filename nodeKey 
+
+
+FILE=/opt/lacchain/tessera/keystore/nodeKey.pub 
+if [ -f "$FILE" ]; then
+    echo "$FILE exists."
+else 
+    echo "$FILE does not exist."
+    cat /opt/lacchain/pwd/.account_pass | java -jar /tessera/tessera-app.jar -keygen -filename nodeKey 
+   # cp /opt/lacchain/tessera/keystore/nodeKey.pub /data/tessera/keystore/nodeKey.pub
+fi
+
 
 #while [ "$(curl --insecure -s -o /dev/null -w '%{http_code}' ${HOST_BESU}:4545/liveness)" != "200" ]; do sleep 5; done; echo "success";
-
+ echo "finsh entrypoint"
 sleep 2;
 exec "$@"
