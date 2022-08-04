@@ -1,34 +1,29 @@
-# Deploying a Node
+# Create Private Channel
 
 
-* Here you will find  instructions for the deployment of LACChain nodes using **Dockers**.By following this guide, your wiil deploy a writer node in your local machine. During the process of node deploying, you will choose about the network in which you would like to deploy your nodes. At  At this moment the only network available is the Pro-Testnet. For deploying nodes in the Mainnet we recommend you to install using [Ansible](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE_HELM.md) or using [Kubernetes](https://github.com/LACNetNetworks/besu-networks/blob/master/DEPLOY_NODE_HELM.md).
-
-
-* In order for your node to get permissioned, you need to complete the permissioning process first. In order to understand better what are the types of networks available and the permissioning processes for each network, please check the [README](https://github.com/LACNetNetworks/besu-networks/blob/master/README.md).
+* Here you will find instructions to create private channel using Tessera on **Dockers** .
 
 
 
 ## Minimum System Requirements
 
-Recommended hardware features for Besu node:
+Recommended hardware features for Tessera node:
 
-| Recommended Hardware | On Testnet-David19 | On Pro-Testnet |
-|:---:|:---:|:---:|
-| CPU | 2 vCPUs | 2 vCPUs | 
-| RAM Memory | 8 GB | 8 GB | 
-| Hard Disk | 100 GB SSD | 200 GB SSD |
+| Recommended Hardware  | On Pro-Testnet |
+|:---:|:---:|
+| CPU | 2 vCPUs | 
+| RAM Memory | 8 GB | 
+| Hard Disk  | 200 GB SSD |
 
 
 * **Docker Host**:
 
 It is necessary to enable the following network ports in the machine in which we are going to deploy the node:
 
-* **Besu Node**:
-  * **60606**: TCP/UDP - Port to establish communication p2p between nodes.
-
-  * **4545**: TCP - Port to establish RPC communication. (this port is used for applications that communicate with LACChain and may be leaked to the Internet)
-* **Nginx**:
-  * **80**: TCP - Port to establish RPC communication to Gas Model.
+* **Tessera Node - component for private transactions**: 
+  * **4040**: TCP - Port to communicate with other Tessera nodes.
+  
+  * **4444**: TCP - Port for communication between Besu and Tessera.
 
 ## Pre-requisites
 
@@ -42,7 +37,7 @@ Following the instructions to [install docker desktop](https://docs.docker.com/d
 
 ### Clone Repository ####
 
-To configure and install Besu , you must clone this git repository in your **local machine**.
+To configure and install Besu  and Tessera, you must clone this git repository in your **local machine**.
 
 ```shell
 $ git clone https://github.com/LACNetNetworks/besu-networks
@@ -53,12 +48,12 @@ $ cd besu-networks/docker/compose
 
 ## Node Installation ##
 
-### Preparing installation of a new node ###
+### Preparing installation of a new Tessera node ###
 
-* There are three types of nodes (Bootnode / Validator / Writer)  that can be created in the blockchain networks orchestrated by LACNet  using  **docker-compose**.
+* That can be created in the private network in blockchain networks orchestrated by LACNet  using  **docker-compose**.
 
 ### environment variable ###
-* **Besu Node**:
+* **Tessera Node**:
 
   * **BESU_LOGGING**:LOGGING  - Level logging Besu (INFO, DEBUG, TRACE) - default INFO.
 
@@ -71,9 +66,12 @@ $ cd besu-networks/docker/compose
   * **NODE_NAME**: Name you want for your node in the network monitoring tool.
 
   * **NODE_EMAIL**: email address you want to register for your node in the network monitoring tool. It's a good idea to provide the e-mail of the technical contact identified or to be identified in the registration form as part of the on-boarding process.
+ 
+  * **HOST_TESSERA_PEER** :Host another tessera node of the private network
 
+  * **BESU_PRIVACY_URL** : name tessera container used by besu node.
 
-### Deploying the new node ###
+### Deploying the new Tessera node ###
 
 * Depending on the network you want to deploy the node, you need to move into the following folder structure:
 
@@ -84,79 +82,57 @@ docker
     └── protest
 
 ```
-So, if you want to deploy a writer node on **Pro-Testnet** then **cd** to **protest**.
+So, if you want to deploy a tessera node on **Pro-Testnet** then **cd** to **protest**.
 
 
 
- * To deploy a **Node Writer**     
+ * To deploy a **Node Tessera**     
       
       ```
-      $ docker-compose -f docker-compose-writer.yml up -d
+      $ docker-compose -f docker-compose-tessera.yml up -d
       ```
 
 
-* At the end of the installation, if everything worked a BESU container will be created managed by docker with **Up** status.
+* At the end of the installation, if everything worked a BESU and Tessera   container will be created managed by docker with **Up** status.
 
-
-Don't forget to write down your node's "enode" :
-```shell
-  $ curl -X POST --data '{"jsonrpc":"2.0","method":"net_enode","params":[],"id":1}' http://localhost:4545
-
-```
-Result:
-```
-"result" : "enode://d837cb6dd3880dec8360edfecf49ea7008e50cf3d889d4f75c0eb7d1033ae1b2fb783ad2021458a369db5d68cf8f25f3fb0080e11db238f4964e273bbc77d1ee@104.197.188.33:60606"
-
-```
-
-* In order to be permissioned, now you need to follow [administrative steps of the permissioning process](https://github.com/LACNetNetworks/besu-networks/blob/master/README.md).
-
-
-## Node Configuration
-
-### Configuring the Besu node file ###
-
-The default configuration should work for everyone. However, depending on your needs and technical knowledge you can modify your  node's settings in  `/files/config-writer.toml`, for RPC access or authentication. Please refer to the [reference documentation](https://besu.hyperledger.org/en/21.1.6/Reference/CLI/CLI-Syntax/).
 
 	
-## Checking your connection
+## Checking your node Tessera
 
-Once you have been permissioned, you can check if your node is connected to the network properly.
 
-Check that the node has stablished the connections with the peers:
+
+Check status the node tessera:
 
 ```shell
 
-$ curl -X POST --data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":1}' http://localhost:4545
+$ curl -X GET  http://localhost:4444/upcheck
 ```
 
 You should get a result like this:
 
-![Connections](/docs/images/log_connections.PNG)
+```
+I'm up!
+```
 
-Now you can check if the node is syncing blocks by getting the log:
+Now you can check  log node tessera:
 
 ```shell
 $ docker logs <container name> -f 
-$ docker logs writer-besu-david19  -f
+$ docker logs writer-tessera-david19  -f
 ```
 
-You should get something like this:
 
-![Log of latest blocks](/docs/images/log_blocks.PNG)
 
-If any of these two checks doesn't work, try to restart the besu service: e.g. **Node Writer**
+If any of these two checks doesn't work, try to restart the tessera service: 
 
 ```shell
-$ docker-compose -f docker-compose-writer.yml stop
-$ docker-compose -f docker-compose-writer.yml up -d
+$ docker-compose -f docker-compose-tessera.yml stop
+$ docker-compose -f docker-compose-tessera.yml up -d
 ```
 
 If that doesn't solve the problem, [open a ticket](https://lacnet.lacchain.net/support/) if you already have a membership or contact us at tech.support@lac-net.net.
 	
-## Deploying Dapps
 
-For a quick overview of some mainstream tools that you can use to deploy Smart Contracts, connect external applications and broadcast transactions to the LACChain Besu Network, you can check our [guide](https://github.com/LACNet-Networks/besu-pro-testnet/blob/master/docs/DEPLOY_APPLICATIONS.md). We also recommend you [our tutorials to deploy your first smart contracts](https://github.com/LACNet-Networks/gas-management/tree/master/docs/tutorial).
 
 ## Contact
 

@@ -12,11 +12,11 @@
 
 Recommended hardware features for Besu node:
 
-| Recommended Hardware | On Testnet-David19 | On Pro-Testnet |
-|:---:|:---:|:---:|
-| CPU | 2 vCPUs | 2 vCPUs | 
-| RAM Memory | 8 GB | 8 GB | 
-| Hard Disk | 100 GB SSD | 200 GB SSD |
+| Recommended Hardware  | On Pro-Testnet |
+|:---:|:---:|
+| CPU  | 2 vCPUs | 
+| RAM Memory  | 8 GB | 
+| Hard Disk  | 200 GB SSD |
 
 
 * **Docker Host**:
