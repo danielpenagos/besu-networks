@@ -12,11 +12,11 @@
 
 Recommended hardware features for Besu node:
 
-| Recommended Hardware | On Testnet-David19 | On Pro-Testnet |
-|:---:|:---:|:---:|
-| CPU | 2 vCPUs | 2 vCPUs | 
-| RAM Memory | 8 GB | 8 GB | 
-| Hard Disk | 100 GB SSD | 200 GB SSD |
+| Recommended Hardware  | On Pro-Testnet |
+|:---:|:---:|
+| CPU  | 2 vCPUs | 
+| RAM Memory  | 8 GB | 
+| Hard Disk  | 200 GB SSD |
 
 
 * **Docker Host**:
@@ -87,6 +87,16 @@ docker
 So, if you want to deploy a writer node on **Pro-Testnet** then **cd** to **protest**.
 
 
+```shell
+$ cd besu-networks/docker/compose/protest/writer1
+```
+
+This node comes with all the smart contracts pre-deployed, so you have to give permissions in the data directory to your user so you can read, write, and execute in this directory. Depending on your docker version, run
+
+```shell
+$ sudo chmod -R 667 data
+$ cd ..
+```
 
  * To deploy a **Node Writer**     
       

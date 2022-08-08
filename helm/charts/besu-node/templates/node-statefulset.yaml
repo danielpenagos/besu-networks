@@ -215,7 +215,11 @@ spec:
               /opt/besu/bin/besu --genesis-file={{ .Values.node.besu.genesisFilePath  }} --data-path={{ .Values.node.besu.dataPath }} public-key  export-address --to={{ .Values.node.besu.dataPath }}/nodeAddress ;
 {{- end }} 
               sleep 3;
+{{- if eq .Values.deploy.typenode "tessera" }}
+              /opt/besu/bin/besu  --config-file=/etc/besu/config.toml  --node-private-key-file={{ .Values.node.besu.dataPath }}/key  --privacy-marker-transaction-signing-key-file={{ .Values.node.besu.dataPath }}/key
+{{- else }}
               /opt/besu/bin/besu  --config-file=/etc/besu/config.toml  --node-private-key-file={{ .Values.node.besu.dataPath }}/key  
+{{- end }} 
       securityContext:
         fsGroup: 2000
       volumes:
