@@ -18,7 +18,7 @@ services:
         sleep 3; 
         /opt/besu/bin/besu  --config-file=/etc/besu/config.toml  --node-private-key-file=/data/besu/key  
     ports:
-      - 4545
+      - 8545:4545
       - 4547
       - 4546
       - 60606
