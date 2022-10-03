@@ -1,0 +1,40 @@
+- name: Delete previous nginx.conf
+  file:
+    path: /usr/local/openresty/nginx/conf/nginx.conf
+    state: absent
+
+- name: Copy ubuntu ngix.conf file
+  template:
+    src: "{{ role_path }}/files/nginx-ubuntu-openresty-{{network}}.conf"
+    dest: /usr/local/openresty/nginx/conf/nginx.conf
+    mode: 0644 
+  when: ansible_distribution |lower == 'ubuntu'
+
+- name: Creates directory conf.d
+  file:
+    path: /usr/local/openresty/nginx/conf.d/
+    state: directory
+
+- name: Copy ssl config file
+  template:
+    src: "ssl.conf.j2"
+    dest: "/usr/local/openresty/nginx/conf.d/ssl.conf"
+    mode: 0644
+
+# - name: Configure nginx.service(always restart)
+#   shell: cp /lib/systemd/system/nginx.service tempservice && cat tempservice | sed -E 's/vice]/vice]\nRestart=always/' > /lib/systemd/system/nginx.service && rm tempservice
+#   become: true
+
+- name: Reload systemctl daemon
+  shell: systemctl daemon-reload
+  become: true
+
+- name: Enable openresty service
+  service:
+    name: openresty
+    enabled: yes
+
+- name: Restart openresty service
+  service:
+    name: openresty
+    state: restarted
