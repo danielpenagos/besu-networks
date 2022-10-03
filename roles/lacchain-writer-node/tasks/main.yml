@@ -7,7 +7,12 @@
 - name: set protestet as network chosen
   set_fact:
     network: "protestnet"
-  when: (networkT == '1')  
+  when: (networkT == '1')
+
+- name: set testnet as network chosen
+  set_fact:
+    network: "testnet"
+  when: (networkT == '2')    
 
 - name: Deploying node
   debug:

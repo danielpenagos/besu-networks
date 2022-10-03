@@ -24,7 +24,7 @@ Recommended hardware features for Besu node:
 | Hard Disk | 250 GB SSD | 375 GB SSD |
 | IOPs | 15,000 IOPS READ  5,000 IOPS WRITE | 70,000 IOPS READ  50,000 IOPS WRITE |
 
-* **Operating System**: Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, Centos7, always 64 bits
+* **Operating System**: Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Centos7, always 64 bits
 
 It is necessary to enable the following network ports in the machine in which we are going to deploy the node:
 
@@ -116,7 +116,8 @@ Consider the following points:
 Please, choose which type of node are you deploying:
 
 [0]:mainnet-omega
-[1]:pro-testnet
+[1]:pro-testnet (DEPRECATED)
+[2]:testnet
 Please, choose in which network are you deploying:
 ```
 So, if you want to deploy a writer node on mainnet-omega, first type 2 for writer, next it will be 0 for mainnet-omega and for pro-testnet 1.
