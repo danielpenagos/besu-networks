@@ -1,0 +1,38 @@
+- name: install dependencies for nginx from openresty
+  apt:
+    name:
+      - wget
+      - gnupg
+      - ca-certificates
+- name: import our GPG key
+  shell: wget -O - https://openresty.org/package/pubkey.gpg | sudo apt-key add -
+  become: true
+- name: add the our official APT repository.
+  shell: echo "deb http://openresty.org/package/ubuntu $(lsb_release -sc) main" > openresty.list
+
+- name: add the our official APT repository. 2
+  shell: sudo cp openresty.list /etc/apt/sources.list.d/
+
+- name: Update apt packages
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Uninstall nginx core
+  apt:
+    name: nginx-core
+    state: absent
+
+- name: Uninstall nginx
+  apt:
+    name: nginx
+    state: absent
+
+- name: install  main RPM package, openresty
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - openresty
+    - openresty-resty
+    - openresty-restydoc
+    - openresty-opm
