@@ -7,18 +7,19 @@ leveldb_release: "leveldb-1.20"
 
 # vars node
 #node_type: "validator"  use this variable in future
-net_id_protestnet: 648529
-net_id_testnet: 648540
+net_id_openprotestnet: 648540
 net_id_mainnet: 648541
-statsserver_testnet: http://34.138.63.51:3000
-statsserver_protestnet: http://35.236.236.77:3000
+net_id_legacyprotestnet: 648529
+statsserver_openprotestnet: http://34.138.63.51:3000
 statsserver_mainnet: http://34.138.136.105:3000
+statsserver_legacyprotestnet: http://35.236.236.77:3000
 time: '{{lookup(''pipe'',''date "+%Y-%m-%d %H:%M:%S"'')}}'
 
 # contract address
-relayhub_address_testnet: "0x7a4363E55Ef04e9144a2B187ACA804631A3155B5"
+relayhub_address_openprotestnet: "0xAa135C93dD05dFBEdb6E0cCDd7f848Df7A43505e"
 relayhub_address_mainnet: "0x7a4363E55Ef04e9144a2B187ACA804631A3155B5"
-relayhub_address_protestnet: "0xd4C70F66714D93a4f6553d379288e84bC45053da"
+relayhub_address_legacyprotestnet: "0xd4C70F66714D93a4f6553d379288e84bC45053da"
+
 localpermissioning_address: "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 
 # vars for libsodium

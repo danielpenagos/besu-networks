@@ -17,12 +17,12 @@
 
 Recommended hardware features for Besu node:
 
-| Recommended Hardware | On Pro-Testnet | On Mainnet-Omega |
+| Recommended Hardware | On Mainnet-Omega | On Open Pro-Testnet | On Legacy Pro-Testnet |
 |:---:|:---:|:---:|
-| CPU | 2 vCPUs | 4 vCPUs compute optimized|
-| RAM Memory | 8 GB | 16 GB |
-| Hard Disk | 250 GB SSD | 375 GB SSD |
-| IOPs | 15,000 IOPS READ  5,000 IOPS WRITE | 70,000 IOPS READ  50,000 IOPS WRITE |
+| CPU | 4 vCPUs compute optimized | 4 vCPUs compute optimized | 2 vCPUs |
+| RAM Memory | 16 GB | 16 GB | 8 GB |
+| Hard Disk | 375 GB SSD | 375 GB SSD | 250 GB SSD |
+| IOPs | 70,000 IOPS READ  50,000 IOPS WRITE | 70,000 IOPS READ  50,000 IOPS WRITE | 15,000 IOPS READ  5,000 IOPS WRITE |
 
 * **Operating System**: Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Centos7, always 64 bits
 
@@ -116,11 +116,12 @@ Consider the following points:
 Please, choose which type of node are you deploying:
 
 [0]:mainnet-omega
-[1]:pro-testnet (DEPRECATED)
-[2]:testnet
+[1]:open-protestnet
+[2]:legacy-protestnet (DEPRECATED)
+
 Please, choose in which network are you deploying:
 ```
-So, if you want to deploy a writer node on mainnet-omega, first type 2 for writer, next it will be 0 for mainnet-omega and for pro-testnet 1.
+So, if you want to deploy a writer node on mainnet-omega, first type 2 for writer, next it will be 0 for mainnet-omega and for open-protestnet 1.
 
 * To deploy a **node** with/without **tessera node**  execute the following command in your **local machine**. If needed, don't forget to set the private key with option `--private-key` and the remote user with option `-u` to SSH connection:
 
