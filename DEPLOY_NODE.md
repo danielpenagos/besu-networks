@@ -18,7 +18,7 @@
 Recommended hardware features for Besu node:
 
 | Recommended Hardware | On Mainnet-Omega | On Open Pro-Testnet | On Legacy Pro-Testnet |
-|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|
 | CPU | 4 vCPUs compute optimized | 4 vCPUs compute optimized | 2 vCPUs |
 | RAM Memory | 16 GB | 16 GB | 8 GB |
 | Hard Disk | 375 GB SSD | 375 GB SSD | 250 GB SSD |
