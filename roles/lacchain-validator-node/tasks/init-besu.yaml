@@ -18,13 +18,6 @@
     - { dest: "~/lacchain/tmp", mode: "0440" }
     - { dest: "~/lacchain/scripts", mode: "0440"}
 
-#- name: Copy permissioned nodes file
-#  copy:
-#    src: "{{ role_path }}/files/permissions_config.toml"
-#    dest: ~/lacchain/tmp/permissions_config.toml
-#    mode: 0755
-#  when: validator|bool
-
 - name: initializing pantheon from genesis.json
   debug:
     msg: Initializing Pantheon
@@ -42,13 +35,6 @@
 - name: print enode key
   debug:
     msg: enode://{{enode_key.stdout}}@{{node_ip.stdout}}:60606
-
-#- name: update permissioned nodes validator file
-#  replace:
-#    dest: ~/lacchain/tmp/permissions_config.toml
-#    regexp: ':60606"]$'
-#    replace: ':60606",]'
-#  when: validator|bool
 
 - name: Generate shell script to execute pantheon service
   template:
