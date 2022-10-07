@@ -1,0 +1,70 @@
+# Every possible CLI should be in this file.
+#
+# Please use a plausible value, besu has to at least be able to parse it.
+# If it is a multi-valued CLI make it a TOML array.
+# If it is a number or boolean make it a number or boolean
+# All other config options are strings, and must be quoted.
+
+# Node Information
+data-path="/data/besu"
+genesis-file="/etc/genesis/genesis.json"
+logging="INFO"
+node-private-key-file="/keys/nodekey"
+min-gas-price=0
+
+# Transaction Pool
+tx-pool-retention-hours=999
+tx-pool-max-size=1024
+
+# P2P network
+p2p-enabled=true
+discovery-enabled=true
+#p2p-host="104.154.108.225"
+p2p-port=60606
+max-peers=25
+host-whitelist=["*"]
+
+
+# JSON-RPC
+rpc-http-enabled=true
+#rpc-http-host="0.0.0.0"
+rpc-http-port=4545
+rpc-http-api=["ETH","NET","IBFT","WEB3","EEA","PRIV"]
+rpc-http-cors-origins=["all"]
+rpc-http-authentication-enabled=false
+revert-reason-enabled=true
+
+bootnodes=["enode://2ef018fceeac5def4d0c1233235e23351eb0881f4f42ac2a6aec8250cd21f302c28b9153799624edc325fa86de09ecf1c81c52e413d6a1efdef3e289021dc719@34.74.49.181:60606","enode://6c1b747dd096769f4723c7f65fc7e368daa1acaae74d286b4c47416900d22d708022019114c15a31975343e334d3419e1ed847538e777ab8d592fb2e3ddca893@35.196.67.163:60606"]
+
+# GRAPHQL-RPC
+graphql-http-enabled=true
+#graphql-http-host="0.0.0.0"
+graphql-http-port=4547
+graphql-http-cors-origins=["all"]
+
+
+# WebSockets API
+rpc-ws-enabled=true
+#rpc-ws-host="0.0.0.0"
+rpc-ws-port=4546
+rpc-ws-api=["ETH","NET","IBFT","WEB3","EEA","PRIV"]
+rpc-ws-authentication-enabled=false
+
+
+# Permissioning
+permissions-nodes-contract-enabled=true
+permissions-nodes-contract-address="0x0000000000000000000000000000000000009999"
+permissions-accounts-contract-enabled=false
+permissions-accounts-contract-address="0x0000000000000000000000000000000000008888"
+# Permissioning end
+
+
+
+# Metrics Push
+metrics-push-enabled=true
+metrics-push-host="34.148.88.107"
+metrics-push-port=9091
+metrics-push-interval=5
+metrics-push-prometheus-job="${NODE_NAME}"
+##end metrics Push
+network-id="648540"

@@ -1,0 +1,78 @@
+version: "3.7"
+services:
+  besu: 
+    image: lacnetnetworks/lacchain-besu:21.1.6
+    container_name: writer-besu-protest
+    environment:
+      BESU_LOGGING: INFO
+      BESU_P2P_HOST: <PUBLIC IP>
+      BESU_P2P_PORT: 60606
+      BESU_RPC_HTTP_PORT    : 4545
+      BESU_RPC_WS_PORT      : 4546
+      BESU_GRAPHQL_HTTP_PORT: 4547
+    entrypoint:
+      - /bin/sh
+      - -c
+    command:
+      - |
+        /opt/besu/bin/besu --genesis-file=/etc/genesis/genesis.json --data-path=/data/besu public-key  export-address --to=/data/besu/nodeAddress
+        sleep 3; 
+        /opt/besu/bin/besu  --config-file=/etc/besu/config.toml  --node-private-key-file=/data/besu/key  
+    ports:
+      - 4545:4545
+      - 4546:4546
+      - 4547:4547
+      - 60606:60606
+    volumes:
+      - ./writer1/data:/data/besu
+      - ./files/genesis.json:/etc/genesis/genesis.json
+      - ./files/config-writer.toml:/etc/besu/config.toml
+    networks:
+      - lacchain
+  relay:
+    image: lacnetnetworks/relay-signer-lacchain:1.0.0
+    container_name: relay-signer-protest
+    environment:
+      HOST_BESU: writer-besu-protest
+      CONTRACT_ADDRESS: 0xAa135C93dD05dFBEdb6E0cCDd7f848Df7A43505e
+    ports:
+      - 9001:9001
+    volumes:
+      - ./writer1/data:/opt/secret
+    networks:
+      - lacchain
+  nginx:
+    image: lacnetnetworks/writer-nginx-lacchain:1.0.0
+    container_name: writer-nginx-protest
+    environment:
+      HOST_RELAY_SIGNER: relay-signer-protest
+      HOST_BESU: writer-besu-protest
+      PUBLIC_IP: <Public ip>
+    ports:
+      - 80:80
+    volumes:
+      - ./writer1/data:/opt/secret
+    networks:
+      - lacchain
+  ethstats:
+    image: alethio/ethstats-cli
+    container_name: writer-ethstats-protest
+    restart: on-failure
+    environment:
+      NODE_NAME: <Name Node>
+      NODE_EMAIL: <e-mail of the technical contact>
+    entrypoint:
+      - /bin/sh 
+      - -c  
+    command:
+      - |
+       echo email $${NODE_EMAIL} 
+       ./bin/ethstats-cli.js -vd --register --account-email $${NODE_EMAIL} --node-name $${NODE_NAME} --server-url  http://34.138.63.51:3000 --client-url ws://writer-besu-protest:4546
+    volumes:
+      - ./writer1/data:/opt/secret
+    networks:
+      - lacchain
+  
+networks:
+    lacchain:
+        driver: bridge
