@@ -1,4 +1,4 @@
-{{- if eq .Values.deploy.network "david19-net" }}
+{{- if eq .Values.deploy.network "open-protest-net" }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -19,27 +19,27 @@ data:
   genesis.json: |-
     {
       "config": {
-        "chainId": 648530,
-        "constantinopleFixBlock": 0,
-        "contractSizeLimit": 2147483647,
+        "chainId": 648540,
+        "berlinBlock": 0,
+        "contractSizeLimit": 8000000,
         "ibft2": {
           "blockperiodseconds": 2,
-          "epochlength": 30000,
+          "epochlength": 150000,
           "requesttimeoutseconds": 4
         }
       },
       "nonce": "0x0",
       "timestamp": "0x58ee40ba",
-      "extraData": "0xf83ea00000000000000000000000000000000000000000000000000000000000000000d59463949701cd0e1cc04dfea0afbf410968f10ff4b6808400000000c0",
-      "gasLimit": "0x2FEFD800",
+      "extraData": "0xf83ea00000000000000000000000000000000000000000000000000000000000000000d594b29d085bf73734db0211617d9e6f78573ec57102808400000000c0",
+      "gasLimit": "0x14DC9380",
       "difficulty": "0x1",
       "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
       "coinbase": "0x0000000000000000000000000000000000000000",
       "alloc": {
-        "0xed0146337f1b95c4a01f3dfb114e8777b21f28a2": {
+        "0x6902111b45afb5bb4ea80523c0f1bb022dccea2d": {
           "balance": "1000000000000000000000000000"
         },
-        "0xCC9a2ae1162D5de44E11363556c829D6c08f7dc9": {
+        "0x1a2f491ee3aead6f479646019bbdda4f194c38dc": {
           "balance": "1000000000000000000000000000"
         },
         "0x0000000000000000000000000000000000008888": {
