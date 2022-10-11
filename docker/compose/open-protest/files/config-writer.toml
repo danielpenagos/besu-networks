@@ -9,7 +9,7 @@
 data-path="/data/besu"
 genesis-file="/etc/genesis/genesis.json"
 logging="INFO"
-#node-private-key-file="/keys/nodekey"
+node-private-key-file="/keys/nodekey"
 min-gas-price=0
 
 # Transaction Pool
@@ -19,7 +19,7 @@ tx-pool-max-size=1024
 # P2P network
 p2p-enabled=true
 discovery-enabled=true
-#p2p-host="35.226.244.229"
+#p2p-host="104.154.108.225"
 p2p-port=60606
 max-peers=25
 host-whitelist=["*"]
@@ -27,43 +27,44 @@ host-whitelist=["*"]
 
 # JSON-RPC
 rpc-http-enabled=true
-rpc-http-cors-origins=["all"]
-rpc-http-host="0.0.0.0"
+#rpc-http-host="0.0.0.0"
 rpc-http-port=4545
 rpc-http-api=["ETH","NET","IBFT","WEB3","EEA","PRIV"]
-
+rpc-http-cors-origins=["all"]
 rpc-http-authentication-enabled=false
 revert-reason-enabled=true
 
-bootnodes=["enode://a677d655440fc338eefb5e31c3db1e07b56afbc28dee74822f600b1fb81f3657343f04cb2f68e5dd44ea606e041642bacc9151d91ab0527c878db0005ea30ca0@34.73.175.75:60606","enode://aef21d8ba679f55a7c28bbafb826b84cf1db929916b4d322b590037a584a0d08aef9d836289b15c2c4ce7fdb9f2f4abf705314b85fba62a8f01539e92491da80@34.73.74.151:60606","enode://4791c69f6a11486ecc6d4450aa8922865f078816176e166ccfc1882ae06272bcf71bdf7fa1d99f1a8815a7899dae0119ea06bac59a4810f92c2a9c89689610ca@35.237.20.121:60606"]
+bootnodes=["enode://2ef018fceeac5def4d0c1233235e23351eb0881f4f42ac2a6aec8250cd21f302c28b9153799624edc325fa86de09ecf1c81c52e413d6a1efdef3e289021dc719@34.74.49.181:60606","enode://6c1b747dd096769f4723c7f65fc7e368daa1acaae74d286b4c47416900d22d708022019114c15a31975343e334d3419e1ed847538e777ab8d592fb2e3ddca893@35.196.67.163:60606"]
 
 # GRAPHQL-RPC
 graphql-http-enabled=true
-graphql-http-cors-origins=["all"]
-graphql-http-host="0.0.0.0"
+#graphql-http-host="0.0.0.0"
 graphql-http-port=4547
-
+graphql-http-cors-origins=["all"]
 
 
 # WebSockets API
 rpc-ws-enabled=true
-rpc-ws-host="0.0.0.0"
+#rpc-ws-host="0.0.0.0"
 rpc-ws-port=4546
 rpc-ws-api=["ETH","NET","IBFT","WEB3","EEA","PRIV"]
 rpc-ws-authentication-enabled=false
 
 
 # Permissioning
-    # Permissioning end
+permissions-nodes-contract-enabled=true
+permissions-nodes-contract-address="0x0000000000000000000000000000000000009999"
+permissions-accounts-contract-enabled=false
+permissions-accounts-contract-address="0x0000000000000000000000000000000000008888"
+# Permissioning end
 
-# Privacy
-privacy-enabled=true
-#privacy-url="http://localhost:4444"
-privacy-public-key-file="/tessera/keystore/nodeKey.pub"
-
-#privacy-onchain-groups-enabled=false
 
 
 # Metrics Push
-    ##end metrics Push
-network-id="648530"
+metrics-push-enabled=true
+metrics-push-host="34.148.88.107"
+metrics-push-port=9091
+metrics-push-interval=5
+metrics-push-prometheus-job="${NODE_NAME}"
+##end metrics Push
+network-id="648540"

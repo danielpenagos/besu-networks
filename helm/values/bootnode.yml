@@ -39,7 +39,7 @@ node:
     envBesuOpts: ""  
     metricsPush:
       host:
-        david19: ""
+        openprotest: "34.148.88.107"
         protest: "146.148.100.227"
         mainnet: "35.231.59.254"
     resources:
@@ -58,25 +58,25 @@ node:
     graphql:
       enabled: true
     bootnodes:
-      david19: '["enode://a677d655440fc338eefb5e31c3db1e07b56afbc28dee74822f600b1fb81f3657343f04cb2f68e5dd44ea606e041642bacc9151d91ab0527c878db0005ea30ca0@34.73.175.75:60606","enode://aef21d8ba679f55a7c28bbafb826b84cf1db929916b4d322b590037a584a0d08aef9d836289b15c2c4ce7fdb9f2f4abf705314b85fba62a8f01539e92491da80@34.73.74.151:60606","enode://4791c69f6a11486ecc6d4450aa8922865f078816176e166ccfc1882ae06272bcf71bdf7fa1d99f1a8815a7899dae0119ea06bac59a4810f92c2a9c89689610ca@35.237.20.121:60606"]'
+      openprotest: '["enode://2ef018fceeac5def4d0c1233235e23351eb0881f4f42ac2a6aec8250cd21f302c28b9153799624edc325fa86de09ecf1c81c52e413d6a1efdef3e289021dc719@34.74.49.181:60606","enode://6c1b747dd096769f4723c7f65fc7e368daa1acaae74d286b4c47416900d22d708022019114c15a31975343e334d3419e1ed847538e777ab8d592fb2e3ddca893@35.196.67.163:60606"]'
       protest: '["enode://fe50d1c3d1ebbc37cdfb54f6c767e3510a415b91e60c1a6c495b9f91bbf2eb74011cfb0e60547d90dc189a3f74703e847bd8daff93a58c494767bc7a6b94762d@52.3.231.99:60606","enode://b9c327c9d9c32be2ed9131b386a695f7998de1f7cd472d3ae3601e33cd91262ae4ddade2d4e66cc20b1d73e454bf5907a3682be851381741fb5d322f27c64077@40.71.193.134:60606","enode://140626be59e4f2c57ab9787481dd571bc8ed87764a5b035fa33f38f746d770484cfc0eca0dc5d00c7bfb18caa057477462f7af216a84bd9faea68e446e4ed1c7@35.196.221.232:60606","enode://9100f954583d3d74528165f07d842ce544139d9ad4bc3f2cf06abe6fb4cf459201eb06d38120bf21f40f39107ba37bc7a1e1142728bd21c33b6457d25a7b8f8d@52.249.249.38:60606"]'
       mainnet: '["enode://ed664ba8ec6959b1b2bd70dce16286cb1688f2f8ab13b8571b0ba4eeb73df9d5f5acb32efff7aabd71fc865d374d2e9c96c524ca543c9aa65dd6543f83852521@35.229.62.151:60606","enode://b10272c5206cd1ec12c6737a41df471e6384cde3e6522a212e3839be09981133eccdacc4ef1c7aacd3aeb63debfa82643d92820bb9f045245cb6badb74dff198@34.138.6.187:60606","enode://76147831720d9a3d61e6cf31d03e38eba7bd46832c0691e9c1dd219c674acf738f1a00b9fea871f63d546686954a8ea6726fdbbe7a840d74ab2f774e501e6fa3@179.0.22.85:60606","enode://92e2eadcf4720cc7f4c14424cb6af160452606a85278ef4e3d780cfd1cfe475a88db78d8f0cab50552f289ebfbfcdbc33a30b066c098042a1d704cc3133ff6a7@165.98.16.38:60606"]'
         
 volumen:
   resources:
     storage:
-      david19: 100Gi
-      protest: 200Gi
-      mainnet: 320Gi
+      openprotest: 375Gi
+      protest: 250Gi
+      mainnet: 375Gi
 
 deploy:
-  network: protest-net # choose from: david19-net | protest-net | main-net
-  typenode: bootnode # choose from: writer | validator | bootnode | tessera
-  publicIP: 34.136.213.92 # david 35.188.65.242, protest 35.194.35.231
+  network : open-protest-net # choose from: open-protest-net | protest-net | main-net
+  typenode: bootnode 
+  publicIP:  <P2P_Public_IP>
   p2p:
-    host: 35.226.244.229
+    host: <P2P_Public_IP_Egress>
     port: 60606
-  workerName: gke-david19-default-pool-445cd569-al7d
-  dnsName: lacchain.com
-  nodeName: test-bootnode-protest
-  nodeEmail: tech.support@lac-net.net
+  workerName: <Name of the node worker where always the pod will be installed>
+  dnsName: <Organization domain name>
+  nodeName: <Node Name>
+  nodeEmail: <e-mail of the technical contact>

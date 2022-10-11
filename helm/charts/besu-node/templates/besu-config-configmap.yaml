@@ -54,14 +54,14 @@ data:
     rpc-http-authentication-enabled={{ .Values.node.besu.rpc.authenticationEnabled }}
     revert-reason-enabled=true
     {{ end }}
-    {{- if eq .Values.deploy.network "david19-net" }}
-    bootnodes={{ .Values.node.besu.bootnodes.david19 }}
+    {{- if eq .Values.deploy.network "open-protest-net" }}
+    bootnodes={{ .Values.node.besu.bootnodes.openprotest }}
     {{- else if eq .Values.deploy.network "protest-net" }}
     bootnodes={{ .Values.node.besu.bootnodes.protest }}
     {{- else if eq .Values.deploy.network "main-net" }}
     bootnodes={{ .Values.node.besu.bootnodes.mainnet }}
     {{- else }}
-    bootnodes={{ .Values.node.besu.bootnodes.david19 }}
+    bootnodes={{ .Values.node.besu.bootnodes.openprotest }}
     {{- end }}    
 
     {{ if  .Values.node.besu.graphql.enabled -}}
@@ -84,8 +84,11 @@ data:
     {{ if  .Values.node.besu.permissions.enabled -}}
     # Permissioning
 
-    {{- if eq .Values.deploy.network "david19-net" }}
-
+    {{- if eq .Values.deploy.network "open-protest-net" }}
+    permissions-nodes-contract-enabled={{ .Values.node.besu.permissions.nodesContract.enabled }}
+    permissions-nodes-contract-address={{ .Values.node.besu.permissions.nodesContract.address | quote }}
+    permissions-accounts-contract-enabled={{ .Values.node.besu.permissions.accountsContract.enabled }}
+    permissions-accounts-contract-address={{ .Values.node.besu.permissions.accountsContract.address | quote }}
     {{- else if eq  .Values.deploy.network "protest-net" }}
     permissions-nodes-contract-enabled={{ .Values.node.besu.permissions.nodesContract.enabled }}
     permissions-nodes-contract-address={{ .Values.node.besu.permissions.nodesContract.address | quote }}
@@ -113,8 +116,12 @@ data:
 
     {{ if  .Values.node.besu.metricsPush.enabled -}}
     # Metrics Push
-    {{- if eq .Values.deploy.network "david19-net" }}
-
+    {{- if eq .Values.deploy.network "open-protest-net" }}
+    metrics-push-enabled={{ .Values.node.besu.metricsPush.enabled }}
+    metrics-push-host={{ .Values.node.besu.metricsPush.host.openprotest | quote }}
+    metrics-push-port={{ .Values.node.besu.metricsPush.port }}
+    metrics-push-interval={{ .Values.node.besu.metricsPush.interval }}
+    metrics-push-prometheus-job={{ .Values.deploy.nodeName  | quote }}
     {{- else if eq  .Values.deploy.network "protest-net" }}
     metrics-push-enabled={{ .Values.node.besu.metricsPush.enabled }}
     metrics-push-host={{ .Values.node.besu.metricsPush.host.protest | quote }}
@@ -131,8 +138,8 @@ data:
     {{ end }} ##end metrics Push
 
 
-    {{- if eq .Values.deploy.network "david19-net" }}
-    network-id="648530"
+    {{- if eq .Values.deploy.network "open-protest-net" }}
+    network-id="648540"
     {{- else if eq  .Values.deploy.network "protest-net" }}
     network-id="648529"
     {{- else if eq  .Values.deploy.network "main-net" }}

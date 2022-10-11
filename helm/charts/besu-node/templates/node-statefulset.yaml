@@ -84,14 +84,14 @@ spec:
           - name: HOST_BESU
             value: localhost
           - name: CONTRACT_ADDRESS
-{{- if eq .Values.deploy.network "david19-net" }}
-            value:  {{ .Values.image.relay.contract.david19 }}
+{{- if eq .Values.deploy.network "open-protest-net" }}
+            value:  {{ .Values.image.relay.contract.openprotest }}
 {{- else if eq .Values.deploy.network "protest-net" }}
             value:  {{ .Values.image.relay.contract.protest }}
 {{- else if eq .Values.deploy.network "main-net" }}
             value:  {{ .Values.image.relay.contract.mainnet }}
 {{- else }}
-            value:  {{ .Values.image.relay.contract.david19 }}
+            value:  {{ .Values.image.relay.contract.openprotest }}
 {{- end }}  
           volumeMounts:
             - name: data
@@ -122,7 +122,7 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
 {{- end }} #end node writer
-{{- if and (eq .Values.deploy.typenode "validator") (or  (eq .Values.deploy.network "protest-net") (eq .Values.deploy.network "main-net")   )}}
+{{- if and (eq .Values.deploy.typenode "validator")}}
         - name: {{ .Release.Name }}-rotation
           image: {{ .Values.image.rotation.repository }}:{{ .Values.image.rotation.tag }}
           imagePullPolicy: {{ .Values.image.rotation.pullPolicy }}
@@ -137,22 +137,22 @@ spec:
           - name: HOST_BESU
             value: localhost
           - name: CONTRACT_ADDRESS
-{{- if eq .Values.deploy.network "david19-net" }}
-            value:  {{ .Values.image.rotation.contract.david19 }}
+{{- if eq .Values.deploy.network "open-protest-net" }}
+            value:  {{ .Values.image.rotation.contract.openprotest }}
 {{- else if eq .Values.deploy.network "protest-net" }}
             value:  {{ .Values.image.rotation.contract.protest }}
 {{- else if eq .Values.deploy.network "main-net" }}
             value:  {{ .Values.image.rotation.contract.mainnet }}
 {{- else }}
-            value:  {{ .Values.image.rotation.contract.david19 }}
+            value:  {{ .Values.image.rotation.contract.openprotest }}
 {{- end }}  
           volumeMounts:
             - name: data
               mountPath: /opt/secret
 {{- end }} #end  rotation       
         - name: {{ .Release.Name }}-besu
-{{- if eq .Values.deploy.network "david19-net" }}
-          image: {{ .Values.image.besu.repository }}:{{ .Values.image.besu.david19.tag }}
+{{- if eq .Values.deploy.network "open-protest-net" }}
+          image: {{ .Values.image.besu.repository }}:{{ .Values.image.besu.openprotest.tag }}
 {{- else if eq .Values.deploy.network "protest-net" }}
           image: {{ .Values.image.besu.repository }}:{{ .Values.image.besu.protest.tag }}
 {{- else if eq .Values.deploy.network "main-net" }}
@@ -232,7 +232,6 @@ spec:
       - name: besu-config
         configMap:
           name: {{ include "besu-node.fullname" . }}-besu-config
-{{- if or (eq .Values.deploy.network "protest-net") (eq .Values.deploy.network "main-net") }}
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -265,7 +264,9 @@ spec:
           args:
             - |
              exec
-             {{- if eq .Values.deploy.network "protest-net" }}
+              {{- if eq .Values.deploy.network "open-protest-net" }}
+             ./bin/ethstats-cli.js -vd --register --account-email {{ .Values.deploy.nodeEmail }} --node-name "{{ .Values.deploy.nodeName }}" --server-url  {{ .Values.image.eth.server.openprotest }} --client-url ws://{{ template "besu-node.fullname" . }}:4546
+             {{- else if eq .Values.deploy.network "protest-net" }}
              ./bin/ethstats-cli.js -vd --register --account-email {{ .Values.deploy.nodeEmail }} --node-name "{{ .Values.deploy.nodeName }}" --server-url  {{ .Values.image.eth.server.protest }} --client-url ws://{{ template "besu-node.fullname" . }}:4546
             {{- else if eq .Values.deploy.network "main-net" }}
              ./bin/ethstats-cli.js -vd --register --account-email {{ .Values.deploy.nodeEmail }} --node-name "{{ .Values.deploy.nodeName }}" --server-url  {{ .Values.image.eth.server.mainnet }} --client-url ws://{{ template "besu-node.fullname" . }}:4546
@@ -280,6 +281,5 @@ spec:
         - name: ethstats-data
           persistentVolumeClaim:
             claimName: {{ include "besu-node.fullname" . }}-ethstats-pvc 
-{{- end }} 
 
 

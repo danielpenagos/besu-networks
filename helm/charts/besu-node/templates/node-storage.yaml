@@ -55,8 +55,8 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-{{- if eq .Values.deploy.network "david19-net" }}
-      storage: {{ .Values.volumen.resources.storage.david19 }}
+{{- if eq .Values.deploy.network "open-protest-net" }}
+      storage: {{ .Values.volumen.resources.storage.openprotest }}
 {{- else if eq .Values.deploy.network "protest-net" }}
       storage: {{ .Values.volumen.resources.storage.protest }}
 {{- else if eq .Values.deploy.network "main-net" }}
@@ -65,7 +65,6 @@ spec:
       storage: {{ .Values.volumen.resources.storage.mainnet }}
 {{- end }} 
 
-{{- if or (eq .Values.deploy.network "protest-net") (eq .Values.deploy.network "main-net") }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -79,7 +78,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-{{- end }} 
+
 
 {{- else }}
 
