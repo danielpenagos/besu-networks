@@ -34,7 +34,7 @@ services:
     container_name: relay-signer-protest
     environment:
       HOST_BESU: writer-besu-protest
-      CONTRACT_ADDRESS: 0xAa135C93dD05dFBEdb6E0cCDd7f848Df7A43505e
+      CONTRACT_ADDRESS: '0xAa135C93dD05dFBEdb6E0cCDd7f848Df7A43505e'
     ports:
       - 9001:9001
     volumes:
