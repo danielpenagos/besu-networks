@@ -20,15 +20,19 @@
 
 - name: Install nginx for {{ ansible_distribution }}
   import_tasks: "install-nginx-rhel.yml"
-  when: (ansible_distribution |lower == 'redhat') or (ansible_distribution |lower == 'centos')
+  when: (ansible_distribution |lower == 'redhat') or (ansible_distribution |lower == 'centos' and  ansible_distribution_major_version < "8")
+
+- name: Install nginx for {{ ansible_distribution }}
+  import_tasks: "install-nginx-openresty-centos.yml"
+  when: (ansible_distribution |lower == 'centos' and ansible_distribution_major_version == "8")  
 
 - name: Create Certificates
   import_tasks: "create-self-signed-certificate.yaml"
 
 - name: Configure nginx for {{ ansible_distribution }} {{ansible_distribution_major_version}}
   import_tasks: "configure-nginx.yml"
-  when: (ansible_distribution |lower == 'redhat') or (ansible_distribution |lower == 'centos') or ( (ansible_distribution |lower == 'ubuntu') and (ansible_distribution_major_version |int < 21) )
+  when: (ansible_distribution |lower == 'redhat') or (ansible_distribution |lower == 'centos' and  ansible_distribution_major_version < "8") or ( (ansible_distribution |lower == 'ubuntu') and (ansible_distribution_major_version |int < 21) )
 
 - name: Configure nginx openresty for {{ ansible_distribution }} {{ansible_distribution_major_version}}
   import_tasks: "configure-nginx-openresty.yml"
-  when:  (ansible_distribution |lower == 'ubuntu') and (ansible_distribution_major_version |int >= 22) 
+  when:  (ansible_distribution |lower == 'ubuntu' and ansible_distribution_major_version |int >= 22) or (ansible_distribution |lower == 'centos' and ansible_distribution_major_version == "8")

@@ -1,0 +1,36 @@
+- name: install dependencies for nginx from openresty
+  yum:
+    name:
+      - wget
+      - gnupg 
+      - ca-certificates
+- name: import repo openresty
+  shell: wget 'https://openresty.org/package/centos/openresty.repo'
+  become: true
+- name: yum repositories.
+  shell: sudo mv openresty.repo /etc/yum.repos.d/
+
+
+- name: install   openresty
+  shell: dnf -y install openresty
+
+
+
+- name: install  openresty-resty
+  shell: dnf -y install openresty-resty
+
+
+- name: install   openresty-opm
+  shell: dnf -y install openresty-opm
+
+- name: set   locale LC_CTYPE en_US.UTF-8
+  shell: export LC_CTYPE=en_US.UTF-8
+
+- name: set  locale LC_ALL en_US.UTF-8
+  shell: export LC_ALL=en_US.UTF-8
+
+- name: installing the lua-resty-http
+  shell: opm get pintsized/lua-resty-http
+
+- name: loading it with the resty utility
+  shell: resty -e 'require "resty.http"'
