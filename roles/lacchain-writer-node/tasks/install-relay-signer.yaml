@@ -10,6 +10,15 @@
         dest: "/root/lacchain/gas-relay-signer"
   when: not relay_signer.stat.exists 
 
+- name: semanage gas-relay-signer service on centos8
+  shell: semanage fcontext -a -t bin_t '/root/lacchain/gas-relay-signer/gas-relay-signer'
+  when: (ansible_distribution |lower == 'centos' and ansible_distribution_major_version == "8") 
+
+- name: restorecon gas-relay-signer service on centos8
+  shell: restorecon -Fv /root/lacchain/gas-relay-signer/gas-relay-signer
+  when: (ansible_distribution |lower == 'centos' and ansible_distribution_major_version == "8") 
+
+
 - name: Generate Relay Signer configuration file
   template:
     src: "relay-signer-config.j2"
@@ -39,3 +48,8 @@
     dest: /lib/systemd/system/relaysigner.service
     mode: 0775
   when: not relay_signer.stat.exists 
+  
+- name: Enable service relaysigner
+  service:
+    name: relaysigner
+    enabled: yes
