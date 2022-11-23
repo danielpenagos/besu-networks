@@ -1,19 +1,19 @@
 ---
- - name: cd repos
-   shell: cd /etc/yum.repos.d/
+#  - name: cd repos
+#    shell: cd /etc/yum.repos.d/
 
- - name: replace centos repos
-   shell: sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
+#  - name: replace centos repos
+#    shell: sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
     
- - name: replace centos repos mirror
-   shell: sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
+#  - name: replace centos repos mirror
+#    shell: sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
  
- - name: Clean cache
-   shell: dnf clean all
+#  - name: Clean cache
+#    shell: dnf clean all
  
 
- - name: update repo centos
-   shell: dnf -y  swap centos-linux-repos centos-stream-repos
+#  - name: update repo centos
+#    shell: dnf -y  swap centos-linux-repos centos-stream-repos
 
 
 
