@@ -10,6 +10,13 @@
     mode: 0644 
   when: ansible_distribution |lower == 'ubuntu'
 
+- name: Copy ubuntu ngix.conf file
+  template:
+    src: "{{ role_path }}/files/nginx-centos-openresty-{{network}}.conf"
+    dest: /usr/local/openresty/nginx/conf/nginx.conf
+    mode: 0644 
+  when: ansible_distribution |lower == 'centos'
+
 - name: Creates directory conf.d
   file:
     path: /usr/local/openresty/nginx/conf.d/
