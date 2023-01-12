@@ -8,7 +8,7 @@ quorumFlags:
   usesBootnodes: true # set this to true if the network you are connecting to use a bootnode/s that are deployed in the cluster 
 
 cluster:
-  provider: google  # choose from: google | aws | azure
+  provider: aws  # choose from: google | aws | azure
   cloudNativeServices: false # set to true to use Cloud Native Services (SecretsManager and IAM for AWS; KeyVault & Managed Identities for Azure)
   reclaimPolicy: Delete # set to either Retain or Delete
 

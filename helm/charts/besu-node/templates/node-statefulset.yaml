@@ -277,6 +277,7 @@ spec:
               protocol: TCP
       securityContext:
         fsGroup: 2000
+      
       volumes:
         - name: ethstats-data
           persistentVolumeClaim:

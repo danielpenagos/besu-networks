@@ -7,7 +7,7 @@ quorumFlags:
   usesBootnodes: true # Besu only, set this to true if the network you are connecting to use a bootnode/s that are deployed in the cluster 
 
 cluster:
-  provider: google  # choose from: google | aws | azure
+  provider: aws  # choose from: google | aws | azure
   cloudNativeServices: false 
   reclaimPolicy: Delete # set to either Retain or Delete; note that PVCs and PVs will still exist after a 'helm delete'. Setting to Retain will keep volumes even if PVCs/PVs are deleted in kubernetes. Setting to Delete will remove volumes from EC2 EBS when PVC is deleted
 
@@ -72,9 +72,9 @@ volumen:
 deploy:
   network:  open-protest-net # choose from: open-protest-net | protest-net | main-net
   typenode: validator 
-  publicIP:  <P2P_Public_IP>
+  publicIP:  13.55.135.129
   p2p:
-    host: <P2P_Public_IP_Egress>
+    host: 13.55.135.129
     port: 60606
   workerName: <Name of the node worker where always the pod will be installed>
   dnsName: <Organization domain name>

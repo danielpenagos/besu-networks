@@ -42,7 +42,7 @@ spec:
       protocol: TCP   
 {{- if or ( eq .Values.deploy.typenode "writer" ) ( eq .Values.deploy.typenode "tessera" ) }}
     - name: nginx
-      port: 80
+      port: 8080
       targetPort: nginx
       protocol: TCP
 {{- end }} 

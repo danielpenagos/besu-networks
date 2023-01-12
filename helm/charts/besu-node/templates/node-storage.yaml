@@ -43,6 +43,8 @@ parameters:
   type: pd-ssd
 reclaimPolicy: {{ .Values.cluster.reclaimPolicy }}
 allowVolumeExpansion: true
+{{- else }}
+{{- end }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -80,7 +82,7 @@ spec:
       storage: 1Gi
 
 
-{{- else }}
+
 
 ---
 apiVersion: v1
@@ -100,5 +102,5 @@ spec:
   hostPath:
     path: "/tmp/{{ include "besu-node.fullname" . }}"
 
-{{- end }}
+
 
