@@ -73,11 +73,11 @@ volumen:
 deploy:
   network:  open-protest-net # choose from: open-protest-net | protest-net | main-net
   typenode: writer
-  publicIP:  4.227.236.132
+  publicIP: 23.96.33.251
   p2p:
-    host: 4.227.236.132
+    host: 23.96.33.251
     port: 60606
-  workerName: dpenagos-cluster-m9ggp-worker-eastus1-vhvb5
+  workerName: dpenagos-cluster-vjk85-worker-eastus1-94vjq
   dnsName: redhat.com
   nodeName: redhat-latam-1
   nodeEmail: dpenagos@redhat.com

@@ -76,7 +76,7 @@ metadata:
 spec:
   storageClassName:  {{ include "besu-node.fullname" . }}-storage
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi

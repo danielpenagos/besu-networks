@@ -39,6 +39,7 @@ spec:
         app.kubernetes.io/component: {{ .Release.Name }}
     spec:
       nodeName: {{ .Values.deploy.workerName }}
+      serviceAccount: sa-lacchain
       containers:
 {{- if  eq .Values.deploy.typenode "tessera"}}
         - name:  {{ .Release.Name }}-tessera
@@ -251,13 +252,14 @@ spec:
       labels:
         app: {{ template "besu-node.fullname" . }}-ethstats
     spec:
+      serviceAccount: sa-lacchain
       containers:
         - name: {{ template "besu-node.fullname" . }}-ethstats
           image: alethio/ethstats-cli
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: ethstats-data
-              mountPath: /root/.config/configstore/
+              mountPath: /tmp/.config/configstore/
           command:
             - /bin/sh
             - -c
@@ -275,9 +277,12 @@ spec:
             - containerPort: 9001
               name: ethstats
               protocol: TCP
+          securityContext:
+            capabilities:
+              add:
+                - SYS_CHROOT
       securityContext:
         fsGroup: 2000
-      
       volumes:
         - name: ethstats-data
           persistentVolumeClaim:

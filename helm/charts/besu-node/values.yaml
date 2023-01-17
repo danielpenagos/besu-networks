@@ -11,6 +11,7 @@ cluster:
   provider: aws  # choose from: google | aws | azure
   cloudNativeServices: false # set to true to use Cloud Native Services (SecretsManager and IAM for AWS; KeyVault & Managed Identities for Azure)
   reclaimPolicy: Delete # set to either Retain or Delete
+  type: openshift
 
 storage:
   sizeLimit: "20Gi"
