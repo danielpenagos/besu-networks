@@ -14,6 +14,8 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/component: {{ .Release.Name }}
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: 'true'
   namespace: {{ .Release.Namespace }}
 spec:
   type: LoadBalancer

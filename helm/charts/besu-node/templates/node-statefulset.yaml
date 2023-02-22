@@ -277,10 +277,7 @@ spec:
             - containerPort: 9001
               name: ethstats
               protocol: TCP
-          securityContext:
-            capabilities:
-              add:
-                - SYS_CHROOT
+
       securityContext:
         fsGroup: 2000
       volumes:
