@@ -14,8 +14,10 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/component: {{ .Release.Name }}
+{{- if ( eq .Values.cluster.type "aro" ) }}     
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-internal: 'true'
+{{- end }} 
   namespace: {{ .Release.Namespace }}
 spec:
   type: LoadBalancer
