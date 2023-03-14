@@ -72,9 +72,9 @@ volumen:
 deploy:
   network:  open-protest-net # choose from: open-protest-net | protest-net | main-net
   typenode: validator 
-  publicIP:  13.55.135.129
+  publicIP:  <P2P_Public_IP>
   p2p:
-    host: 13.55.135.129
+    host: <P2P_Public_IP_Egress>
     port: 60606
   workerName: <Name of the node worker where always the pod will be installed>
   dnsName: <Organization domain name>

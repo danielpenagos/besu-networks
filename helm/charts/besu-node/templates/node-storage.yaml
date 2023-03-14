@@ -76,7 +76,11 @@ metadata:
 spec:
   storageClassName:  {{ include "besu-node.fullname" . }}-storage
   accessModes:
+  {{- if ( eq .Values.cluster.type "aro" ) }} 
     - ReadWriteMany
+  {{- else }} 
+    - ReadWriteOnce
+  {{- end }} 
   resources:
     requests:
       storage: 1Gi

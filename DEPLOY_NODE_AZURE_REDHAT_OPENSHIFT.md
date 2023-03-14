@@ -212,6 +212,14 @@ Result:
 
  <span style="color:yellow "> *_Note:  Just after the installation, you should have some new IP addresses in your existing internal LoadBalancer in the Azure Red Hat Openshift installation. Now, you need to properly set your NAT configuration in your front-end device (firewall, gateway) to allow the traffic to and from the cluster_*<span> 
 
+![Connections](/docs/images/aro/aro-lacchain-loadbalancer-ipconfig.png)
+![Connections](/docs/images/aro/aro-lacchain-loadbalancer-ipconfig-tcp.png)
+![Connections](/docs/images/aro/aro-lacchain-loadbalancer-ipconfig-udp.png)
+
+In this example, the architecture used is the one available at the [landing zone accelerator for Azure Red Hat Openshift.]( https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/app-platform/azure-red-hat-openshift/landing-zone-accelerator) , so the NAT configuration was made in the Azure Firewall:
+![Connections](/docs/images/aro/aro-lacchain-nat-tcp.png)
+![Connections](/docs/images/aro/aro-lacchain-nat-udp.png)
+
 
 * In order to be permissioned, now you need to follow [administrative steps of the permissioning process](https://github.com/LACNetNetworks/besu-networks/blob/master/README.md).
 
